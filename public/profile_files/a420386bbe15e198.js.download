@@ -1,0 +1,8 @@
+(globalThis["webpackChunk_canva_web"] = globalThis["webpackChunk_canva_web"] || []).push([[77411],{
+
+/***/ 323881:
+function(_, __, __webpack_require__) {__webpack_require__.n_x = __webpack_require__.n;const __web_req__ = __webpack_require__;__web_req__(905716);globalThis._456c437108d2d2713799e19380be528d = globalThis._456c437108d2d2713799e19380be528d || {};(function(__c) {__c.Alc=class extends Map{get(a){const b=super.get(a);b&&(this.delete(a),this.set(a,b));return b}set(a,b){this.has(a)?this.delete(a):this.size===this.limit&&this.delete(this.first());super.set(a,b);return this}first(){return this.keys().next().value}constructor(a){super();this.limit=a}};
+}).call(globalThis, globalThis._456c437108d2d2713799e19380be528d);}
+
+}])
+//# sourceMappingURL=sourcemaps/a420386bbe15e198.js.map
