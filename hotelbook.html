@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotel Booking</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  <style>
+    h2{
+        text-align: center;
+    }
+    .section {
+      border: 2px solid black;
+      margin: 10px;
+      padding: 10px;
+    }
+    .section h3 {
+      margin: 0;
+      background-color: black;
+      color: white;
+      padding: 5px;
+    }
+    .center {
+      text-align: center;
+    }
+    /* .center-section{
+        width:60%;
+        margin: 0 auto;
+        padding:10px;
+        border:2px solid black;
+        box-sizing: border-box;
+    } */
+     /* .special{
+      align-items: center;
+      text-align: center;
+      margin:0;
+      padding: 10px;
+      
+     } */
+  </style>
+
+</head>
+<body>
+<h2 style="color:deeppink">RMK GUEST ROOMS<img src="../onlineshopping/public/premium.avif" alt="hotel image" width="400" height="350"></h2>
+<div class="section">
+    <h3>Customer Info</h3>
+    <label>Customer Name: <input type="text" id="name"></label><br>
+    <label>Check in Date: <input type="date" id="date"></label><br>
+    <label>Total No of Days: <input type="number" id="days"></label><br>
+    <label>Total No of Persons: <input type="number" id="persons"></label><br>
+
+  </div>
+
+
+  <div class="section">
+    <h3>Select Room Type</h3>
+    <label><input type="radio" name="room" value="Delux Room">Delux Room</label>
+    <label><input type="radio" name="room" value="Suite Room">Suite Room</label>
+  </div>
+
+  <div class="section">
+    <h3>Select Amenities</h3>
+    <label><input type="checkbox" value="A/C" id="ac"> A/C</label>
+    <label><input type="checkbox" value="Locker" id="locker"> Locker</label>
+  </div>
+
+  <div class="section">
+    <h3>Advance Amount</h3>
+    <label>Advance Amount: <input type="number" id="advance"></label>
+  </div>
+
+  <div class="center">
+    <button onclick="register()" class="btn btn-warning">Register</button>
+    <p id="people-count">
+    <img src="../onlineshopping/public/gpay.jpg" width="150" height="150">
+    </p>
+  </div>
+  <script>
+    function register() {
+      // Input values
+      const name = document.getElementById('name').value;
+      const date = document.getElementById('date').value;
+      const days = parseInt(document.getElementById('days').value) || 0;
+      const persons = parseInt(document.getElementById('persons').value) || 0;
+      const advance = parseFloat(document.getElementById('advance').value) || 0;
+
+      const extraPersons = persons > 2 ? persons - 2 : 0;
+
+      // Room type
+      const roomTypeElement = document.querySelector('input[name="room"]:checked');
+      const roomType = roomTypeElement ? roomTypeElement.value : "Not Selected";
+
+      // Amenities
+      const amenities = [];
+      let amenitiesCost = 0;
+      if (document.getElementById('ac').checked) {
+        amenities.push("A/C");
+        amenitiesCost += 1000;
+      }
+      if (document.getElementById('locker').checked) {
+        amenities.push("Locker");
+        amenitiesCost += 500;
+      }
+
+      // Room cost
+      let roomCostPerDay = 0;
+      if (roomType === "Delux Room") {
+        roomCostPerDay = 2500;
+      } else if (roomType === "Suite Room") {
+        roomCostPerDay = 4000;
+      }
+
+      const totalRoomCost = roomCostPerDay * days;
+      const totalCost = totalRoomCost + amenitiesCost;
+      const balance = totalCost - advance;
+
+      // Output
+      const result = `
+        <strong>Booking Summary:</strong><br>
+        Name: ${name}<br>
+        Check-in Date: ${date}<br>
+        Total Days: ${days}<br>
+        Total Persons: ${persons}<br>
+        Extra Persons (more than 2): ${extraPersons}<br>
+        Room Type: ${roomType}<br>
+        Room Cost for ${days} days: ₹${totalRoomCost}<br>
+        Amenities Selected: ${amenities.length ? amenities.join(", ") : "None"}<br>
+        Amenities Cost: ₹${amenitiesCost}<br>
+        Total Cost: ₹${totalCost}<br>
+        Advance Paid: ₹${advance}<br>
+        <strong>Balance to Pay: ₹${balance}</strong>
+      `.fontcolor('green').bold();
+
+      document.getElementById('people-count').innerHTML = result;
+    }
+  </script>
+<a href="index.html">back to home</a>
+</body>
+</html>
