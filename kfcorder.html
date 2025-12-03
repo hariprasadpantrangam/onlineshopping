@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <style>
+        body{
+            background-color:maroon;
+            color:white;
+        }
+
+          .bg-light {
+        background-color: #f8f9fa !important;
+    }
+    </style>
+    <script>
+
+        function orderclick() {
+    var name = document.getElementById("txtname").value;
+    var mobile = document.getElementById("txtmobile").value;
+    document.getElementById("lblname").innerHTML = name;
+    document.getElementById("lblmobile").innerHTML = mobile;
+
+    var mealname = "";
+    var mealcost = 0;
+    var adonname = "";
+    var adoncost = 0;
+
+    var burgerradio = document.getElementById("optburger");
+    var rollerradio = document.getElementById("optroller");
+
+    if (burgerradio.checked) {
+        mealname = burgerradio.value;
+        mealcost = 120;
+    }
+
+    if (rollerradio.checked) {
+        mealname = rollerradio.value;
+        mealcost = 100;
+    }
+
+    var wingscheckbox = document.getElementById("optwings");
+    var cococolacheckbox = document.getElementById("optcococola");
+
+    var addonDetails = "";
+
+    if (wingscheckbox.checked) {
+        adonname += wingscheckbox.value + "<br>";
+        addonDetails += wingscheckbox.value + " - ₹60<br>";
+        adoncost += 60;
+    }
+
+    if (cococolacheckbox.checked) {
+        adonname += cococolacheckbox.value + "<br>";
+        addonDetails += cococolacheckbox.value + " - ₹40<br>";
+        adoncost += 40;
+    }
+
+    mealcost += adoncost;
+
+    document.getElementById("lblmeal").innerHTML = mealname;
+    document.getElementById("lbladon").innerHTML = adonname;
+    document.getElementById("lbltotal").innerHTML = "₹" + mealcost;
+
+    // Populate summary section
+    document.getElementById("summaryName").innerHTML = name;
+    document.getElementById("summaryMobile").innerHTML = mobile;
+    document.getElementById("summaryMeal").innerHTML = mealname;
+    document.getElementById("summaryMealPrice").innerHTML = "₹" + (mealcost - adoncost);
+    document.getElementById("summaryAddons").innerHTML = addonDetails || "None";
+    document.getElementById("summaryTotal").innerHTML = "₹" + mealcost;
+}
+
+
+    </script>
+</head>
+<body>
+  <h1 style="text-align: center; color:goldenrod">KFC FOOD ORDER ONLINE</h1>   
+ <header>
+<section>
+<div class="accordion" id="orderform">
+<!--customer details-->
+<div class="accordion-item">
+<div class="accordion-header">
+<button data-bs-target="#customer" data-bs-toggle="collapse" class="btn btn-danger w-100">customer details</button>
+</div>
+<div class="accordion-collapse collapse" id="customer">
+<div class="accordion-body">
+<dl>
+<dt>customer name</dt>
+<dd><input type="text" id="txtname" class="form-control"></dd>
+<dt>mobile</dt>
+<dd><input type="text" class="form-control" id="txtmobile"></dd>
+</dl>
+</div>
+</div>
+<!-- meal details-->
+ <div class="accordion-item">
+<div class="accordion-header">
+<button class="btn btn-danger w-100" data-bs-target="#meal" data-bs-toggle="collapse">select your meal</button>
+</div>
+<div class="accordion collapse collapse" id="meal" data-bs-parent="#orderform">
+<div class="accordion-body">
+<div class="row">
+<div class="col">
+<div class="card">
+<img src="./images/burger.jpg" class="card-img-top" width="250" height="250">
+<div class="card-header">
+<h2>omg burger</h2>
+</div>
+<div class="card-footer">
+<h3><input type="radio" class="form-check-input" name="meal" value="omg burger" id="optburger">&#8377; 120/-</h3>
+
+</div>
+</div>
+<div class="col">
+<div class="card">
+<img src="./images/eggroll.jpg" class="card-img-top" width="250" height="250">
+<div class="card-header">
+<h2>omg roller</h2>
+</div>
+<div class="card-footer">
+<h3><input type="radio" class="form-check-input" name="meal" value="omg roller" id="optroller">&#8377; 100/-</h3>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+ </div>
+</div>
+<!--adons-->
+<div class="accordion-item">
+<div class="accordion-header">
+<button class="btn btn-danger w-100" data-bs-target="#adon" data-bs-toggle="collapse">select adons</button>
+<div class="accordion-collapse collapse" id="adon" data-bs-parent="#orderform">
+<div class="accordion-body">
+<div class="row">
+<div class="col">
+<div class="card">
+<img src="./images/frenchfries.jpg" class="card-img-top" width="250" height="250">
+<div class="card-header">
+<h2> hot wings</h2>
+</div>
+<div class="card-footer">
+<h3><input type="checkbox" id="optwings" value="hotwings" class="form-check-input">&#8377; 60/-</h3>
+
+</div>
+</div>
+
+<div class="col">
+<div class="card">
+<img src="./images/cococola.jpg" class="card-img-top" width="250" height="250">
+<div class="card-header">
+<h2> cococola</h2>
+</div>
+<div class="card-footer">
+<h3><input type="checkbox" id="optcococola" value="cococola" class="form-check-input">&#8377; 40/-</h3>
+
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<button onclick="orderclick()" data-bs-toggle="modal"   data-bs-target="#bill" class="btn btn-danger w-100">place order</button>
+<div class="modal fade" id="bill">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h2> your bill summary</h2>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body text-dark">
+<dl class="row">
+<dt class="col-3">customer name</dt>
+<dd class="col-9" id="lblname"></dd>
+<dt class="col-3">mobile</dt>
+<dd class="col-9" id="lblmobile"></dd>
+<dt class="col-3">meal name</dt>
+<dd class="col-9" id="lblmeal"></dd>
+<dt class="col-3">adons</dt>
+<dd class="col-9" id="lbladon"></dd>
+<dt class="col-3">total</dt>
+<dd class="col-9" id="lbltotal"></dd>
+
+</dl>
+</div>
+<div class="modal-footer">
+<button data-bs-dismiss="modal" class="btn btn-primary">ok</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<img src="./images/kfclogo.webp" width="100%" height="180">
+ </header>
+ <div class="mt-4 p-3 bg-light text-dark border rounded">
+    <h3>Order Summary</h3>
+    <dl class="row">
+        <dt class="col-3">Customer Name</dt>
+        <dd class="col-9" id="summaryName"></dd>
+        <dt class="col-3">Mobile</dt>
+        <dd class="col-9" id="summaryMobile"></dd>
+        <dt class="col-3">Meal</dt>
+        <dd class="col-9" id="summaryMeal"></dd>
+        <dt class="col-3">Meal Price</dt>
+        <dd class="col-9" id="summaryMealPrice"></dd>
+        <dt class="col-3">Add-ons</dt>
+        <dd class="col-9" id="summaryAddons"></dd>
+        <dt class="col-3">Total</dt>
+        <dd class="col-9" id="summaryTotal"></dd>
+    </dl>
+</div>
+<a href="index.html">back to home</a>
+</body>
+</html>
