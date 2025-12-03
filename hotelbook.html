@@ -78,64 +78,73 @@
     </p>
   </div>
   <script>
-    function register() {
-      // Input values
-      const name = document.getElementById('name').value;
-      const date = document.getElementById('date').value;
-      const days = parseInt(document.getElementById('days').value) || 0;
-      const persons = parseInt(document.getElementById('persons').value) || 0;
-      const advance = parseFloat(document.getElementById('advance').value) || 0;
+function register() {
+  // Input values
+  const name = document.getElementById('name').value;
+  const date = document.getElementById('date').value;
+  const days = parseInt(document.getElementById('days').value) || 0;
+  const persons = parseInt(document.getElementById('persons').value) || 0;
+  const advance = parseFloat(document.getElementById('advance').value) || 0;
 
-      const extraPersons = persons > 2 ? persons - 2 : 0;
+  const extraPersons = persons > 2 ? persons - 2 : 0;
 
-      // Room type
-      const roomTypeElement = document.querySelector('input[name="room"]:checked');
-      const roomType = roomTypeElement ? roomTypeElement.value : "Not Selected";
+  // Room type
+  const roomTypeElement = document.querySelector('input[name="room"]:checked');
+  const roomType = roomTypeElement ? roomTypeElement.value : "Not Selected";
 
-      // Amenities
-      const amenities = [];
-      let amenitiesCost = 0;
-      if (document.getElementById('ac').checked) {
-        amenities.push("A/C");
-        amenitiesCost += 1000;
-      }
-      if (document.getElementById('locker').checked) {
-        amenities.push("Locker");
-        amenitiesCost += 500;
-      }
+  // Amenities
+  const amenities = [];
+  let amenitiesCost = 0;
+  if (document.getElementById('ac').checked) {
+    amenities.push("A/C");
+    amenitiesCost += 1000;
+  }
+  if (document.getElementById('locker').checked) {
+    amenities.push("Locker");
+    amenitiesCost += 500;
+  }
 
-      // Room cost
-      let roomCostPerDay = 0;
-      if (roomType === "Delux Room") {
-        roomCostPerDay = 2500;
-      } else if (roomType === "Suite Room") {
-        roomCostPerDay = 4000;
-      }
+  // Room cost
+  let roomCostPerDay = 0;
+  if (roomType === "Delux Room") {
+    roomCostPerDay = 2500;
+  } else if (roomType === "Suite Room") {
+    roomCostPerDay = 4000;
+  }
 
-      const totalRoomCost = roomCostPerDay * days;
-      const totalCost = totalRoomCost + amenitiesCost;
-      const balance = totalCost - advance;
+  const totalRoomCost = roomCostPerDay * days;
+  const totalCost = totalRoomCost + amenitiesCost;
+  const balance = totalCost - advance;
 
-      // Output
-      const result = `
-        <strong>Booking Summary:</strong><br>
-        Name: ${name}<br>
-        Check-in Date: ${date}<br>
-        Total Days: ${days}<br>
-        Total Persons: ${persons}<br>
-        Extra Persons (more than 2): ${extraPersons}<br>
-        Room Type: ${roomType}<br>
-        Room Cost for ${days} days: ₹${totalRoomCost}<br>
-        Amenities Selected: ${amenities.length ? amenities.join(", ") : "None"}<br>
-        Amenities Cost: ₹${amenitiesCost}<br>
-        Total Cost: ₹${totalCost}<br>
-        Advance Paid: ₹${advance}<br>
-        <strong>Balance to Pay: ₹${balance}</strong>
-      `.fontcolor('green').bold();
+  // Output container — we will build content here
+  const container = document.getElementById('people-count');
+  container.innerHTML = `
+    <strong>Booking Summary:</strong><br>
+    Name: ${name}<br>
+    Check-in Date: ${date}<br>
+    Total Days: ${days}<br>
+    Total Persons: ${persons}<br>
+    Extra Persons (more than 2): ${extraPersons}<br>
+    Room Type: ${roomType}<br>
+    Room Cost for ${days} days: ₹${totalRoomCost}<br>
+    Amenities Selected: ${amenities.length ? amenities.join(", ") : "None"}<br>
+    Amenities Cost: ₹${amenitiesCost}<br>
+    Total Cost: ₹${totalCost}<br>
+    Advance Paid: ₹${advance}<br>
+    <strong>Balance to Pay: ₹${balance}</strong>
+  `;
+  
+  // Now create an img element for the scanner image and append it
+  const img = document.createElement('img');
+  img.src = '../onlineshopping/public/gpay.jpg';  // make sure path is correct relative to this HTML file
+  img.width = 150;
+  img.height = 150;
+  img.alt = 'Payment QR / Scanner';
 
-      document.getElementById('people-count').innerHTML = result;
-      <img src="../onlineshopping/public/gpay.jpg" width="150" height="150" />
-    }
+  container.appendChild(document.createElement('br'));  // add line break before image
+  container.appendChild(img);
+}
+
   </script>
 <a href="index.html">back to home</a>
 </body>
