@@ -49,10 +49,18 @@
      
         
 
-     input {
-  width: 300px;       /* or whatever fixed width you want */
-  box-sizing: border-box;  /* ensures padding/border included in width */
+
+/* apply consistent width + box-sizing to inputs */
+.section input[type="text"],
+.section input[type="date"],
+.section input[type="number"] {
+  width: 250px;        /* or whatever width you want */
+  box-sizing: border-box;
+  padding: 5px;        /* optional: nicer padding inside input */
+  margin: 5px 0;       /* optional: vertical spacing between inputs */
+  display: inline-block; /* ensures width respects what you set */
 }
+
 
   </style>
 
