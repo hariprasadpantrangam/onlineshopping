@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Search</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 16px;
+    }
+
+    fieldset {
+      border: 2px solid green;
+      padding: 16px;
+      background-color: lightgray;
+      text-align: center;
+    }
+
+    img {
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Search by ID</h1>
+
+  <input type="text" id="inputId" placeholder="Enter htno"
+    style="padding:8px;font-size:16px;">  
+  <button onclick="handleSearch()" 
+    style="padding:8px 16px;margin-left:8px;font-size:16px;cursor:pointer;">
+    Show Data
+  </button>
+
+  <div id="result" style="margin-top: 24px;"></div>
+
+  <script>
+    const data = [
+      {
+        id: 9977,
+        name: 'hariprasad',
+        marks: 560,
+        result: 'pass',
+        image: '..onlineshopping/public/hari.jpg',
+        image1: '.onlineshopping/public/apgovtlogo.png'
+      },
+      {
+        id: 1234,
+        name: 'chenchulakshmi',
+        marks: 500,
+        result: 'pass',
+        image: './images/anushka.jpg',
+        image1: './images/apgovtlogo.png'
+      },
+      {
+        id: 3421,
+        name: 'sivaiah',
+        marks: 234,
+        result: 'fail',
+        image: '../onlineshopping/public/pushpa.jpeg',
+        image:'../onlineshopping/public/apgovtlogo.png'
+        
+      },
+      {
+        id: 7799,
+        name: 'ramya',
+        marks: 230,
+        result: 'fail',
+      
+
+         image: '../onlineshopping/public/anushka.jpg',
+        image:'../onlineshopping/public/apgovtlogo.png'
+      },
+      {
+        id: 8888,
+        name: 'prasanthi',
+        marks: 589,
+        result: 'pass-STATE SECOND RANKER',
+        image: '..onlineshopping/public/baahubali.jpeg',
+        image1: '..onlineshopping/public/apgovtlogo.png'
+      },
+      {
+        id: 9999,
+        name: 'lakshmiprasanna',
+        marks: 595,
+        result: 'pass, STATE FIRST RANKER',
+        image: '..onlineshopping/public/anushka.jpg',
+        image1: '..onlineshopping/public/apgovtlogo.png'
+      }
+    ];
+
+    function handleSearch() {
+      const input = document.getElementById("inputId").value.trim();
+      const idNum = Number(input);
+
+      const found = data.find(item => item.id === idNum);
+
+      const resultDiv = document.getElementById("result");
+
+      if (found) {
+        resultDiv.innerHTML = `
+          <fieldset>
+            <h1 style="background-color:orange;color:white;">APSSC RESULTS APRIL-2025</h1>
+            <legend><b>Student Details</b></legend>
+
+            <img src="${found.image}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
+
+            <p><strong>ID:</strong> ${found.id}</p>
+            <p><strong>Name:</strong> ${found.name}</p>
+            <p><strong>Marks:</strong> ${found.marks}</p>
+            <p><strong>Result:</strong> ${found.result}</p>
+
+            <img src="${found.image1}" 
+              style="width:100px;height:100px;border-radius:50%;object-fit:cover;display:block;margin:0 auto;">
+
+            <a href="https://www.apsscresults.com">for details visit my website www.apsscresults.com</a>
+          </fieldset>
+        `;
+      } else {
+        resultDiv.innerHTML = `
+          <p style="color:red;font-weight:bold;">No data found for ID ${input}</p>
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>
