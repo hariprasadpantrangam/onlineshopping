@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<style>
+  section{
+    display: grid;
+    grid-template-columns: 3fr 6fr 3fr;
+    height:400px;
+    color:green;
+    font-weight: bold;
+  } 
+  marquee{
+    background-color: hotpink;
+    color:white;
+  } 
+  header{
+    background-color: cyan;
+    color:white;
+    text-align: center;
+    padding:10px;
+  }
+  header{
+    display:flex;
+    position:sticky;
+    background-color: gold;
+    color:white
+  }
+ body{
+  background-color:burlywood;
+ }
+
+    footer{
+    background-color: rosybrown;
+    color:white;
+    text-align: center;
+    padding:10px;
+  }
+
+</style>
+<script>
+
+  function msg()
+{
+  var msg1=document.querySelector('h1');
+     msg1.innerHTML="చందన షాపింగ్ మాల్, సుల్లూరుపేట".fontcolor("blue").bold();
+      document.querySelector("#myImg").src = "./onlineshopping/public/chandana shopping logo.jpg";
+}
+function msg1()
+{
+  var msg1=document.querySelector('h1');
+     msg1.innerHTML="క్రిస్మస్ మరియు సంక్రాంతి ఆఫర్ 50% వరకు డిస్కావంట్.. త్వరపడండి...!".fontcolor("blue").bold();
+      document.querySelector("#myImg").src = "./onlineshopping/public/chandana shopping logo.jpg";
+}
+
+function msg2()
+{
+ var msg2=document.querySelector('h1');
+     msg2.innerHTML=" మా చందన షాపింగ్ మాల్‌లో బంగారం, వెండి, బ్రాన్జ్ మరియు డైమండ్ ఆభరణాల అమ్మకాలు ఉన్నాయి, నాణ్యత అత్యుత్తమంగా ఉంటుంది".fontcolor("green").bold();
+      document.querySelector("#myImg").src = "./onlineshopping/public/chandana sarees.jpg";
+     
+    
+}
+
+function msg3()
+{
+ var msg3=document.querySelector('h1');
+     msg3.innerHTML="పిల్లల దుస్తులు, సారీస్, ప్యాంట్లు మరియు షర్ట్‌లు అమ్మకానికి తక్కువ ధరలతో సిద్ధంగా ఉన్నాయి".fontcolor("deeppink").italics();
+      document.querySelector("#myImg").src = "./onlineshopping/public/chandana1.jpg";
+    
+}
+function bodyload()
+{     
+    setInterval(msg,5000);
+    setInterval(msg1,10000);
+    setInterval(msg2,15000);
+    setInterval(msg3,25000);
+}
+</script>
+</head>
+<body onload="bodyload()">
+ <div class="container">
+<header>
+<img src="./onlineshopping/public/chandana logo.jpg" width="250" height="100">
+
+<h1></h1>
+</header>
+<section>
+<nav>
+<ul>
+
+<li>electronics</li>
+<li>footwear</li>
+<li>fashion</li>
+</ul>
+</nav>
+<main>
+
+<h3>shop online</h3>
+<p>special offers on electronics</p>
+</main>
+<aside>
+
+
+</aside>
+<h2></h2>
+<img id="myImg" src="./images/chandana logo.jpg" width="250" height="250" style="border:2px solid black">
+ 50%OFF on all products
+</section>
+ <video width="400" height="200" controls>
+  <source src="./onlineshopping/public/chandana video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YcBVUS4b0pA?si=gjCTosExl7r7Jltt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<a href="index.html">back to home</a>
+<marquee>మా చందన షాపింగ్ మాల్‌లో బంగారం, వెండి మరియు డైమండ్ ఆభరణాల అమ్మకాలు ఉన్నాయి. నాణ్యత అత్యుత్తమంగా ఉంటుంది.మా చందన షాపింగ్ మాల్‌లో పిల్లల దుస్తులు, సారీస్, ప్యాంట్లు మరియు షర్టులు అమ్మకానికి తక్కువ ధరల్లో ఉన్నాయి. మరిన్ని వివరాలకు మా చందన షాపింగ్ మాల్ సుల్లురుపేట బ్రాంచ్‌ను సందర్శించండి. సెల్: 7947426052,   ఇన్స్టాగ్రామ్: chandanashoppingmall_ వెబ్‌సైట్: www.chandanashoppingmall.com</marquee>
+<footer>
+<p>&copy; CHANDANA SHOPPING MALL,SULLURPET copyright 2025</p>
+</footer>
+ </div> 
+</body>
+</html>
