@@ -27,6 +27,25 @@
   top: 0;          /* ఎప్పుడూ స్క్రీన్ టాప్‌లో ఉండేలా */
   width: 100%; 
   }
+
+  @media screen and (orientation: landscape)
+  {
+    li{
+    display:inline;
+    margin-right: 30px;
+  }
+}
+@media screen and (orientation: portrait)
+{
+  li{
+      display: block;
+      margin-bottom: 30px;
+
+  }
+}
+ul{
+  width:50px;
+}
   header{
     display:flex;
     background-color: gold;
