@@ -68,16 +68,21 @@ body{
 </style>
 
 <script>
+ 
+
   document.getElementById("sendsms").addEventListener("click", function() {
-    // Phone number you want to send to
-    const phoneNumber = "919573572830";
+  const phoneNumber = "+919573572830"; // replace with the number you want
+  const message = "Hello! This is harisoftware solutions";
 
-    // Your message
-    const message = "Hello! This is consultancy from hariprasad software solutions";
+  // Encode message text safely
+  const encodedMsg = encodeURIComponent(message);
 
-    // This opens the default SMS app with message and number pre-filled
-    window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
-  });
+  // Build SMS link – Android uses ?body, iOS often uses &body
+  const smsUrl = `sms:${phoneNumber}?body=${encodedMsg}&body=${encodedMsg}`;
+
+  // Open the SMS app
+  window.location.href = smsUrl;
+});
   
 function sendWhatsApp() {
     // The phone number should be in international format (no +, no 00).
