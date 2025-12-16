@@ -68,6 +68,17 @@ body{
 </style>
 
 <script>
+  document.getElementById("sendSMS").addEventListener("click", function() {
+    // Phone number you want to send to
+    const phoneNumber = "9573572830";
+
+    // Your message
+    const message = "Hello! This is a test message.";
+
+    // This opens the default SMS app with message and number pre-filled
+    window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+  });
+  
 function sendWhatsApp() {
     // The phone number should be in international format (no +, no 00).
     let phoneNumber = "919573572830"; // replace with your number
@@ -145,7 +156,7 @@ Get started
 </div>
 </section>
 <main class="container my-5">
- <a herf="index.html">back to home</a>
+ <a href="index.html">back to home</a><button class="btn btn-success" id="sendsms">send sms</button>
   <h2 class="text-center mb-4">Frequently Asked Questions</h2>
   
   <div class="accordion" id="faqAccordion">
