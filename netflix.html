@@ -68,12 +68,12 @@ body{
 </style>
 
 <script>
-  document.getElementById("sendSMS").addEventListener("click", function() {
+  document.getElementById("sendsms").addEventListener("click", function() {
     // Phone number you want to send to
-    const phoneNumber = "9573572830";
+    const phoneNumber = "919573572830";
 
     // Your message
-    const message = "Hello! This is a test message.";
+    const message = "Hello! This is consultancy from hariprasad software solutions";
 
     // This opens the default SMS app with message and number pre-filled
     window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
