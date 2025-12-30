@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+ <script>
+    var users=[
+        {username:'hariprasad',password:'7799'},
+         {username:'pravallika',password:'1122'},
+          {username:'lakshmi',password:'5555'},
+           {username:'prasad',password:'9999'},
+            {username:'ramadevi',password:'7777'},
+             {username:'saiteja',password:'1111'},
+              {username:'hariprasad',password:'9977'},
+              {username:'jaswanth',password:'2222'}
+        
+    ];
+function verifyuser()
+{
+  var username=document.getElementById("txtname").value;
+  var password=document.getElementById("txtpwd").value;
+ 
+  for(var user of users)
+  {
+    if(user.username===username && user.password===password)
+  {
+    alert("login success");
+     document.write(`<h2>login success</h2>`);
+   
+  }
+  else
+  {
+   document.getElementById("msg").innerHTML="invalid username or password";
+  }
+  }
+
+}
+ </script>
+</head>
+<body class="container-fluid">
+ <h2>register user</h2>
+ <fieldset>
+<legend>Login</legend>
+  <dl>
+<dt>user name</dt>
+<dd><input type="text" id="txtname"></dd>
+<dt>password</dt>
+<dd><input type="password" id="txtpwd"></dd>
+ </dl>
+ <button onclick="verifyuser()">login</button>
+ <h2 id="msg" class="text-center text-danger"></h2> 
+ </fieldset>   
+<a href="index.html">back to home</a>
+</body>
+</html>
