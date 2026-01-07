@@ -18,7 +18,7 @@
 function fetchdata() {
     document.querySelector("tbody").innerHTML = "";
 
-    fetch("data/moviesjson.json") // ✅ సరైన path
+    fetch("src/data/moviesjson.json") // ✅ correct path
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -26,39 +26,21 @@ function fetchdata() {
         return response.json();
     })
     .then(products => {
-        for (var product of products) {
-            var tr = document.createElement("tr");
-
-            var tdid = document.createElement("td");
-            tdid.innerHTML = product.id;
-
-            var tdname = document.createElement("td");
-            tdname.innerHTML = product.name;
-
-            var tdprice = document.createElement("td");
-            tdprice.innerHTML = product.price;
-
-            var tdstatus = document.createElement("td");
-            tdstatus.innerHTML = product.status;
-
-            var tdphoto = document.createElement("td");
-            var img = document.createElement("img");
-            img.src = product.image;
-            img.width = 100;
-            tdphoto.appendChild(img);
-
-            tr.appendChild(tdid);
-            tr.appendChild(tdname);
-            tr.appendChild(tdprice);
-            tr.appendChild(tdstatus);
-            tr.appendChild(tdphoto);
-
+        for (let product of products) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.price}</td>
+                <td>${product.status}</td>
+                <td><img src="${product.image}" width="100"></td>
+            `;
             document.querySelector("tbody").appendChild(tr);
         }
     })
     .catch(error => {
         console.error("Error fetching data:", error);
-        alert("డేటా తీసుకురావడంలో సమస్య ఉంది. path లేదా JSON file check చేయండి.");
+        alert("డేటా తీసుకురావడంలో సమస్య ఉంది. JSON path లేదా file check చేయండి.");
     });
 }
 </script>
