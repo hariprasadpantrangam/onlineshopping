@@ -16,33 +16,37 @@
 </style>
 
 <script>
-function fetchdata()
-{
+function fetchdata() {
     document.querySelector("tbody").innerHTML = "";
 
-    fetch("..onlineshopping/public/src/data/movies.json")   // path సరిచూసుకో
-    .then(response => response.json())
+    // Correct path: public/src/data/moviesjson.json
+    fetch("src/data/moviesjson.json")   // ✅ fixed path & filename
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+    })
     .then(products => {
-        for(var product of products)
-        {
-            var tr=document.createElement("tr");
+        for (var product of products) {
+            var tr = document.createElement("tr");
 
-            var tdid=document.createElement("td");
-            tdid.innerHTML=product.id;
+            var tdid = document.createElement("td");
+            tdid.innerHTML = product.id;
 
-            var tdname=document.createElement("td");
-            tdname.innerHTML=product.name;
+            var tdname = document.createElement("td");
+            tdname.innerHTML = product.name;
 
-            var tdprice=document.createElement("td");
-            tdprice.innerHTML=product.price;
+            var tdprice = document.createElement("td");
+            tdprice.innerHTML = product.price;
 
-            var tdstatus=document.createElement("td");
-            tdstatus.innerHTML=product.status;
+            var tdstatus = document.createElement("td");
+            tdstatus.innerHTML = product.status;
 
-            var tdphoto=document.createElement("td");
-            var img=document.createElement("img");
-            img.src=product.image;
-            img.width=100;
+            var tdphoto = document.createElement("td");
+            var img = document.createElement("img");
+            img.src = product.image;
+            img.width = 100;
             tdphoto.appendChild(img);
 
             tr.appendChild(tdid);
@@ -54,8 +58,10 @@ function fetchdata()
             document.querySelector("tbody").appendChild(tr);
         }
     })
+    .catch(error => console.error("Error fetching data:", error));
 }
 </script>
+
 </head>
 <body class="container-fluid">
 <button class="btn btn-primary" onclick="fetchdata()">fetch movies</button>   
