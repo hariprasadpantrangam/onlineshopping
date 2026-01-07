@@ -4,27 +4,27 @@
     "name": "baahubali",
     "price": 500,
     "status": "watch in theatre",
-    "image": "baahubali.jpg"
+    "image": "../onlineshopping/public/baahubali.jpg"
   },
   {
     "id": 2,
     "name": "avengers",
     "price": 1000,
     "status": "watch in theatres",
-    "image": "avengers.jpg"
+    "image": "../onlineshopping/public/avengers.jpg"
   },
   {
     "id": 3,
     "name": "kgf",
     "price": 700,
     "status": "watch in theatres",
-    "image": "kgf.jpg"
+    "image": "../onlineshopping/public/kgf.jpg"
   },
   {
     "id": 4,
     "name": "pushpa",
     "price": 1500,
     "status": "watch in theatres",
-    "image": "pushpa.jpeg"
+    "image": "../onlineshopping/public/pushpa.jpeg"
   }
 ]
