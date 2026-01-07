@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<style>
+   table thead th {
+            background-color: deeppink !important;
+            color: white !important;
+        }
+</style>
+
+<script>
+function fetchdata()
+{
+    document.querySelector("tbody").innerHTML = "";
+
+    fetch("data/movies.json")   // path సరిచూసుకో
+    .then(response => response.json())
+    .then(products => {
+        for(var product of products)
+        {
+            var tr=document.createElement("tr");
+
+            var tdid=document.createElement("td");
+            tdid.innerHTML=product.id;
+
+            var tdname=document.createElement("td");
+            tdname.innerHTML=product.name;
+
+            var tdprice=document.createElement("td");
+            tdprice.innerHTML=product.price;
+
+            var tdstatus=document.createElement("td");
+            tdstatus.innerHTML=product.status;
+
+            var tdphoto=document.createElement("td");
+            var img=document.createElement("img");
+            img.src=product.image;
+            img.width=100;
+            tdphoto.appendChild(img);
+
+            tr.appendChild(tdid);
+            tr.appendChild(tdname);
+            tr.appendChild(tdprice);
+            tr.appendChild(tdstatus);
+            tr.appendChild(tdphoto);
+
+            document.querySelector("tbody").appendChild(tr);
+        }
+    })
+}
+</script>
+</head>
+<body class="container-fluid">
+<button class="btn btn-primary" onclick="fetchdata()">fetch movies</button>   
+<h2 style="text-align: center; background-color:green; color:white"> VEPIQ SULLURPET</h2>
+<table class="table table-hover">
+<thead>
+<tr>
+<th>id</th>
+<th>moviename</th>
+<th>price</th>
+<th>status</th>   <!-- stock heading add చేయాలి -->
+<th>image</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<a href="index.html">back to home</a>
+</body>
+</html>
