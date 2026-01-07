@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
@@ -14,16 +14,14 @@
             color: white !important;
         }
 </style>
-
 <script>
 function fetchdata() {
     document.querySelector("tbody").innerHTML = "";
 
-    // Correct path: public/src/data/moviesjson.json
-    fetch("src/data/moviesjson.json")   // ✅ fixed path & filename
+    fetch("data/moviesjson.json") // ✅ సరైన path
     .then(response => {
         if (!response.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
+            throw new Error("Network response was not ok");
         }
         return response.json();
     })
@@ -58,9 +56,13 @@ function fetchdata() {
             document.querySelector("tbody").appendChild(tr);
         }
     })
-    .catch(error => console.error("Error fetching data:", error));
+    .catch(error => {
+        console.error("Error fetching data:", error);
+        alert("డేటా తీసుకురావడంలో సమస్య ఉంది. path లేదా JSON file check చేయండి.");
+    });
 }
 </script>
+
 
 </head>
 <body class="container-fluid">
@@ -79,6 +81,5 @@ function fetchdata() {
 <tbody>
 </tbody>
 </table>
-<a href="index.html">back to home</a>
 </body>
 </html>
