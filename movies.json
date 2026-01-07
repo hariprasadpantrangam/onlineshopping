@@ -4,7 +4,7 @@
     "name": "baahubali",
     "price": 500,
     "status": "watch in theatre",
-    "image" :"../onlineshopping/public/baahubali.jpg"
+    "image" :"../onlineshopping/public/baahubali.jpeg"
   },
   {
     "id": 2,
@@ -18,7 +18,7 @@
     "name": "kgf",
     "price": 700,
     "status": "watch in theatres",
-    "image" :"../onlineshopping/public/kgf.jpg"
+    "image" :"../onlineshopping/public/kgf.jpeg"
   },
   {
     "id": 4,
