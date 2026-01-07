@@ -20,7 +20,7 @@ function fetchdata()
 {
     document.querySelector("tbody").innerHTML = "";
 
-    fetch("data/movies.json")   // path సరిచూసుకో
+    fetch("../data/movies.json")   // path సరిచూసుకో
     .then(response => response.json())
     .then(products => {
         for(var product of products)
