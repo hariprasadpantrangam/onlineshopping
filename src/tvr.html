@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TVR Kalyana Mandapam</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; }
+    header {
+      background: linear-gradient(90deg, deeppink, purple);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    main {
+      background: url("../onlineshopping/public/tvr image.avif") center/cover no-repeat;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    }
+    footer {
+      background: linear-gradient(180deg, deeppink, crimson);
+      text-align: center;
+      padding: 20px;
+      color: white;
+      margin-top: 20px;
+    }
+    button {
+      cursor: pointer;
+    }
+    .hidden { display: none; }
+  </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>TVR KALYANA MANDAPAM</h1>
+    <h3>NH-16 KOTAPOLUR, SULLURPET</h3>
+  </header>
+
+  <!-- Main -->
+  <main id="mainSection">
+    <div style="text-align:center;">
+      <h2 style="font-size:2.5rem; background-color:rgba(0,0,0,0.4); padding:10px 20px; border-radius:8px;">
+        A Perfect Venue for Your Celebrations
+      </h2>
+      <button id="bookBtn" style="margin-top:20px; padding:12px 24px; font-size:1.2rem; background-color:deeppink; color:white; border:none; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.3);">
+        Book Now
+      </button>
+    </div>
+  </main>
+
+  <!-- Booking Section -->
+  <section id="bookingSection" class="hidden" style="padding:20px; text-align:center;">
+    <h2 style="color:deeppink;">Book Your Room</h2>
+    <div id="roomImage" style="margin:20px auto; width:320px;"></div>
+
+    <form id="bookingForm" style="max-width:500px; margin:0 auto; text-align:left;">
+      <label>Username:</label>
+      <input type="text" id="username" style="width:100%; margin-bottom:10px;" required>
+
+      <label>Mobile:</label>
+      <input type="text" id="mobile" style="width:100%; margin-bottom:10px;" required>
+
+      <label>Booking Date:</label>
+      <input type="date" id="date" style="width:100%; margin-bottom:10px;" required>
+
+      <label>Select Room Types:</label><br>
+      <input type="checkbox" value="Deluxe Room"> Deluxe Room (₹1000)<br>
+      <input type="checkbox" value="Premium Room"> Premium Room (₹1500)<br>
+      <input type="checkbox" value="Extra Premium Room"> Extra Premium Room (₹2000)<br>
+
+      <button type="submit" style="width:100%; padding:12px; background-color:deeppink; color:white; border:none; border-radius:8px; font-size:1.2rem; margin-top:10px;">
+        Pay & Confirm
+      </button>
+    </form>
+
+    <div id="bookingDetails" class="hidden" style="margin-top:20px; text-align:left; max-width:500px; margin:0 auto;"></div>
+
+    <button id="backBtn" style="margin-top:20px; background:gray; color:white; padding:10px 20px; border:none; border-radius:6px;">
+      Back
+    </button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <img src="../onlineshopping/public/kalyanamandapamfooter.png" alt="footer" style="height:150px; width:400px; margin-bottom:10px;">
+    <p>© 2026 TVR Kalyana Mandapam | All Rights Reserved</p>
+  </footer>
+
+<script>
+  const images = [
+    { src: "../onlineshopping/public/deluxroom.avif", label: "Deluxe Room", price: 1000 },
+    { src: "../onlineshopping/public/premium.avif", label: "Premium Room", price: 1500 },
+    { src: "../onlineshopping/public/extrapremium.avif", label: "Extra Premium Room", price: 2000 }
+  ];
+
+  let currentIndex = 0;
+  const roomImageDiv = document.getElementById("roomImage");
+
+  function showImage() {
+    const img = images[currentIndex];
+    roomImageDiv.innerHTML = `
+      <img src="${img.src}" width="300" height="200" style="border-radius:8px;">
+      <p>${img.label} - ₹${img.price}</p>
+    `;
+  }
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage();
+  }, 3000);
+
+  showImage();
+
+  const bookBtn = document.getElementById("bookBtn");
+  const mainSection = document.getElementById("mainSection");
+  const bookingSection = document.getElementById("bookingSection");
+  const backBtn = document.getElementById("backBtn");
+  const bookingForm = document.getElementById("bookingForm");
+  const bookingDetails = document.getElementById("bookingDetails");
+
+  bookBtn.addEventListener("click", () => {
+    mainSection.classList.add("hidden");
+    bookingSection.classList.remove("hidden");
+  });
+
+  backBtn.addEventListener("click", () => {
+    bookingSection.classList.add("hidden");
+    mainSection.classList.remove("hidden");
+    bookingDetails.classList.add("hidden");
+    bookingForm.classList.remove("hidden");
+  });
+
+  bookingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const mobile = document.getElementById("mobile").value;
+    const date = document.getElementById("date").value;
+    const checkboxes = bookingForm.querySelectorAll("input[type=checkbox]");
+    let selectedRooms = [];
+    let roomCost = 0;
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        selectedRooms.push(cb.value);
+        const room = images.find(img => img.label === cb.value);
+        if (room) roomCost += room.price;
+      }
+    });
+
+    const totalAmount = 50000 + roomCost;
+
+    bookingDetails.innerHTML = `
+      <h3>Booking Details</h3>
+      <p><strong>Username:</strong> ${username}</p>
+      <p><strong>Mobile:</strong> ${mobile}</p>
+      <p><strong>Booking Date:</strong> ${date}</p>
+      <p><strong>Rooms Selected:</strong> ${selectedRooms.join(", ") || "None"}</p>
+      <p><strong>Total Amount:</strong> ₹${totalAmount}</p>
+      <p><strong>PhonePe/GPay</strong></p>
+      <img src="../onlineshopping/public/gpay.jpg" width="300" height="300" alt="GPay QR">
+      <p><strong>Send payment screenshot: </strong>
+        <button id="whatsappBtn" style="background-color:green; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">
+          WhatsApp
+        </button>
+      </p>
+    `;
+
+    bookingForm.classList.add("hidden");
+    bookingDetails.classList.remove("hidden");
+
+    // WhatsApp button handler
+    const whatsappBtn = document.getElementById("whatsappBtn");
+    whatsappBtn.addEventListener("click", () => {
+      const phoneNumber = "919573572830"; // replace with your WhatsApp number
+      const message = `Booking Details:\nName: ${username}\nMobile: ${mobile}\nDate: ${date}\nRooms: ${selectedRooms.join(", ") || "None"}\nTotal: ₹${totalAmount}`;
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+  });
+</script>
+<a href="index.html">back</a>
+      </body>
+      </html>
