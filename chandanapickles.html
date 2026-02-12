@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pickles Shop</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
+
+    /* Distinct background colors */
+    header { 
+      background: linear-gradient(90deg, #ff9800, #f57c00); 
+      padding: 10px;   /* reduced padding */
+      color: white; 
+      /* Removed sticky position */
+    }
+    main { background: #fff3e0; padding: 20px; min-height: 400px; }
+    footer { background: black; padding: 15px; color: white; font-weight: bold; }
+
+    select, button, input[type="checkbox"] { margin: 10px; padding: 5px; }
+    #result { margin-top: 20px; font-size: 18px; color: green; }
+    .header-buttons button { margin: 5px; padding: 8px 15px; background: #fff; border: 1px solid #333; cursor: pointer; border-radius: 5px; }
+    
+    /* Carousel styling */
+    .carousel { width: 80%; margin: 10px auto; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    .carousel img { width: 100%; display: none; }
+    .carousel img.active { display: block; }
+
+    marquee { font-size: 20px; color: #d32f2f; font-weight: bold; margin-top: 15px; }
+    .section { display: none; margin-top: 20px; font-size: 18px; color: #333; }
+    #confirmBtn { display: none; margin-top: 15px; padding: 10px 20px; background: #388e3c; color: white; border: none; cursor: pointer; border-radius: 5px; }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      header h1 { font-size: 22px; }
+      .carousel { width: 95%; }
+      .header-buttons button { padding: 6px 10px; font-size: 14px; }
+      main { padding: 15px; }
+      marquee { font-size: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 18px; }
+      .header-buttons { display: flex; flex-direction: column; }
+      .header-buttons button { margin: 5px 0; width: 90%; }
+      .carousel { width: 100%; }
+      main { padding: 10px; }
+      #result { font-size: 16px; }
+      marquee { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>చందన పికిల్స్</h1> <!-- Telugu text -->
+    <div class="header-buttons">
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('services')">Services</button>
+      <button onclick="showSection('contact')">Contact</button>
+      <button onclick="showSection('address')">Address</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="carousel"> 
+      <img src="../onlineshopping/public/mango.jpeg" class="active" alt="Mango Pickle">
+      <img src="../onlineshopping/public/lemon.jpeg" alt="Lemon Pickle"> 
+      <img src="../onlineshopping/public/garlic.jpeg" alt="Garlic Pickle"> 
+      <img src="../onlineshopping/public/tomato.jpeg" alt="Tomato Pickle">
+      <img src="../onlineshopping/public/usiri.jpeg" alt="Usiri Pickle"> 
+      <img src="../onlineshopping/public/redmirchi.jpeg" alt="Red Mirchi Pickle"> 
+    </div>
+
+    <h2>Select Pickles</h2>
+    <label><input type="checkbox" value="Mango"> Mango Pickle</label><br>
+    <label><input type="checkbox" value="Lemon"> Lemon Pickle</label><br>
+    <label><input type="checkbox" value="Ginger"> Ginger Pickle</label><br>
+    <label><input type="checkbox" value="Garlic"> Garlic Pickle</label><br>
+
+    <label for="quantity">Quantity (per pickle):</label>
+    <select id="quantity">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+
+    <button onclick="calculatePrice()">Get Price</button>
+     
+    <div id="result"></div>
+    <button id="confirmBtn" onclick="confirmOrder()">Confirm Order</button>
+
+    <!-- Marquee -->
+    <marquee>చందనా పికిల్స్ సుల్లురుపేట | Contact: 6300351293</marquee>
+
+    <!-- Sections -->
+    <div id="home" class="section">Welcome to Chandana Pickles Store! We offer delicious homemade pickles.</div>
+    <div id="services" class="section">Our services include bulk pickle orders, home delivery, and custom flavors.</div>
+    <div id="contact" class="section">📞 Contact us at: 6300351293</div>
+    <div id="address" class="section">🏠 Address: Chandana Pickles, Sullurpet, Andhra Pradesh</div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Pickles Store</p>
+  </footer>
+
+  <script>
+    const pricePerPickle = 120;
+    let orderDetails = "";
+
+    function calculatePrice() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      const quantity = parseInt(document.getElementById("quantity").value);
+
+      if (checkboxes.length === 0) {
+        document.getElementById("result").innerHTML = "Please select at least one pickle.";
+        document.getElementById("confirmBtn").style.display = "none";
+        return;
+      }
+
+      let selectedPickles = [];
+      checkboxes.forEach(cb => selectedPickles.push(cb.value));
+
+      const totalPrice = pricePerPickle * quantity * checkboxes.length;
+
+      orderDetails = `Order Details:\nPickles: ${selectedPickles.join(", ")}\nQuantity (each): ${quantity}\nPrice per pickle: ₹${pricePerPickle}\nTotal Price: ₹${totalPrice}`;
+
+      document.getElementById("result").innerHTML =
+        `You selected <b>${selectedPickles.join(", ")}</b> (${quantity} each).<br>
+         Price per pickle: ₹${pricePerPickle}<br>
+         Total Price: ₹${totalPrice}`;
+
+      document.getElementById("confirmBtn").style.display = "inline-block";
+    }
+
+    function confirmOrder() {
+      const phoneNumber = "6300351293";
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(orderDetails)}`;
+      window.open(whatsappURL, "_blank");
+    }
+
+    // Carousel logic
+    let currentIndex = 0;
+    const images = document.querySelectorAll(".carousel img");
+
+    function showNextImage() {
+      images[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.add("active");
+    }
+
+    setInterval(showNextImage, 3000); // Change image every 3 seconds
+
+    // Show section logic
+    function showSection(sectionId) {
+      document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
+      document.getElementById(sectionId).style.display = "block";
+    }
+  </script>
+</body>
+</html>
