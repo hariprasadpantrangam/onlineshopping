@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Temple Project</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header img {
+      width: 100px;
+      height: auto;
+      border-radius: 50%;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #ff9800;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    nav button:hover {
+      background-color: #e68900;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <header>
+    <!-- Shiva Image -->
+    <img src="../onlineshopping/public/namahsiva.webp" alt="Lord Shiva">
+    <h1>OM NAMAHSIVAYA!</h1>
+    <nav>
+      <button onclick="showContent('pujari')">Pujari Name</button>
+      <button onclick="showContent('services')">Services</button>
+      <button onclick="showContent('workers')">Workers</button>
+      <button onclick="showContent('contact')">Contact</button>
+      <button onclick="showContent('donations')">Donations</button>
+      <button onclick="showContent('members')">ex-members</button>
+    </nav>
+  </header>
+
+  <main id="content" style="padding:20px; text-align:center;">
+    <h2>SRI SANTHANESWARA SUBRAMANNESWARA SWAMI TEMPLE</h2>
+    <h3>MANNARPOLUR,NEW COLONY</h3>
+    <p>Select a button to see details.</p>
+  </main>
+
+  <footer>
+    <p>© 2026 Temple Trust. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function showContent(section) {
+      const content = document.getElementById('content');
+      if (section === 'pujari') {
+        content.innerHTML = "<h2>Pujari Name</h2><p>Sri Mallikarjuna swamy,sri Bhanu,sri naveen</p>";
+      } else if (section === 'services') {
+        content.innerHTML = "<h2>Services</h2><p>Pooja, Abhishekam, Homam,rahu-kethu,ganapathi homam,naga dosham,employment,marriage,children</p>";
+      } else if (section === 'contact') {
+        content.innerHTML = "<h2>Contact</h2><p>Phone: +91-9912672519,9573572830<br>Email: srisanthaneswaraswamytemple@gmail.com</p>";
+      }else if (section === 'donations') {
+        content.innerHTML = "<h2>Donations</h2><p>Bank: SBI sullurpet<br>Account No: XXXXXXX IFSC CODE:SBINXXXX</p>";
+      }
+      else if (section === 'workers') {
+        content.innerHTML = "<h2>nagur,ramanamma,annapurnadevi,ramesh,gopal,polaiah</h2>";
+      }
+      else if(section === 'members'){
+        content.innerHTML="<h2><ol><li>hariprasadpantrangam</li> <li>natam chengaiah</li><li>kudiri ramesh</li><li>pudi lakshmaiah</li></ol></h2>"
+      }
+    } 
+  </script>
+<a href="index.html">back to home</a>
+</body>
+</html>
