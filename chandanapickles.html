@@ -21,9 +21,17 @@
     .header-buttons button { margin: 5px; padding: 8px 15px; background: #fff; border: 1px solid #333; cursor: pointer; border-radius: 5px; }
     
     /* Carousel styling */
-    .carousel { width: 80%; margin: 10px auto; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-    .carousel img { width: 100%; display: none; }
-    .carousel img.active { display: block; }
+   .carousel img { 
+  width: 300px; 
+  height: 300px; 
+  display: none; 
+  margin: 0 auto; /* center image */
+  object-fit: cover; /* image proportion nicely fit */
+}
+.carousel img.active { 
+  display: block; 
+}
+
 
     marquee { font-size: 20px; color: #d32f2f; font-weight: bold; margin-top: 15px; }
     .section { display: none; margin-top: 20px; font-size: 18px; color: #333; }
