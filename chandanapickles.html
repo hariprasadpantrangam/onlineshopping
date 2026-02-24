@@ -51,7 +51,7 @@
   </style>
 
   <!-- ResponsiveVoice.js CDN -->
-  <script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_KEY"></script>
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 </head>
 <body>
   <header>
@@ -105,10 +105,16 @@
       { name: "Kakara Pickle", image: "../onlineshopping/public/kakara.jpeg" }
     ];
 
-    function readProducts() {
-      const text = document.getElementById('textToRead').innerText;
-      responsiveVoice.speak(text, "Telugu Female", {pitch: 1, rate: 1, volume: 1});
-    }
+    // function readProducts() {
+    //   const text = document.getElementById('textToRead').innerText;
+    //   responsiveVoice.speak(text, "Telugu Female", {pitch: 1, rate: 1, volume: 1});
+    // }
+
+      function readProducts() {
+    const text = document.getElementById('textToRead').innerText;
+    // Telugu Female voice demoలో ఉండకపోవచ్చు, English Femaleతో test చేయండి
+    responsiveVoice.speak(text, "UK English Female", {pitch: 1, rate: 1, volume: 1});
+  }
 
     function renderMenu() {
       const menuDiv = document.getElementById("menu");
