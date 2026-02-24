@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<>
+<html lang="te">
+<head>
   <meta charset="UTF-8">
   <title>Pickles Shop</title>
   <style>
@@ -11,7 +11,6 @@
 
     .header-buttons button { margin: 5px; padding: 8px 15px; background: #fff; border: 1px solid #333; cursor: pointer; border-radius: 5px; }
 
-    /* Pickle cards */
     .card {
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -22,12 +21,7 @@
       background: #fff;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
     }
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
+    .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; }
     .card h3 { margin: 10px 0 5px; }
     .card p { margin: 5px 0; }
     .card button {
@@ -39,7 +33,6 @@
       cursor: pointer;
     }
 
-    /* Cart section */
     #cart { margin-top: 20px; }
     #cart .card button { background: #d32f2f; }
 
@@ -54,11 +47,10 @@
       cursor: pointer;
     }
 
-        /* Hide the paragraph completely */
-        #textToRead { 
-            display: none; 
-        }
+    #textToRead { display: none; }
   </style>
+
+  <!-- ResponsiveVoice.js CDN -->
   <script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_KEY"></script>
 </head>
 <body>
@@ -69,8 +61,7 @@
       <button onclick="showSection('services')">Services</button>
       <button onclick="showSection('contact')">Contact</button>
       <button onclick="showSection('address')">Address</button>
-      <button onclick="readTelugu()">readproducts</button>
-    
+      <button onclick="readProducts()">Read Products</button>
     </div>
   </header>
 
@@ -83,13 +74,12 @@
     <h3 id="total"></h3>
     <button id="orderBtn" onclick="placeOrder()">Order</button>
 
-    <!-- Sections -->
     <div id="home" class="section">Welcome to Chandana Pickles Store! We offer delicious homemade pickles.</div>
     <div id="services" class="section">Our services include bulk pickle orders, home delivery, and custom flavors.</div>
     <div id="contact" class="section">📞 Contact us at: 6300351293</div>
     <div id="address" class="section">🏠 Address: Chandana Pickles, Sullurpet, Andhra Pradesh</div>
-    <p id="textToRead">సుల్లూరుపేటలో చందన ఊరగాయలకు స్వాగతం అందుబాటులో ఉన్న ఊరగాయలు మామిడి, ఆమ్లా, చేదు గ్రౌడ్, చింతపండు, నిమ్మకాయ, అల్లం, టమోటా, ఎర్ర మిరపకాయలు మేము స్వచ్ఛమైన నాణ్యత మరియు రుచికరమైన రుచిని అందిస్తాము.</p>
 
+    <p id="textToRead">సుల్లూరుపేటలో చందన ఊరగాయలకు స్వాగతం అందుబాటులో ఉన్న ఊరగాయలు మామిడి, ఆమ్లా, చేదు గ్రౌడ్, చింతపండు, నిమ్మకాయ, అల్లం, టమోటా, ఎర్ర మిరపకాయలు మేము స్వచ్ఛమైన నాణ్యత మరియు రుచికరమైన రుచిని అందిస్తాము.</p>
   </main>
 
   <footer>
@@ -115,8 +105,8 @@
       { name: "Kakara Pickle", image: "../onlineshopping/public/kakara.jpeg" }
     ];
 
-       function readTelugu() {
-      const text = "సుల్లూరుపేటలో చందన ఊరగాయలకు స్వాగతం. అందుబాటులో ఉన్న ఊరగాయలు మామిడి, ఆమ్లా, చేదు గ్రౌడ్, చింతపండు, నిమ్మకాయ, అల్లం, టమోటా, ఎర్ర మిరపకాయలు.";
+    function readProducts() {
+      const text = document.getElementById('textToRead').innerText;
       responsiveVoice.speak(text, "Telugu Female", {pitch: 1, rate: 1, volume: 1});
     }
 
@@ -186,7 +176,6 @@
       document.getElementById(sectionId).style.display = "block";
     }
 
-    // Initialize menu
     renderMenu();
   </script>
 </body>
