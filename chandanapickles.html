@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<>
   <meta charset="UTF-8">
   <title>Pickles Shop</title>
   <style>
@@ -59,6 +59,7 @@
             display: none; 
         }
   </style>
+  <script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_KEY"></script>
 </head>
 <body>
   <header>
@@ -68,7 +69,8 @@
       <button onclick="showSection('services')">Services</button>
       <button onclick="showSection('contact')">Contact</button>
       <button onclick="showSection('address')">Address</button>
-      <button onclick="readAloud()">readproducts</button>
+      <button onclick="readTelugu()">readproducts</button>
+    
     </div>
   </header>
 
@@ -113,16 +115,10 @@
       { name: "Kakara Pickle", image: "../onlineshopping/public/kakara.jpeg" }
     ];
 
-      function readAloud() {
-            const text = document.getElementById('textToRead').innerText;
-            const utterance = new SpeechSynthesisUtterance(text);
-
-            utterance.pitch = 1;
-            utterance.rate = 1;
-            utterance.volume = 1;
-
-            window.speechSynthesis.speak(utterance);
-        }
+       function readTelugu() {
+      const text = "సుల్లూరుపేటలో చందన ఊరగాయలకు స్వాగతం. అందుబాటులో ఉన్న ఊరగాయలు మామిడి, ఆమ్లా, చేదు గ్రౌడ్, చింతపండు, నిమ్మకాయ, అల్లం, టమోటా, ఎర్ర మిరపకాయలు.";
+      responsiveVoice.speak(text, "Telugu Female", {pitch: 1, rate: 1, volume: 1});
+    }
 
     function renderMenu() {
       const menuDiv = document.getElementById("menu");
