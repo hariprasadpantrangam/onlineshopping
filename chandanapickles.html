@@ -5,119 +5,89 @@
   <title>Pickles Shop</title>
   <style>
     body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
-
-    /* Distinct background colors */
-    header { 
-      background: linear-gradient(90deg, #ff9800, #f57c00); 
-      padding: 10px;   /* reduced padding */
-      color: white; 
-      /* Removed sticky position */
-    }
+    header { background: linear-gradient(90deg, #ff9800, #f57c00); padding: 10px; color: white; }
     main { background: #fff3e0; padding: 20px; min-height: 400px; }
     footer { background: black; padding: 15px; color: white; font-weight: bold; }
 
-    select, button, input[type="checkbox"] { margin: 10px; padding: 5px; }
-    #result { margin-top: 20px; font-size: 18px; color: green; }
     .header-buttons button { margin: 5px; padding: 8px 15px; background: #fff; border: 1px solid #333; cursor: pointer; border-radius: 5px; }
-    
-    /* Carousel styling */
-   .carousel img { 
-  width: 300px; 
-  height: 300px; 
-  display: none; 
-  margin: 0 auto; /* center image */
-  object-fit: cover; /* image proportion nicely fit */
-}
-.carousel img.active { 
-  display: block; 
-}
 
-
-    marquee { font-size: 20px; color: #d32f2f; font-weight: bold; margin-top: 15px; }
-    .section { display: none; margin-top: 20px; font-size: 18px; color: #333; }
-    #confirmBtn { display: none; margin-top: 15px; padding: 10px 20px; background: #388e3c; color: white; border: none; cursor: pointer; border-radius: 5px; }
-
-    /* Media Queries */
-    @media (max-width: 768px) {
-      header h1 { font-size: 22px; }
-      .carousel { width: 95%; }
-      .header-buttons button { padding: 6px 10px; font-size: 14px; }
-      main { padding: 15px; }
-      marquee { font-size: 16px; }
+    /* Pickle cards */
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px;
+      display: inline-block;
+      width: 200px;
+      background: #fff;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .card h3 { margin: 10px 0 5px; }
+    .card p { margin: 5px 0; }
+    .card button {
+      padding: 6px 12px;
+      background: #388e3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
-    @media (max-width: 480px) {
-      header h1 { font-size: 18px; }
-      .header-buttons { display: flex; flex-direction: column; }
-      .header-buttons button { margin: 5px 0; width: 90%; }
-      .carousel { width: 100%; }
-      main { padding: 10px; }
-      #result { font-size: 16px; }
-      marquee { font-size: 14px; }
+    /* Cart section */
+    #cart { margin-top: 20px; }
+    #cart .card button { background: #d32f2f; }
+
+    #orderBtn {
+      display: none;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
+
+        /* Hide the paragraph completely */
+        #textToRead { 
+            display: none; 
+        }
   </style>
 </head>
 <body>
   <header>
-    <h1>చందన పికిల్స్</h1> <!-- Telugu text -->
+    <h1>చందన పికిల్స్</h1>
     <div class="header-buttons">
       <button onclick="showSection('home')">Home</button>
       <button onclick="showSection('services')">Services</button>
       <button onclick="showSection('contact')">Contact</button>
       <button onclick="showSection('address')">Address</button>
+      <button onclick="readAloud()">readproducts</button>
     </div>
   </header>
 
   <main>
-    <div class="carousel"> 
-      <img src="../onlineshopping/public/mango.jpeg" class="active" alt="Mango Pickle">
-      <img src="../onlineshopping/public/lemon.jpeg" alt="Lemon Pickle"> 
-      <img src="../onlineshopping/public/garlic.jpeg" alt="Garlic Pickle"> 
-      <img src="../onlineshopping/public/tomato.jpeg" alt="Tomato Pickle">
-      <img src="../onlineshopping/public/usiri.jpeg" alt="Usiri Pickle"> 
-      <img src="../onlineshopping/public/redmirchi.jpeg" alt="Red Mirchi Pickle"> 
-    </div>
+    <h2>Pickles Menu</h2>
+    <div id="menu"></div>
 
-    <h2>Select Pickles</h2>
-    <label><input type="checkbox" value="Mango"> Mango Pickle</label><br>
-    <label><input type="checkbox" value="Lemon"> Lemon Pickle</label><br>
-    <label><input type="checkbox" value="Ginger"> Ginger Pickle</label><br>
-    <label><input type="checkbox" value="Garlic"> Garlic Pickle</label><br>
-        <label><input type="checkbox" value="tomato"> Tomato Pickle</label><br>
-    <label><input type="checkbox" value="usiri"> Usiri Pickle</label><br>
-    <label><input type="checkbox" value="Gongura"> Gongura Pickle</label><br>
-    <label><input type="checkbox" value="karivepaku"> karivepaku Pickle</label><br>
-    <label><input type="checkbox" value="tamarind"> tamarind Pickle</label><br>
-    <label><input type="checkbox" value="kakara"> kakara Pickle</label><br>
-
-    <label for="quantity">Quantity (per pickle):</label>
-    <select id="quantity">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-
-    <button onclick="calculatePrice()">Get Price</button>
-     
-    <div id="result"></div>
-    <button id="confirmBtn" onclick="confirmOrder()">Confirm Order</button>
-
-    <!-- Marquee -->
-    <marquee>చందనా పికిల్స్ సుల్లురుపేట | Contact: 6300351293</marquee>
-    <a href="index.html">back to home</a>
+    <h2>Your Cart</h2>
+    <div id="cart"></div>
+    <h3 id="total"></h3>
+    <button id="orderBtn" onclick="placeOrder()">Order</button>
 
     <!-- Sections -->
     <div id="home" class="section">Welcome to Chandana Pickles Store! We offer delicious homemade pickles.</div>
     <div id="services" class="section">Our services include bulk pickle orders, home delivery, and custom flavors.</div>
     <div id="contact" class="section">📞 Contact us at: 6300351293</div>
     <div id="address" class="section">🏠 Address: Chandana Pickles, Sullurpet, Andhra Pradesh</div>
+    <p id="textToRead">సుల్లూరుపేటలో చందన ఊరగాయలకు స్వాగతం అందుబాటులో ఉన్న ఊరగాయలు మామిడి, ఆమ్లా, చేదు గ్రౌడ్, చింతపండు, నిమ్మకాయ, అల్లం, టమోటా, ఎర్ర మిరపకాయలు మేము స్వచ్ఛమైన నాణ్యత మరియు రుచికరమైన రుచిని అందిస్తాము.</p>
+
   </main>
 
   <footer>
@@ -126,57 +96,102 @@
 
   <script>
     const pricePerPickle = 120;
-    let orderDetails = "";
+    let cart = [];
+    const phoneNumber = "6300351293";
 
-    function calculatePrice() {
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-      const quantity = parseInt(document.getElementById("quantity").value);
+    const pickles = [
+      { name: "Mango Pickle", image: "../onlineshopping/public/mango.jpeg" },
+      { name: "Lemon Pickle", image: "../onlineshopping/public/lemon.jpeg" },
+      { name: "Garlic Pickle", image: "../onlineshopping/public/garlic.jpeg" },
+      { name: "Tomato Pickle", image: "../onlineshopping/public/tomato.jpeg" },
+      { name: "Usiri Pickle", image: "../onlineshopping/public/usiri.jpeg" },
+      { name: "Red Mirchi Pickle", image: "../onlineshopping/public/redmirchi.jpeg" },
+      { name: "Ginger Pickle", image: "../onlineshopping/public/default.jpeg" },
+      { name: "Gongura Pickle", image: "../onlineshopping/public/default.jpeg" },
+      { name: "Karivepaku Pickle", image: "../onlineshopping/public/default.jpeg" },
+      { name: "Tamarind Pickle", image: "../onlineshopping/public/default.jpeg" },
+      { name: "Kakara Pickle", image: "../onlineshopping/public/default.jpeg" }
+    ];
 
-      if (checkboxes.length === 0) {
-        document.getElementById("result").innerHTML = "Please select at least one pickle.";
-        document.getElementById("confirmBtn").style.display = "none";
-        return;
-      }
+      function readAloud() {
+            const text = document.getElementById('textToRead').innerText;
+            const utterance = new SpeechSynthesisUtterance(text);
 
-      let selectedPickles = [];
-      checkboxes.forEach(cb => selectedPickles.push(cb.value));
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            utterance.volume = 1;
 
-      const totalPrice = pricePerPickle * quantity * checkboxes.length;
+            window.speechSynthesis.speak(utterance);
+        }
 
-      orderDetails = `Order Details:\nPickles: ${selectedPickles.join(", ")}\nQuantity (each): ${quantity}\nPrice per pickle: ₹${pricePerPickle}\nTotal Price: ₹${totalPrice}`;
-
-      document.getElementById("result").innerHTML =
-        `You selected <b>${selectedPickles.join(", ")}</b> (${quantity} each).<br>
-         Price per pickle: ₹${pricePerPickle}<br>
-         Total Price: ₹${totalPrice}`;
-
-      document.getElementById("confirmBtn").style.display = "inline-block";
+    function renderMenu() {
+      const menuDiv = document.getElementById("menu");
+      pickles.forEach((pickle, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${pickle.image}" alt="${pickle.name}">
+          <h3>${pickle.name}</h3>
+          <p>Price: ₹${pricePerPickle}</p>
+          <button onclick="addToCart(${index})">Add to Cart</button>
+        `;
+        menuDiv.appendChild(card);
+      });
     }
 
-    function confirmOrder() {
-      const phoneNumber = "6300351293";
+    function addToCart(index) {
+      cart.push(pickles[index]);
+      renderCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartDiv = document.getElementById("cart");
+      cartDiv.innerHTML = "";
+      let totalPrice = 0;
+
+      cart.forEach((item, index) => {
+        totalPrice += pricePerPickle;
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>Price: ₹${pricePerPickle}</p>
+          <button onclick="removeFromCart(${index})">Delete</button>
+        `;
+        cartDiv.appendChild(card);
+      });
+
+      document.getElementById("total").innerText = "Total Price: ₹" + totalPrice;
+      document.getElementById("orderBtn").style.display = cart.length > 0 ? "inline-block" : "none";
+    }
+
+    function placeOrder() {
+      if (cart.length === 0) return;
+
+      const now = new Date();
+      const dateTime = now.toLocaleString();
+
+      const items = cart.map(item => item.name).join(", ");
+      const totalPrice = cart.length * pricePerPickle;
+
+      const orderDetails = `Order Details:\nPickles: ${items}\nTotal Price: ₹${totalPrice}\nDate & Time: ${dateTime}`;
       const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(orderDetails)}`;
       window.open(whatsappURL, "_blank");
     }
 
-    // Carousel logic
-    let currentIndex = 0;
-    const images = document.querySelectorAll(".carousel img");
-
-    function showNextImage() {
-      images[currentIndex].classList.remove("active");
-      currentIndex = (currentIndex + 1) % images.length;
-      images[currentIndex].classList.add("active");
-    }
-
-    setInterval(showNextImage, 3000); // Change image every 3 seconds
-
-    // Show section logic
     function showSection(sectionId) {
       document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
       document.getElementById(sectionId).style.display = "block";
     }
-  </script>
 
+    // Initialize menu
+    renderMenu();
+  </script>
 </body>
 </html>
