@@ -47,7 +47,9 @@
       cursor: pointer;
     }
 
-    #textToRead { display: none; }
+        #textToRead { 
+            display: none; 
+        }
   </style>
 
   <!-- ResponsiveVoice.js CDN -->
@@ -61,7 +63,7 @@
       <button onclick="showSection('services')">Services</button>
       <button onclick="showSection('contact')">Contact</button>
       <button onclick="showSection('address')">Address</button>
-      <button onclick="readProducts()">Read Products</button>
+      <button onclick="readAloud()">Read Products</button>
     </div>
   </header>
 
@@ -80,6 +82,7 @@
     <div id="address" class="section">🏠 Address: Chandana Pickles, Sullurpet, Andhra Pradesh</div>
 
     <p id="textToRead">సుల్లూరుపేటలో చందన ఊరగాయలకు స్వాగతం అందుబాటులో ఉన్న ఊరగాయలు మామిడి, ఆమ్లా, చేదు గ్రౌడ్, చింతపండు, నిమ్మకాయ, అల్లం, టమోటా, ఎర్ర మిరపకాయలు మేము స్వచ్ఛమైన నాణ్యత మరియు రుచికరమైన రుచిని అందిస్తాము.</p>
+  
   </main>
 
   <footer>
@@ -105,16 +108,16 @@
       { name: "Kakara Pickle", image: "../onlineshopping/public/kakara.jpeg" }
     ];
 
-    // function readProducts() {
-    //   const text = document.getElementById('textToRead').innerText;
-    //   responsiveVoice.speak(text, "Telugu Female", {pitch: 1, rate: 1, volume: 1});
-    // }
+     function readAloud() {
+            const text = document.getElementById('textToRead').innerText;
+            const utterance = new SpeechSynthesisUtterance(text);
 
-      function readProducts() {
-    const text = document.getElementById('textToRead').innerText;
-    // Telugu Female voice demoలో ఉండకపోవచ్చు, English Femaleతో test చేయండి
-    responsiveVoice.speak(text, "UK English Female", {pitch: 1, rate: 1, volume: 1});
-  }
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            utterance.volume = 1;
+
+            window.speechSynthesis.speak(utterance);
+        }
 
     function renderMenu() {
       const menuDiv = document.getElementById("menu");
