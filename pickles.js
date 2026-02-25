@@ -69,21 +69,22 @@ function displayUserProducts() {
     container.innerHTML = "";
     
     products.forEach((p, index) => {
-        // ఇక్కడ src లో p.image ని ఉపయోగిస్తున్నాము
         container.innerHTML += `
-            <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center;">
-                <img src="${p.image}" alt="${p.name}" 
+            <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 10px;">
+                <img src="${p.image}" 
+                     alt="${p.name}" 
                      style="width:100%; height:150px; border-radius:8px; object-fit:cover;" 
                      onerror="this.src='https://via.placeholder.com'">
                 <h3 style="text-transform: capitalize; margin: 10px 0;">${p.name}</h3>
                 <p style="color: #2ecc71; font-weight: bold;">₹${p.price}</p>
-                <button class="order-btn" style="background:#2ecc71; width:100%; cursor:pointer;" onclick="addToCart(${index})">
+                <button class="order-btn" style="background:#2ecc71; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px;" onclick="addToCart(${index})">
                     Add to Cart
                 </button>
             </div>`;
     });
     updateCartUI();
 }
+
 
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
