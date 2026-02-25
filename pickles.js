@@ -103,7 +103,7 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    if (!cartList || !totalSpan) return; // HTML లో ఎలిమెంట్స్ ఉన్నాయో లేదో చెక్ చేస్తుంది
+    if (!cartList || !totalSpan) return;
 
     cartList.innerHTML = "";
     let total = 0;
@@ -112,12 +112,17 @@ function updateCartUI() {
         total += parseInt(item.price);
         cartList.innerHTML += `
             <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <span>${item.name} - ₹${item.price} -${item.image}</span>
-                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 2px 8px; cursor:pointer; border-radius:3px;">Delete</button>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Image added here -->
+                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
+                    <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
+                </div>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
     totalSpan.innerText = total;
 }
+
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
 function sendToWhatsApp() {
@@ -145,7 +150,7 @@ function sendToWhatsApp() {
     // 4. ప్రతి ఐటమ్‌ను కొత్త లైన్‌లో యాడ్ చేయడం
     cart.forEach((item, index) => {
         // ఇక్కడ చివరన \n ఉండటం వల్ల ప్రతి ఐటమ్ ఒకదాని కింద ఒకటి వస్తుంది
-        message += `${index + 1}. ${item.name} - ₹${item.price} ${item.image}\n`;
+        message += `${index + 1}. ${item.name} - ₹${item.price}\n`;
     });
 
     // 5. టోటల్ అమౌంట్
