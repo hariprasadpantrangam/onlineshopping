@@ -53,31 +53,38 @@ function displayAdminProducts() {
             <tr>
                 <td style="text-transform: capitalize;">${p.name}</td>
                 <td>₹${p.price}</td>
-                <td>${p.image}</td>
+                <td><img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:5px;"></td>
                 <td>
-                    <button style="background:#f39c12" onclick="editProduct(${index})">Edit</button>
-                    <button style="background:#e74c3c" onclick="deleteProduct(${index})">Delete</button>
+                    <button style="background:#f39c12; color:white; border:none; padding:5px; cursor:pointer;" onclick="editProduct(${index})">Edit</button>
+                    <button style="background:#e74c3c; color:white; border:none; padding:5px; cursor:pointer;" onclick="deleteProduct(${index})">Delete</button>
                 </td>
             </tr>`;
     });
 }
 
+
 // 5. యూజర్ ప్యానెల్ (Card Format with Add to Cart)
 function displayUserProducts() {
     const container = document.getElementById('userCardContainer');
     container.innerHTML = "";
+    
     products.forEach((p, index) => {
+        // ఇక్కడ src లో p.image ని ఉపయోగిస్తున్నాము
         container.innerHTML += `
-            <div class="card">
-                <img src="https://via.placeholder.com" alt="pickle" style="width:80px; border-radius:50%">
-                <h3 style="text-transform: capitalize;">${p.name}</h3>
-                <p>${p.image}</p>
-                <p>₹${p.price}</p>
-                <button class="order-btn" style="background:#2ecc71" onclick="addToCart(${index})">Add to Cart</button>
+            <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center;">
+                <img src="${p.image}" alt="${p.name}" 
+                     style="width:100%; height:150px; border-radius:8px; object-fit:cover;" 
+                     onerror="this.src='https://via.placeholder.com'">
+                <h3 style="text-transform: capitalize; margin: 10px 0;">${p.name}</h3>
+                <p style="color: #2ecc71; font-weight: bold;">₹${p.price}</p>
+                <button class="order-btn" style="background:#2ecc71; width:100%; cursor:pointer;" onclick="addToCart(${index})">
+                    Add to Cart
+                </button>
             </div>`;
     });
-    updateCartUI(); // లాగిన్ అవ్వగానే కార్ట్ ని రీఫ్రెష్ చేస్తుంది
+    updateCartUI();
 }
+
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
 function addToCart(index) {
