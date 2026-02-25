@@ -89,8 +89,9 @@ function displayUserProducts() {
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
 function addToCart(index) {
-    const item = products[index];
+    const item = defaultPickles[index];
     cart.push(item);
+
     updateCartUI();
 }
 
