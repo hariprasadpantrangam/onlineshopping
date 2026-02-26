@@ -1,7 +1,7 @@
 
 // 1. డేటా సెటప్
 
-// let cart = []; 
+let cart = []; 
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
@@ -234,11 +234,18 @@ function saveEdit() {
     saveAndRefresh();
 }
 
+// --- ADD THIS FUNCTION (REQUIRED FOR ADMIN ACTIONS) ---
 function saveAndRefresh() {
+    // Save updated products to localStorage
     localStorage.setItem('pickles', JSON.stringify(products));
-    document.getElementById('pName').value = "";
-    document.getElementById('pPrice').value = "";
+    
+    // Refresh both views to keep data in sync
     displayAdminProducts();
+    displayUserProducts();
+    
+    // Clear inputs if they exist
+    if(document.getElementById('pName')) document.getElementById('pName').value = "";
+    if(document.getElementById('pPrice')) document.getElementById('pPrice').value = "";
 }
 
 function logout() {
