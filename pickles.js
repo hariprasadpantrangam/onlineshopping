@@ -19,7 +19,7 @@ function showSection(id) {
     document.getElementById(id).classList.add('active');
 }
 
-// 3. రిజిస్ట్రేషన్ & లాగిన్    సుస్వాగతం! చందన పికిల్స్
+// 3. రిజిస్ట్రేషన్ & లాగిన్    
 function register() {
     const user = document.getElementById('regUser').value;
     const pass = document.getElementById('regPass').value;

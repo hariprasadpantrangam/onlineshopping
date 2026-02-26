@@ -15,6 +15,12 @@
             text-shadow: #ccc;
             text-transform: uppercase;
         }
+        .heading{
+             background-color:gold;
+            color:white;
+            text-align: center;
+            text-shadow:black; 
+        }
        
         /* Table Style for Admin */
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -38,16 +44,18 @@
 
     <!-- Registration Page (Initially Active) -->
     <div id="registerSection" class="section active">
-        <h2>Register Admin Account</h2>
-        <p>Tip: Use <b>admin</b> and <b>7799</b> for Admin access.</p>
-        <input type="text" id="regUser" placeholder="Username">
+        <h1 class="heading">సుస్వాగతం! చందన పికిల్స్</h1>
+        <!-- <h2>Register Admin Account</h2> -->
+   
+        <!-- <input type="text" id="regUser" placeholder="Username">
         <input type="password" id="regPass" placeholder="Password">
         <br><br>
-        <button onclick="register()">Register</button>
-        <button style="background: #95a5a6;" onclick="showSection('loginSection')">Go to Login</button>
+        <button onclick="register()">Register</button> -->
+        <button style="background: #19cbd7; color:white;" onclick="showSection('loginSection')">Login</button>
     </div>
 
     <!-- Login Page -->
+     <p>Tip: Use <b>adXXX</b> and <b>77XX</b> for Admin access.</p>
     <div id="loginSection" class="section">
         <h2>Login</h2>
         <input type="text" id="loginUser" placeholder="Username">
