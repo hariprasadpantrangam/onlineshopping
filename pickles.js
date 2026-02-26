@@ -1,14 +1,13 @@
 // 1. డేటా సెటప్
 const defaultPickles = [
-    { name: "lemon", price: 130, image: "../onlineshopping/public/lemon.jpeg", status: "Available" },
-    { name: "mango", price: 120, image: "../onlineshopping/public/mango.jpeg", status: "Available" },
-    { name: "gongura", price: 100, image: "../onlineshopping/public/gongura.jpeg", status: "Out of Stock" },
-    { name: "tomato", price: 130, image: "../onlineshopping/public/tomato.jpeg", status: "Available" },
-    { name: "bitter gourd", price: 130, image: "../onlineshopping/public/kakara.jpeg", status: "Available" },
-    { name: "amla", price: 150, image: "../onlineshopping/public/usiri.jpeg", status: "Available" },
-    { name: "karivepaku", price: 130, image: "../onlineshopping/public/karivepaku.jpeg", status: "Available" }
+    { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
+    { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
+    { name: "gongura", price: 100,image: "../onlineshopping/public/gongura.jpeg"},
+    { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
+    { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
+    { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
+    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"}
 ];
-
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
 let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
@@ -46,9 +45,6 @@ function login() {
 }
 
 // 4. అడ్మిన్ ప్యానెల్ (Table Format)
-// Add Status input to your HTML Admin Form:
-// <input type="text" id="pStatus" placeholder="Status (Available/Out of Stock)">
-
 function displayAdminProducts() {
     const tbody = document.getElementById('adminBody');
     tbody.innerHTML = "";
@@ -57,7 +53,6 @@ function displayAdminProducts() {
             <tr>
                 <td style="text-transform: capitalize;">${p.name}</td>
                 <td>₹${p.price}</td>
-                <td>${p.status || 'Available'}</td>
                 <td><img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:5px;"></td>
                 <td>
                     <button style="background:#f39c12; color:white; border:none; padding:5px; cursor:pointer;" onclick="editProduct(${index})">Edit</button>
@@ -68,55 +63,26 @@ function displayAdminProducts() {
 }
 
 
-
 // 5. యూజర్ ప్యానెల్ (Card Format with Add to Cart)
 function displayUserProducts() {
     const container = document.getElementById('userCardContainer');
     container.innerHTML = "";
     
     products.forEach((p, index) => {
-        const isOutOfStock = p.status?.toLowerCase() === "out of stock";
         container.innerHTML += `
             <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 10px;">
-                <img src="${p.image}" style="width:100%; height:150px; border-radius:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com'">
+                <img src="${p.image}" 
+                     alt="${p.name}" 
+                     style="width:100%; height:150px; border-radius:8px; object-fit:cover;" 
+                     onerror="this.src='https://via.placeholder.com'">
                 <h3 style="text-transform: capitalize; margin: 10px 0;">${p.name}</h3>
                 <p style="color: #2ecc71; font-weight: bold;">₹${p.price}</p>
-                
-                <!-- Status Label -->
-                <p style="font-weight: bold; color: ${isOutOfStock ? '#e74c3c' : '#2ecc71'}; margin-bottom: 10px;">
-                    ${p.status || 'Available'}
-                </p>
-
-                <button class="order-btn" 
-                    style="background:${isOutOfStock ? '#bdc3c7' : '#2ecc71'}; color:white; border:none; padding:10px; width:100%; cursor:${isOutOfStock ? 'not-allowed' : 'pointer'}; border-radius:5px;" 
-                    onclick="${isOutOfStock ? '' : `addToCart(${index})`}"
-                    ${isOutOfStock ? 'disabled' : ''}>
-                    ${isOutOfStock ? 'Sold Out' : 'Add to Cart'}
+                <button class="order-btn" style="background:#2ecc71; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px;" onclick="addToCart(${index})">
+                    Add to Cart
                 </button>
             </div>`;
     });
-}
-
-
-function saveProduct() {
-    const name = document.getElementById('pName').value;
-    const price = document.getElementById('pPrice').value;
-    const image = document.getElementById('pImage').value;
-    const status = document.getElementById('pStatus').value; // Get Status from input
-
-    const newProduct = { name, price, image, status: status || "Available" };
-
-    // If editing (assuming you have an editIndex variable)
-    if (editIndex !== null) {
-        products[editIndex] = newProduct;
-        editIndex = null;
-    } else {
-        products.push(newProduct);
-    }
-
-    localStorage.setItem('pickles', JSON.stringify(products));
-    displayAdminProducts();
-    clearForm();
+    updateCartUI();
 }
 
 
@@ -133,36 +99,37 @@ function addToCart(index) {
     updateCartUI();
 }
 
-// function removeFromCart(cartIndex) {
-//     cart.splice(cartIndex, 1);
-//     updateCartUI();
-// }
-
 function removeFromCart(cartIndex) {
-    cart.splice(cartIndex, 1); // Remove item from array
-    updateCartUI(); // Recalculate total and refresh list
+    cart.splice(cartIndex, 1);
+    updateCartUI();
 }
 
+function updateCartUI() {
+    const cartList = document.getElementById('cartItems');
+    const totalSpan = document.getElementById('cartTotal');
+    
+    if (!cartList || !totalSpan) return;
 
-function saveProduct() {
-    const name = document.getElementById('pName').value;
-    const price = document.getElementById('pPrice').value;
-    const image = document.getElementById('pImage').value;
-    const status = document.getElementById('pStatus').value; // Get Status from input
+    cartList.innerHTML = "";
+    let total = 0;
 
-    const newProduct = { name, price, image, status: status || "Available" };
-
-    // If editing (assuming you have an editIndex variable)
-    if (editIndex !== null) {
-        products[editIndex] = newProduct;
-        editIndex = null;
-    } else {
-        products.push(newProduct);
-    }
-
-    localStorage.setItem('pickles', JSON.stringify(products));
-    displayAdminProducts();
-    clearForm();
+    cart.forEach((item, index) => {
+        // Use Number() or parseInt() to ensure it's treated as a number
+        const price = Number(item.price) || 0;
+        total += price;
+        
+        cartList.innerHTML += `
+            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
+                    <span style="text-transform: capitalize;">${item.name} - ₹${price}</span>
+                </div>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
+            </li>`;
+    });
+    
+    // Update the UI with the fresh total
+    totalSpan.innerText = total;
 }
 
 
@@ -213,27 +180,16 @@ function sendToWhatsApp() {
 
 
 
-
-
-function saveProduct() {
+// 8. అడ్మిన్ CRUD ఆపరేషన్లు
+function addProduct() {
     const name = document.getElementById('pName').value;
     const price = document.getElementById('pPrice').value;
-    const image = document.getElementById('pImage').value;
-    const status = document.getElementById('pStatus').value; // Get Status from input
-
-    const newProduct = { name, price, image, status: status || "Available" };
-
-    // If editing (assuming you have an editIndex variable)
-    if (editIndex !== null) {
-        products[editIndex] = newProduct;
-        editIndex = null;
+    if (name && price) {
+        products.push({ name, price });
+        saveAndRefresh();
     } else {
-        products.push(newProduct);
+        alert("Fill name and price");
     }
-
-    localStorage.setItem('pickles', JSON.stringify(products));
-    displayAdminProducts();
-    clearForm();
 }
 
 function deleteProduct(index) {
@@ -242,22 +198,19 @@ function deleteProduct(index) {
         saveAndRefresh();
     }
 }
-// --- EDIT LOGIC ---
-let editIndex = null;
+
 function editProduct(index) {
-    editIndex = index;
-    const p = products[index];
-    document.getElementById('pName').value = p.name;
-    document.getElementById('pPrice').value = p.price;
-    document.getElementById('pImage').value = p.image;
-    document.getElementById('pStatus').value = p.status || "Available"; // Load status into input
+    document.getElementById('pName').value = products[index].name;
+    document.getElementById('pPrice').value = products[index].price;
+    document.getElementById('editIndex').value = index;
+    document.getElementById('addBtn').style.display = "none";
+    document.getElementById('updateBtn').style.display = "inline";
 }
 
 function saveEdit() {
     const index = document.getElementById('editIndex').value;
     products[index].name = document.getElementById('pName').value;
     products[index].price = document.getElementById('pPrice').value;
-     products[index].status = document.getElementById('pStatus').value;
     document.getElementById('addBtn').style.display = "inline";
     document.getElementById('updateBtn').style.display = "none";
     saveAndRefresh();
@@ -267,7 +220,6 @@ function saveAndRefresh() {
     localStorage.setItem('pickles', JSON.stringify(products));
     document.getElementById('pName').value = "";
     document.getElementById('pPrice').value = "";
-     document.getElementById('pStatus').value = "";
     displayAdminProducts();
 }
 
