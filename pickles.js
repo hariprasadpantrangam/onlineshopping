@@ -99,28 +99,24 @@ function displayUserProducts() {
 
 
 6.// కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
+// 1. Ensure your variables are initialized globally
+
 function addToCart(index) {
-    // FIX: Access 'products' because that's what the User Panel displays
-    if (products && products[index]) {
+    // Check if products exists and the index is valid
+    if (typeof products !== 'undefined' && products[index]) {
         const item = products[index];
         
-        // Push a copy of the item to the cart array
+        // Use spread to avoid reference issues
         cart.push({...item}); 
         
         console.log("Added to cart:", item.name);
         
-        // Important: Update the UI immediately after adding
+        // Refresh the display
         updateCartUI();
-        
-        // Optional: Provide feedback to the user
-        alert(`${item.name} added to cart!`);
     } else {
-        console.error("Could not find product at index:", index);
+        console.error("Product list not found or invalid index:", index);
     }
 }
-
-
-
 
 function removeFromCart(cartIndex) {
     cart.splice(cartIndex, 1);
@@ -131,25 +127,36 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    if (!cartList || !totalSpan) return;
+    // Safety check: ensure elements exist in the DOM
+    if (!cartList || !totalSpan) {
+        console.error("UI Elements 'cartItems' or 'cartTotal' not found in HTML");
+        return;
+    }
 
+    // Clear list before re-rendering
     cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += Number(item.price);
+        // Ensure price is treated as a number
+        const itemPrice = parseFloat(item.price) || 0;
+        total += itemPrice;
         
+        // Append the new list item
         cartList.innerHTML += `
             <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
-                    <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
+                    <span style="text-transform: capitalize;">${item.name} - ₹${itemPrice}</span>
                 </div>
-                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 10px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
-    totalSpan.innerText = total;
+
+    // Update the total display
+    totalSpan.innerText = total.toLocaleString('en-IN'); // Formats as Indian currency
 }
+
 
 
 
