@@ -214,17 +214,17 @@ function sendToWhatsApp() {
 
 
 8. //అడ్మిన్ CRUD ఆపరేషన్లు
-function addProduct() {
-    const name = document.getElementById('pName').value;
-    const price = document.getElementById('pPrice').value;
-       const status = document.getElementById('pStatus').value;
-    if (name && price) {
-        products.push({ name, price });
-        saveAndRefresh();
-    } else {
-        alert("Fill name and price");
-    }
-}
+// function addProduct() {
+//     const name = document.getElementById('pName').value;
+//     const price = document.getElementById('pPrice').value;
+//        const status = document.getElementById('pStatus').value;
+//     if (name && price) {
+//         products.push({ name, price });
+//         saveAndRefresh();
+//     } else {
+//         alert("Fill name and price");
+//     }
+// }
 
 function saveProduct() {
     const name = document.getElementById('pName').value;
