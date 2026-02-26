@@ -1,4 +1,7 @@
+
 // 1. డేటా సెటప్
+
+let cart = []; 
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
@@ -6,15 +9,15 @@ const defaultPickles = [
     { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
     { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
     { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
-    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"},
-      { name: "ginger", price: 150,image: "../onlineshopping/public/ginger.jpeg"},
     { name: "tamarind", price: 130,image: "../onlineshopping/public/tamarind.jpeg"},
-      { name: "garlic", price: 150,image: "../onlineshopping/public/garlic.jpeg"}
-  
+    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"},
+    { name: "ginger", price: 130,image: "../onlineshopping/public/ginger.jpeg"},
+    { name: "garlic", price: 130,image: "../onlineshopping/public/garlic"}
+
 ];
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
-let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
+ // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
 
 // 2. సెక్షన్ల మార్పు
 function showSection(id) {
@@ -22,7 +25,7 @@ function showSection(id) {
     document.getElementById(id).classList.add('active');
 }
 
-// 3. రిజిస్ట్రేషన్ & లాగిన్    సుస్వాగతం! చందన పికిల్స్
+// 3. రిజిస్ట్రేషన్ & లాగిన్
 function register() {
     const user = document.getElementById('regUser').value;
     const pass = document.getElementById('regPass').value;
@@ -92,12 +95,32 @@ function displayUserProducts() {
 
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
-function addToCart(index) {
-    const item = defaultPickles[index];
-    cart.push(item);
+// 1. You must initialize the cart array outside the function
 
-    updateCartUI();
-}
+
+// 6. కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
+// function addToCart(index) {
+//     // FIX: Access 'products' because that's what the User Panel displays
+//     if (products && products[index]) {
+//         const item = products[index];
+        
+//         // Push a copy of the item to the cart array
+//         cart.push({...item}); 
+        
+//         console.log("Added to cart:", item.name);
+        
+//         // Important: Update the UI immediately after adding
+//         updateCartUI();
+        
+//         // Optional: Provide feedback to the user
+//         alert(`${item.name} added to cart!`);
+//     } else {
+//         console.error("Could not find product at index:", index);
+//     }
+// }
+
+
+
 
 function removeFromCart(cartIndex) {
     cart.splice(cartIndex, 1);
@@ -114,11 +137,11 @@ function updateCartUI() {
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += parseInt(item.price);
+        total += Number(item.price);
+        
         cartList.innerHTML += `
             <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <!-- Image added here -->
                     <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
                     <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
                 </div>
@@ -127,6 +150,8 @@ function updateCartUI() {
     });
     totalSpan.innerText = total;
 }
+
+
 
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
@@ -211,15 +236,21 @@ function saveEdit() {
     saveAndRefresh();
 }
 
+// --- ADD THIS FUNCTION (REQUIRED FOR ADMIN ACTIONS) ---
 function saveAndRefresh() {
+    // Save updated products to localStorage
     localStorage.setItem('pickles', JSON.stringify(products));
-    document.getElementById('pName').value = "";
-    document.getElementById('pPrice').value = "";
+    
+    // Refresh both views to keep data in sync
     displayAdminProducts();
+    displayUserProducts();
+    
+    // Clear inputs if they exist
+    if(document.getElementById('pName')) document.getElementById('pName').value = "";
+    if(document.getElementById('pPrice')) document.getElementById('pPrice').value = "";
 }
 
 function logout() {
     cart = []; // లాగౌట్ అయినప్పుడు కార్ట్ క్లియర్ చేస్తుంది
     showSection('loginSection');
 }
-
