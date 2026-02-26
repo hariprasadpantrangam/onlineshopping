@@ -1,7 +1,7 @@
 
 // 1. డేటా సెటప్
 
-let cart = []; 
+// let cart = []; 
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
