@@ -7,7 +7,7 @@ const defaultPickles = [
     { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
     { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
     { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"},
-      { name: "ginger", price: 150,image: "../onlineshopping/public/ginger"},
+      { name: "ginger", price: 150,image: "../onlineshopping/public/ginger.jpeg"},
     { name: "tamarind", price: 130,image: "../onlineshopping/public/tamarind.jpeg"},
       { name: "garlic", price: 150,image: "../onlineshopping/public/garlic.jpeg"}
   
