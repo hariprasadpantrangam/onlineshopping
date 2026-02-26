@@ -9,7 +9,11 @@ const defaultPickles = [
     { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
     { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
     { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
-    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"}
+    { name: "tamarind", price: 130,image: "../onlineshopping/public/tamarind.jpeg"},
+    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"},
+    { name: "ginger", price: 130,image: "../onlineshopping/public/ginger.jpeg"},
+    { name: "garlic", price: 130,image: "../onlineshopping/public/garlic"}
+
 ];
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
