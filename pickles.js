@@ -98,6 +98,27 @@ function displayUserProducts() {
 }
 
 
+function saveProduct() {
+    const name = document.getElementById('pName').value;
+    const price = document.getElementById('pPrice').value;
+    const image = document.getElementById('pImage').value;
+    const status = document.getElementById('pStatus').value; // Get Status from input
+
+    const newProduct = { name, price, image, status: status || "Available" };
+
+    // If editing (assuming you have an editIndex variable)
+    if (editIndex !== null) {
+        products[editIndex] = newProduct;
+        editIndex = null;
+    } else {
+        products.push(newProduct);
+    }
+
+    localStorage.setItem('pickles', JSON.stringify(products));
+    displayAdminProducts();
+    clearForm();
+}
+
 
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
@@ -123,32 +144,25 @@ function removeFromCart(cartIndex) {
 }
 
 
-function updateCartUI() {
-    const cartList = document.getElementById('cartItems');
-    const totalSpan = document.getElementById('cartTotal');
-    
-    if (!cartList || !totalSpan) return;
+function saveProduct() {
+    const name = document.getElementById('pName').value;
+    const price = document.getElementById('pPrice').value;
+    const image = document.getElementById('pImage').value;
+    const status = document.getElementById('pStatus').value; // Get Status from input
 
-    cartList.innerHTML = "";
-    let total = 0;
+    const newProduct = { name, price, image, status: status || "Available" };
 
-    cart.forEach((item, index) => {
-        // Use Number() or parseInt() to ensure it's treated as a number
-        const price = Number(item.price) || 0;
-        total += price;
-        
-        cartList.innerHTML += `
-            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
-                    <span style="text-transform: capitalize;">${item.name} - ₹${price}</span>
-                </div>
-                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
-            </li>`;
-    });
-    
-    // Update the UI with the fresh total
-    totalSpan.innerText = total;
+    // If editing (assuming you have an editIndex variable)
+    if (editIndex !== null) {
+        products[editIndex] = newProduct;
+        editIndex = null;
+    } else {
+        products.push(newProduct);
+    }
+
+    localStorage.setItem('pickles', JSON.stringify(products));
+    displayAdminProducts();
+    clearForm();
 }
 
 
@@ -200,15 +214,36 @@ function sendToWhatsApp() {
 
 
 // 8. అడ్మిన్ CRUD ఆపరేషన్లు
-function addProduct() {
+// function addProduct() {
+//     const name = document.getElementById('pName').value;
+//     const price = document.getElementById('pPrice').value;
+//     if (name && price) {
+//         products.push({ name, price });
+//         saveAndRefresh();
+//     } else {
+//         alert("Fill name and price");
+//     }
+// }
+
+function saveProduct() {
     const name = document.getElementById('pName').value;
     const price = document.getElementById('pPrice').value;
-    if (name && price) {
-        products.push({ name, price });
-        saveAndRefresh();
+    const image = document.getElementById('pImage').value;
+    const status = document.getElementById('pStatus').value; // Get Status from input
+
+    const newProduct = { name, price, image, status: status || "Available" };
+
+    // If editing (assuming you have an editIndex variable)
+    if (editIndex !== null) {
+        products[editIndex] = newProduct;
+        editIndex = null;
     } else {
-        alert("Fill name and price");
+        products.push(newProduct);
     }
+
+    localStorage.setItem('pickles', JSON.stringify(products));
+    displayAdminProducts();
+    clearForm();
 }
 
 function deleteProduct(index) {
@@ -217,13 +252,15 @@ function deleteProduct(index) {
         saveAndRefresh();
     }
 }
-
+// --- EDIT LOGIC ---
+let editIndex = null;
 function editProduct(index) {
-    document.getElementById('pName').value = products[index].name;
-    document.getElementById('pPrice').value = products[index].price;
-    document.getElementById('editIndex').value = index;
-    document.getElementById('addBtn').style.display = "none";
-    document.getElementById('updateBtn').style.display = "inline";
+    editIndex = index;
+    const p = products[index];
+    document.getElementById('pName').value = p.name;
+    document.getElementById('pPrice').value = p.price;
+    document.getElementById('pImage').value = p.image;
+    document.getElementById('pStatus').value = p.status || "Available"; // Load status into input
 }
 
 function saveEdit() {
