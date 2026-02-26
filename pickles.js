@@ -267,6 +267,7 @@ function saveEdit() {
     const index = document.getElementById('editIndex').value;
     products[index].name = document.getElementById('pName').value;
     products[index].price = document.getElementById('pPrice').value;
+     products[index].status = document.getElementById('pStatus').value;
     document.getElementById('addBtn').style.display = "inline";
     document.getElementById('updateBtn').style.display = "none";
     saveAndRefresh();
@@ -276,6 +277,7 @@ function saveAndRefresh() {
     localStorage.setItem('pickles', JSON.stringify(products));
     document.getElementById('pName').value = "";
     document.getElementById('pPrice').value = "";
+     document.getElementById('pStatus').value = "";
     displayAdminProducts();
 }
 
