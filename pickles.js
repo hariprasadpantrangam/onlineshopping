@@ -93,25 +93,28 @@ function displayUserProducts() {
 // 6. కార్ట్ లాజిక్ (Add & Delete)
 // 1. You must initialize the cart array outside the function
 
+
 // 6. కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
 function addToCart(index) {
-    // FIX: Use 'products' array instead of 'defaultPickles' 
-    // because the UI is generated from 'products'
-    if (products[index]) {
+    // FIX: Access 'products' because that's what the User Panel displays
+    if (products && products[index]) {
         const item = products[index];
         
-        // Creating a shallow copy to avoid reference issues
-        cart.push({...item});
+        // Push a copy of the item to the cart array
+        cart.push({...item}); 
         
-        console.log("Added to cart:", item.name); 
+        console.log("Added to cart:", item.name);
+        
+        // Important: Update the UI immediately after adding
         updateCartUI();
         
-        // Optional: Alert user
-        alert(item.name + " added to cart!");
+        // Optional: Provide feedback to the user
+        alert(`${item.name} added to cart!`);
     } else {
-        console.error("Item not found at index:", index);
+        console.error("Could not find product at index:", index);
     }
 }
+
 
 function removeFromCart(cartIndex) {
     cart.splice(cartIndex, 1);
