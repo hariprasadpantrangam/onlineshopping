@@ -1,5 +1,7 @@
 
 // 1. డేటా సెటప్
+
+let cart = []; 
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
@@ -11,7 +13,7 @@ const defaultPickles = [
 ];
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
-let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
+ // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
 
 // 2. సెక్షన్ల మార్పు
 function showSection(id) {
@@ -89,11 +91,19 @@ function displayUserProducts() {
 
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
-function addToCart(index) {
-    const item = defaultPickles[index];
-    cart.push(item);
+// 1. You must initialize the cart array outside the function
 
-    updateCartUI();
+function addToCart(index) {
+    // Check if index exists in your data
+    if (defaultPickles[index]) {
+        const item = defaultPickles[index];
+        cart.push(item);
+        
+        console.log("Added to cart:", item.name); // Debugging line
+        updateCartUI();
+    } else {
+        console.error("Item not found at index:", index);
+    }
 }
 
 function removeFromCart(cartIndex) {
@@ -105,17 +115,21 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    if (!cartList || !totalSpan) return;
+    if (!cartList || !totalSpan) {
+        console.error("Cart elements not found in HTML");
+        return;
+    }
 
     cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += parseInt(item.price);
+        // Use parseFloat or Number to handle price addition safely
+        total += Number(item.price);
+        
         cartList.innerHTML += `
             <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <!-- Image added here -->
                     <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
                     <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
                 </div>
@@ -124,6 +138,7 @@ function updateCartUI() {
     });
     totalSpan.innerText = total;
 }
+
 
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
