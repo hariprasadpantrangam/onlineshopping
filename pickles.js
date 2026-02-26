@@ -1,13 +1,14 @@
 // 1. డేటా సెటప్
 const defaultPickles = [
-    { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
-    { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
-    { name: "gongura", price: 100,image: "../onlineshopping/public/gongura.jpeg"},
-    { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
-    { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
-    { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
-    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"}
+    { name: "lemon", price: 130, image: "../onlineshopping/public/lemon.jpeg", status: "Available" },
+    { name: "mango", price: 120, image: "../onlineshopping/public/mango.jpeg", status: "Available" },
+    { name: "gongura", price: 100, image: "../onlineshopping/public/gongura.jpeg", status: "Out of Stock" },
+    { name: "tomato", price: 130, image: "../onlineshopping/public/tomato.jpeg", status: "Available" },
+    { name: "bitter gourd", price: 130, image: "../onlineshopping/public/kakara.jpeg", status: "Available" },
+    { name: "amla", price: 150, image: "../onlineshopping/public/usiri.jpeg", status: "Available" },
+    { name: "karivepaku", price: 130, image: "../onlineshopping/public/karivepaku.jpeg", status: "Available" }
 ];
+
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
 let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
@@ -45,6 +46,9 @@ function login() {
 }
 
 // 4. అడ్మిన్ ప్యానెల్ (Table Format)
+// Add Status input to your HTML Admin Form:
+// <input type="text" id="pStatus" placeholder="Status (Available/Out of Stock)">
+
 function displayAdminProducts() {
     const tbody = document.getElementById('adminBody');
     tbody.innerHTML = "";
@@ -53,6 +57,7 @@ function displayAdminProducts() {
             <tr>
                 <td style="text-transform: capitalize;">${p.name}</td>
                 <td>₹${p.price}</td>
+                <td>${p.status || 'Available'}</td>
                 <td><img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:5px;"></td>
                 <td>
                     <button style="background:#f39c12; color:white; border:none; padding:5px; cursor:pointer;" onclick="editProduct(${index})">Edit</button>
@@ -63,27 +68,35 @@ function displayAdminProducts() {
 }
 
 
+
 // 5. యూజర్ ప్యానెల్ (Card Format with Add to Cart)
 function displayUserProducts() {
     const container = document.getElementById('userCardContainer');
     container.innerHTML = "";
     
     products.forEach((p, index) => {
+        const isOutOfStock = p.status?.toLowerCase() === "out of stock";
         container.innerHTML += `
             <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 10px;">
-                <img src="${p.image}" 
-                     alt="${p.name}" 
-                     style="width:100%; height:150px; border-radius:8px; object-fit:cover;" 
-                     onerror="this.src='https://via.placeholder.com'">
+                <img src="${p.image}" style="width:100%; height:150px; border-radius:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com'">
                 <h3 style="text-transform: capitalize; margin: 10px 0;">${p.name}</h3>
                 <p style="color: #2ecc71; font-weight: bold;">₹${p.price}</p>
-                <button class="order-btn" style="background:#2ecc71; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px;" onclick="addToCart(${index})">
-                    Add to Cart
+                
+                <!-- Status Label -->
+                <p style="font-weight: bold; color: ${isOutOfStock ? '#e74c3c' : '#2ecc71'}; margin-bottom: 10px;">
+                    ${p.status || 'Available'}
+                </p>
+
+                <button class="order-btn" 
+                    style="background:${isOutOfStock ? '#bdc3c7' : '#2ecc71'}; color:white; border:none; padding:10px; width:100%; cursor:${isOutOfStock ? 'not-allowed' : 'pointer'}; border-radius:5px;" 
+                    onclick="${isOutOfStock ? '' : `addToCart(${index})`}"
+                    ${isOutOfStock ? 'disabled' : ''}>
+                    ${isOutOfStock ? 'Sold Out' : 'Add to Cart'}
                 </button>
             </div>`;
     });
-    updateCartUI();
 }
+
 
 
 
@@ -99,10 +112,16 @@ function addToCart(index) {
     updateCartUI();
 }
 
+// function removeFromCart(cartIndex) {
+//     cart.splice(cartIndex, 1);
+//     updateCartUI();
+// }
+
 function removeFromCart(cartIndex) {
-    cart.splice(cartIndex, 1);
-    updateCartUI();
+    cart.splice(cartIndex, 1); // Remove item from array
+    updateCartUI(); // Recalculate total and refresh list
 }
+
 
 function updateCartUI() {
     const cartList = document.getElementById('cartItems');
