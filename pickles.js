@@ -65,35 +65,40 @@ function displayAdminProducts() {
 
 
 // 5. యూజర్ ప్యానెల్ (Card Format with Add to Cart)
+// 5. యూజర్ ప్యానెల్ - ఇక్కడ 'products' అరే వాడుతున్నారు
 function displayUserProducts() {
     const container = document.getElementById('userCardContainer');
+    if (!container) return;
     container.innerHTML = "";
     
     products.forEach((p, index) => {
         container.innerHTML += `
             <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 10px;">
-                <img src="${p.image}" 
-                     alt="${p.name}" 
-                     style="width:100%; height:150px; border-radius:8px; object-fit:cover;" 
-                     onerror="this.src='https://via.placeholder.com'">
+                <img src="${p.image}" style="width:100%; height:150px; border-radius:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com'">
                 <h3 style="text-transform: capitalize; margin: 10px 0;">${p.name}</h3>
                 <p style="color: #2ecc71; font-weight: bold;">₹${p.price}</p>
-                <button class="order-btn" style="background:#2ecc71; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px;" onclick="addToCart(${index})">
+                <button class="order-btn" style="background:#2ecc71; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px;" 
+                        onclick="addToCart(${index})"> <!-- ఇండెక్స్ పంపిస్తున్నాము -->
                     Add to Cart
                 </button>
             </div>`;
     });
-    updateCartUI();
 }
 
-
-
-// 6. కార్ట్ లాజిక్ (Add & Delete)
+// 6. కార్ట్ లాజిక్ - ఇక్కడ మార్పు చేసాను (Rectified)
 function addToCart(index) {
-    const item = defaultPickles[index];
-    cart.push(item);
-
-    updateCartUI();
+    // ఇష్యూ: ఇక్కడ 'defaultPickles' బదులు 'products' వాడాలి
+    if (products && products[index]) {
+        const item = products[index]; 
+        
+        // కార్ట్ లోకి ఆ నిర్దిష్ట ఐటమ్ ని కాపీ చేయడం
+        cart.push({...item}); 
+        
+        console.log("Added to cart:", item.name);
+        updateCartUI();
+    } else {
+        console.error("Product not found!");
+    }
 }
 
 function removeFromCart(cartIndex) {
@@ -111,19 +116,19 @@ function updateCartUI() {
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += parseInt(item.price);
+        total += parseInt(item.price) || 0;
         cartList.innerHTML += `
             <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <!-- Image added here -->
                     <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
                     <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
                 </div>
                 <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
-    totalSpan.innerText = total;
+    totalSpan.innerText = total.toLocaleString('en-IN');
 }
+
 
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
