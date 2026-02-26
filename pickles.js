@@ -93,14 +93,21 @@ function displayUserProducts() {
 // 6. కార్ట్ లాజిక్ (Add & Delete)
 // 1. You must initialize the cart array outside the function
 
+// 6. కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
 function addToCart(index) {
-    // Check if index exists in your data
-    if (defaultPickles[index]) {
-        const item = defaultPickles[index];
-        cart.push(item);
+    // FIX: Use 'products' array instead of 'defaultPickles' 
+    // because the UI is generated from 'products'
+    if (products[index]) {
+        const item = products[index];
         
-        console.log("Added to cart:", item.name); // Debugging line
+        // Creating a shallow copy to avoid reference issues
+        cart.push({...item});
+        
+        console.log("Added to cart:", item.name); 
         updateCartUI();
+        
+        // Optional: Alert user
+        alert(item.name + " added to cart!");
     } else {
         console.error("Item not found at index:", index);
     }
@@ -115,16 +122,12 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    if (!cartList || !totalSpan) {
-        console.error("Cart elements not found in HTML");
-        return;
-    }
+    if (!cartList || !totalSpan) return;
 
     cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
-        // Use parseFloat or Number to handle price addition safely
         total += Number(item.price);
         
         cartList.innerHTML += `
@@ -138,6 +141,7 @@ function updateCartUI() {
     });
     totalSpan.innerText = total;
 }
+
 
 
 
