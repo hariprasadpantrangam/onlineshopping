@@ -1,7 +1,5 @@
 
 // 1. డేటా సెటప్
-
-
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
@@ -9,15 +7,11 @@ const defaultPickles = [
     { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
     { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
     { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
-    { name: "tamarind", price: 130,image: "../onlineshopping/public/tamarind.jpeg"},
-    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"},
-    { name: "ginger", price: 130,image: "../onlineshopping/public/ginger.jpeg"},
-    { name: "garlic", price: 130,image: "../onlineshopping/public/garlic"}
-
+    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"}
 ];
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
- // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
+let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
 
 // 2. సెక్షన్ల మార్పు
 function showSection(id) {
@@ -25,7 +19,7 @@ function showSection(id) {
     document.getElementById(id).classList.add('active');
 }
 
-// 3. రిజిస్ట్రేషన్ & లాగిన్
+// 3. రిజిస్ట్రేషన్ & లాగిన్    సుస్వాగతం! చందన పికిల్స్
 function register() {
     const user = document.getElementById('regUser').value;
     const pass = document.getElementById('regPass').value;
@@ -95,34 +89,15 @@ function displayUserProducts() {
 
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
-// 1. You must initialize the cart array outside the function
-
-
-6.// కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
-// 1. Ensure your variables are initialized globally
-let cart = []; 
 function addToCart(index) {
-    // RECTIFIED: Access 'defaultpickles' instead of 'products'
-    if (typeof defaultpickles !== 'undefined' && defaultpickles[index]) {
-        const item = defaultpickles[index];
-        
-        // Push a copy to the cart
-        cart.push({ ...item });
-        
-        console.log("Added to cart:", item.name);
-        
-        // Refresh the UI
-        updateCartUI();
-    } else {
-        console.error("Pickle not found at index:", index);
-    }
+    const item = defaultPickles[index];
+    cart.push(item);
+
+    updateCartUI();
 }
 
 function removeFromCart(cartIndex) {
-    // Removes the specific item using its index in the cart
     cart.splice(cartIndex, 1);
-    
-    // Refresh the UI to show updated list and total
     updateCartUI();
 }
 
@@ -132,41 +107,23 @@ function updateCartUI() {
     
     if (!cartList || !totalSpan) return;
 
-    // Clear the current list to prevent duplication
     cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
-        const itemPrice = parseFloat(item.price) || 0;
-        total += itemPrice;
-        
-        // RECTIFIED: Dynamic HTML with Image and Delete button
+        total += parseInt(item.price);
         cartList.innerHTML += `
-            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 8px; border-bottom: 1px solid #eee;">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <img src="${item.image}" 
-                         style="width:50px; height:50px; object-fit:cover; border-radius:5px;" 
-                         onerror="this.src='https://via.placeholder.com'">
-                    <div>
-                        <span style="display:block; font-weight:bold; text-transform:capitalize;">${item.name}</span>
-                        <span>₹${itemPrice}</span>
-                    </div>
+            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Image added here -->
+                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
+                    <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
                 </div>
-                <button onclick="removeFromCart(${index})" 
-                        style="background:#e74c3c; color:white; border:none; padding: 5px 10px; cursor:pointer; border-radius:4px;">
-                    Delete
-                </button>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
-
-    // Update the total display dynamically
-    totalSpan.innerText = total.toLocaleString('en-IN');
+    totalSpan.innerText = total;
 }
-
-
-
-
-
 
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
@@ -251,18 +208,11 @@ function saveEdit() {
     saveAndRefresh();
 }
 
-// --- ADD THIS FUNCTION (REQUIRED FOR ADMIN ACTIONS) ---
 function saveAndRefresh() {
-    // Save updated products to localStorage
     localStorage.setItem('pickles', JSON.stringify(products));
-    
-    // Refresh both views to keep data in sync
+    document.getElementById('pName').value = "";
+    document.getElementById('pPrice').value = "";
     displayAdminProducts();
-    displayUserProducts();
-    
-    // Clear inputs if they exist
-    if(document.getElementById('pName')) document.getElementById('pName').value = "";
-    if(document.getElementById('pPrice')) document.getElementById('pPrice').value = "";
 }
 
 function logout() {
