@@ -16,15 +16,7 @@ const defaultPickles = [
 
 ];
 
-let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
 
-// --- RECTIFIED: AUTO-DISPLAY ON LOAD ---
-// This ensures that as soon as the page opens, the products are visible.
-document.addEventListener("DOMContentLoaded", function() {
-    displayUserProducts(); 
-    // If you want admin to see items immediately too:
-    if(document.getElementById('adminBody')) displayAdminProducts();
-});
 // 3. రిజిస్ట్రేషన్ & లాగిన్
 function register() {
     const user = document.getElementById('regUser').value;
