@@ -1,7 +1,7 @@
 
 // 1. డేటా సెటప్
 
-let cart = []; 
+
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
@@ -100,6 +100,7 @@ function displayUserProducts() {
 
 6.// కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
 // 1. Ensure your variables are initialized globally
+let cart = []; 
 function addToCart(index) {
     // RECTIFIED: Access 'defaultpickles' instead of 'products'
     if (typeof defaultpickles !== 'undefined' && defaultpickles[index]) {
