@@ -1,3 +1,4 @@
+
 // 1. డేటా సెటప్
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
@@ -88,13 +89,9 @@ function displayUserProducts() {
 
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
-// 6. కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
 function addToCart(index) {
-    // CHANGE: Use 'products' (the current list) instead of 'defaultPickles'
-    const item = products[index]; 
-    
-    // Add a copy to the cart to prevent reference issues
-    cart.push({...item});
+    const item = defaultPickles[index];
+    cart.push(item);
 
     updateCartUI();
 }
@@ -114,24 +111,19 @@ function updateCartUI() {
     let total = 0;
 
     cart.forEach((item, index) => {
-        // Use Number() or parseInt() to ensure it's treated as a number
-        const price = Number(item.price) || 0;
-        total += price;
-        
+        total += parseInt(item.price);
         cartList.innerHTML += `
             <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Image added here -->
                     <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
-                    <span style="text-transform: capitalize;">${item.name} - ₹${price}</span>
+                    <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
                 </div>
                 <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
-    
-    // Update the UI with the fresh total
     totalSpan.innerText = total;
 }
-
 
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
