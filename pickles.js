@@ -102,11 +102,19 @@ function displayUserProducts() {
 // 1. Ensure your variables are initialized globally
 
 function addToCart(index) {
-    // Accessing 'defaultpickles' as requested
-    if (defaultpickles && defaultpickles[index]) {
-        const item = defaultpickles[index];
+    // Check if products exists and the index is valid
+    if (typeof products !== 'undefined' && products[index]) {
+        const item = products[index];
+        
+        // Use spread to avoid reference issues
         cart.push({...item}); 
+        
+        console.log("Added to cart:", item.name);
+        
+        // Refresh the display
         updateCartUI();
+    } else {
+        console.error("Product list not found or invalid index:", index);
     }
 }
 
@@ -119,37 +127,35 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    if (!cartList || !totalSpan) return;
+    // Safety check: ensure elements exist in the DOM
+    if (!cartList || !totalSpan) {
+        console.error("UI Elements 'cartItems' or 'cartTotal' not found in HTML");
+        return;
+    }
 
-    cartList.innerHTML = ""; // Clear existing items
+    // Clear list before re-rendering
+    cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += Number(item.price);
+        // Ensure price is treated as a number
+        const itemPrice = parseFloat(item.price) || 0;
+        total += itemPrice;
         
-        // 2. Displaying the image using the <img> tag
-        // 'onerror' provides a fallback image if the URL is broken
+        // Append the new list item
         cartList.innerHTML += `
-            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <img src="${item.image}" 
-                         style="width:60px; height:60px; object-fit:cover; border-radius:8px; border: 1px solid #ddd;" 
-                         onerror="this.src='https://via.placeholder.com'">
-                    <div>
-                        <strong style="text-transform: capitalize; display: block;">${item.name}</strong>
-                        <span style="color: #666;">₹${item.price}</span>
-                    </div>
+            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
+                    <span style="text-transform: capitalize;">${item.name} - ₹${itemPrice}</span>
                 </div>
-                <button onclick="removeFromCart(${index})" 
-                        style="background:#ff4d4d; color:white; border:none; padding: 6px 12px; cursor:pointer; border-radius:4px; font-weight:bold;">
-                    Delete
-                </button>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 10px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
-    
-    totalSpan.innerText = total.toLocaleString('en-IN'); 
-}
 
+    // Update the total display
+    totalSpan.innerText = total.toLocaleString('en-IN'); // Formats as Indian currency
+}
 
 
 
