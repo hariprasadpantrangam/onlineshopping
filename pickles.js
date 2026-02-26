@@ -100,26 +100,28 @@ function displayUserProducts() {
 
 6.// కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
 // 1. Ensure your variables are initialized globally
-
 function addToCart(index) {
-    // Check if products exists and the index is valid
-    if (typeof products !== 'undefined' && products[index]) {
-        const item = products[index];
+    // RECTIFIED: Access 'defaultpickles' instead of 'products'
+    if (typeof defaultpickles !== 'undefined' && defaultpickles[index]) {
+        const item = defaultpickles[index];
         
-        // Use spread to avoid reference issues
-        cart.push({...item}); 
+        // Push a copy to the cart
+        cart.push({ ...item });
         
         console.log("Added to cart:", item.name);
         
-        // Refresh the display
+        // Refresh the UI
         updateCartUI();
     } else {
-        console.error("Product list not found or invalid index:", index);
+        console.error("Pickle not found at index:", index);
     }
 }
 
 function removeFromCart(cartIndex) {
+    // Removes the specific item using its index in the cart
     cart.splice(cartIndex, 1);
+    
+    // Refresh the UI to show updated list and total
     updateCartUI();
 }
 
@@ -127,35 +129,40 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    // Safety check: ensure elements exist in the DOM
-    if (!cartList || !totalSpan) {
-        console.error("UI Elements 'cartItems' or 'cartTotal' not found in HTML");
-        return;
-    }
+    if (!cartList || !totalSpan) return;
 
-    // Clear list before re-rendering
+    // Clear the current list to prevent duplication
     cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
-        // Ensure price is treated as a number
         const itemPrice = parseFloat(item.price) || 0;
         total += itemPrice;
         
-        // Append the new list item
+        // RECTIFIED: Dynamic HTML with Image and Delete button
         cartList.innerHTML += `
-            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
-                    <span style="text-transform: capitalize;">${item.name} - ₹${itemPrice}</span>
+            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 8px; border-bottom: 1px solid #eee;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <img src="${item.image}" 
+                         style="width:50px; height:50px; object-fit:cover; border-radius:5px;" 
+                         onerror="this.src='https://via.placeholder.com'">
+                    <div>
+                        <span style="display:block; font-weight:bold; text-transform:capitalize;">${item.name}</span>
+                        <span>₹${itemPrice}</span>
+                    </div>
                 </div>
-                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 10px; cursor:pointer; border-radius:3px;">Delete</button>
+                <button onclick="removeFromCart(${index})" 
+                        style="background:#e74c3c; color:white; border:none; padding: 5px 10px; cursor:pointer; border-radius:4px;">
+                    Delete
+                </button>
             </li>`;
     });
 
-    // Update the total display
-    totalSpan.innerText = total.toLocaleString('en-IN'); // Formats as Indian currency
+    // Update the total display dynamically
+    totalSpan.innerText = total.toLocaleString('en-IN');
 }
+
+
 
 
 
