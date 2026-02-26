@@ -17,14 +17,14 @@ const defaultPickles = [
 ];
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
- // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
 
-// 2. సెక్షన్ల మార్పు
-function showSection(id) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-}
-
+// --- RECTIFIED: AUTO-DISPLAY ON LOAD ---
+// This ensures that as soon as the page opens, the products are visible.
+document.addEventListener("DOMContentLoaded", function() {
+    displayUserProducts(); 
+    // If you want admin to see items immediately too:
+    if(document.getElementById('adminBody')) displayAdminProducts();
+});
 // 3. రిజిస్ట్రేషన్ & లాగిన్
 function register() {
     const user = document.getElementById('regUser').value;
@@ -99,23 +99,34 @@ function displayUserProducts() {
 
 
 // 6. కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
+// function addToCart(index) {
+//     // FIX: Access 'products' because that's what the User Panel displays
+//     if (products && products[index]) {
+//         const item = products[index];
+        
+//         // Push a copy of the item to the cart array
+//         cart.push({...item}); 
+        
+//         console.log("Added to cart:", item.name);
+        
+//         // Important: Update the UI immediately after adding
+//         updateCartUI();
+        
+//         // Optional: Provide feedback to the user
+//         alert(`${item.name} added to cart!`);
+//     } else {
+//         console.error("Could not find product at index:", index);
+//     }
+// }
+
+// 6. కార్ట్ లాజిక్ (Add to Cart - FIX)
 function addToCart(index) {
-    // FIX: Access 'products' because that's what the User Panel displays
-    if (products && products[index]) {
+    // ALWAYS use 'products' array here to match what is displayed
+    if (products[index]) {
         const item = products[index];
-        
-        // Push a copy of the item to the cart array
         cart.push({...item}); 
-        
-        console.log("Added to cart:", item.name);
-        
-        // Important: Update the UI immediately after adding
         updateCartUI();
-        
-        // Optional: Provide feedback to the user
         alert(`${item.name} added to cart!`);
-    } else {
-        console.error("Could not find product at index:", index);
     }
 }
 
