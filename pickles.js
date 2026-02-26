@@ -98,26 +98,26 @@ function displayUserProducts() {
 // 1. You must initialize the cart array outside the function
 
 
-// 6. కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
-// function addToCart(index) {
-//     // FIX: Access 'products' because that's what the User Panel displays
-//     if (products && products[index]) {
-//         const item = products[index];
+6.// కార్ట్ లాజిక్ (Add & Delete) - RECTIFIED
+function addToCart(index) {
+    // FIX: Access 'products' because that's what the User Panel displays
+    if (products && products[index]) {
+        const item = products[index];
         
-//         // Push a copy of the item to the cart array
-//         cart.push({...item}); 
+        // Push a copy of the item to the cart array
+        cart.push({...item}); 
         
-//         console.log("Added to cart:", item.name);
+        console.log("Added to cart:", item.name);
         
-//         // Important: Update the UI immediately after adding
-//         updateCartUI();
+        // Important: Update the UI immediately after adding
+        updateCartUI();
         
-//         // Optional: Provide feedback to the user
-//         alert(`${item.name} added to cart!`);
-//     } else {
-//         console.error("Could not find product at index:", index);
-//     }
-// }
+        // Optional: Provide feedback to the user
+        alert(`${item.name} added to cart!`);
+    } else {
+        console.error("Could not find product at index:", index);
+    }
+}
 
 
 
