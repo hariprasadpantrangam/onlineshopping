@@ -16,11 +16,7 @@
             text-transform: uppercase;
         }
 
-       .heading{
-        text-align: center;
-        font-size:30px;
-        text-shadow: #95a5a6;
-       }
+    
        
         /* Table Style for Admin */
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -44,8 +40,8 @@
 
     <!-- Registration Page (Initially Active) -->
     <div id="registerSection" class="section active">
-        <h1 class="heading">చందన పికిల్స్  </h1>
-        <!-- <h2>Register Admin Account</h2> -->
+        <h1>చందన పికిల్స్  </h1>
+        <h2>Register Admin Account</h2>
         <p>Tip: Use <b>admXX</b> and <b>77XX</b> for Admin access.</p>
         <!-- <input type="text" id="regUser" placeholder="Username">
         <input type="password" id="regPass" placeholder="Password">
@@ -70,7 +66,6 @@
             <input type="hidden" id="editIndex">
             <input type="text" id="pName" placeholder="Pickle Name">
             <input type="number" id="pPrice" placeholder="Price">
-            <input type="text" id="pStatus" placeholder="status">
             <button id="addBtn" onclick="addProduct()">Add Product</button>
             <button id="updateBtn" style="display:none; background: #27ae60;" onclick="saveEdit()">Update Product</button>
         </div>
