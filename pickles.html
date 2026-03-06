@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <title>Pickle Store - Admin & User Panel</title>
     <style>
+        /* Media Query for Laptop Screens (Min-width 1024px) */
+@media screen and (min-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 items per row on laptop */
+        gap: 30px;
+    }
+    
+    .card img {
+        width: 100%;       /* Ensures image fills card width */
+        height: 200px;     /* Set a fixed height for consistency */
+        object-fit: cover; /* Prevents image distortion */
+        display: block;    /* Ensures image is visible */
+        border-radius: 8px;
+    }
+
+    .section {
+        max-width: 1100px; /* Wider container for laptop */
+    }
+}
+
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f9f9f9; }
         .section { display: none; border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: white; max-width: 900px; margin: auto; }
         .active { display: block; }
