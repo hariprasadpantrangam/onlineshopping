@@ -1,14 +1,25 @@
 
 // 1. డేటా సెటప్
+// const defaultPickles = [
+//     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
+//     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
+//     { name: "gongura", price: 100,image: "../onlineshopping/public/gongura.jpeg"},
+//     { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
+//     { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
+//     { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
+//     { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"}
+// ];
+
 const defaultPickles = [
-    { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
-    { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
-    { name: "gongura", price: 100,image: "../onlineshopping/public/gongura.jpeg"},
-    { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
-    { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
-    { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
-    { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"}
+    { name: "lemon", price: 130, image: "/lemon.jpeg"},
+    { name: "mango", price: 120, image: "/mango.jpeg"},
+    { name: "gongura", price: 100, image: "/gongura.jpeg"},
+    { name: "tomato", price: 130, image: "/tomato.jpeg"},
+    { name: "bitter gourd", price: 130, image: "/kakara.jpeg"},
+    { name: "amla", price: 150, image: "/usiri.jpeg"},
+    { name: "karivepaku", price: 130, image: "/karivepaku.jpeg"}
 ];
+
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
 let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
