@@ -1,25 +1,13 @@
-
 // 1. డేటా సెటప్
-// const defaultPickles = [
-//     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
-//     { name: "mango", price: 120,image: "../onlineshopping/public/mango.jpeg"},
-//     { name: "gongura", price: 100,image: "../onlineshopping/public/gongura.jpeg"},
-//     { name: "tomato", price: 130,image: "../onlineshopping/public/tomato.jpeg"},
-//     { name: "bitter gourd", price: 130,image: "../onlineshopping/public/kakara.jpeg"},
-//     { name: "amla", price: 150,image: "../onlineshopping/public/usiri.jpeg"},
-//     { name: "karivepaku", price: 130,image: "../onlineshopping/public/karivepaku.jpeg"}
-// ];
-
 const defaultPickles = [
-    { name: "lemon", price: 130, image: "/lemon.jpeg"},
-    { name: "mango", price: 120, image: "/mango.jpeg"},
-    { name: "gongura", price: 100, image: "/gongura.jpeg"},
-    { name: "tomato", price: 130, image: "/tomato.jpeg"},
-    { name: "bitter gourd", price: 130, image: "/kakara.jpeg"},
-    { name: "amla", price: 150, image: "/usiri.jpeg"},
-    { name: "karivepaku", price: 130, image: "/karivepaku.jpeg"}
+    { name: "lemon", price: 130 },
+    { name: "mango", price: 120 },
+    { name: "gongura", price: 100 },
+    { name: "tomato", price: 130 },
+    { name: "bitter gourd", price: 130 },
+    { name: "amla", price: 150 },
+    { name: "karivepaku", price: 130 }
 ];
-
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
 let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
@@ -30,7 +18,7 @@ function showSection(id) {
     document.getElementById(id).classList.add('active');
 }
 
-// 3. రిజిస్ట్రేషన్ & లాగిన్    
+// 3. రిజిస్ట్రేషన్ & లాగిన్
 function register() {
     const user = document.getElementById('regUser').value;
     const pass = document.getElementById('regPass').value;
@@ -65,51 +53,35 @@ function displayAdminProducts() {
             <tr>
                 <td style="text-transform: capitalize;">${p.name}</td>
                 <td>₹${p.price}</td>
-                <td><img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:5px;"></td>
                 <td>
-                    <button style="background:#f39c12; color:white; border:none; padding:5px; cursor:pointer;" onclick="editProduct(${index})">Edit</button>
-                    <button style="background:#e74c3c; color:white; border:none; padding:5px; cursor:pointer;" onclick="deleteProduct(${index})">Delete</button>
+                    <button style="background:#f39c12" onclick="editProduct(${index})">Edit</button>
+                    <button style="background:#e74c3c" onclick="deleteProduct(${index})">Delete</button>
                 </td>
             </tr>`;
     });
 }
 
-
 // 5. యూజర్ ప్యానెల్ (Card Format with Add to Cart)
-// 5. యూజర్ ప్యానెల్ - ఇక్కడ 'products' అరే వాడుతున్నారు
 function displayUserProducts() {
     const container = document.getElementById('userCardContainer');
-    if (!container) return;
     container.innerHTML = "";
-    
     products.forEach((p, index) => {
         container.innerHTML += `
-            <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 10px;">
-                <img src="${p.image}" style="width:100%; height:150px; border-radius:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com'">
-                <h3 style="text-transform: capitalize; margin: 10px 0;">${p.name}</h3>
-                <p style="color: #2ecc71; font-weight: bold;">₹${p.price}</p>
-                <button class="order-btn" style="background:#2ecc71; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px;" 
-                        onclick="addToCart(${index})"> <!-- ఇండెక్స్ పంపిస్తున్నాము -->
-                    Add to Cart
-                </button>
+            <div class="card">
+                <img src="https://via.placeholder.com" alt="pickle" style="width:80px; border-radius:50%">
+                <h3 style="text-transform: capitalize;">${p.name}</h3>
+                <p>₹${p.price}</p>
+                <button class="order-btn" style="background:#2ecc71" onclick="addToCart(${index})">Add to Cart</button>
             </div>`;
     });
+    updateCartUI(); // లాగిన్ అవ్వగానే కార్ట్ ని రీఫ్రెష్ చేస్తుంది
 }
 
-// 6. కార్ట్ లాజిక్ - ఇక్కడ మార్పు చేసాను (Rectified)
+// 6. కార్ట్ లాజిక్ (Add & Delete)
 function addToCart(index) {
-    // ఇష్యూ: ఇక్కడ 'defaultPickles' బదులు 'products' వాడాలి
-    if (products && products[index]) {
-        const item = products[index]; 
-        
-        // కార్ట్ లోకి ఆ నిర్దిష్ట ఐటమ్ ని కాపీ చేయడం
-        cart.push({...item}); 
-        
-        console.log("Added to cart:", item.name);
-        updateCartUI();
-    } else {
-        console.error("Product not found!");
-    }
+    const item = products[index];
+    cart.push(item);
+    updateCartUI();
 }
 
 function removeFromCart(cartIndex) {
@@ -121,26 +93,21 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    if (!cartList || !totalSpan) return;
+    if (!cartList || !totalSpan) return; // HTML లో ఎలిమెంట్స్ ఉన్నాయో లేదో చెక్ చేస్తుంది
 
     cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += parseInt(item.price) || 0;
+        total += parseInt(item.price);
         cartList.innerHTML += `
             <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
-                    <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
-                </div>
-                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
+                <span>${item.name} - ₹${item.price}</span>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 2px 8px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
-    totalSpan.innerText = total.toLocaleString('en-IN');
+    totalSpan.innerText = total;
 }
-
-
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
 function sendToWhatsApp() {
