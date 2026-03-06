@@ -3,210 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hariprasad Technologies</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net">
-    <style>
-        /* Custom Styles */
-        :root {
-            --brand-color: deeppink;
-            --brand-hover: #218838;
-        }
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<style>
+/* 1. Remove underlines from all links inside buttons */
+button a {
+    text-decoration: none;
+    color: inherit; /* Keeps the link color matching the button text */
+    display: block; /* Makes the entire button clickable */
+    background-color: deeppink;
+    color:white;
+}
 
-        body { background-color: #f4f7f6; }
+button a:hover {
+    text-decoration: none;
+    /* Keeps the link color matching the button text */
+    display: block; /* Makes the entire button clickable */
+    background-color: green;
+    color:white;
+}
 
-        /* Navbar Customization */
-        .navbar {
-            background-color: var(--brand-color) !important;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .navbar-brand, .nav-link { color: white !important; font-weight: 500; }
-        .nav-link:hover { color: #ffd1dc !important; }
+/* 2. Default Mobile Styles (Small screens) */
+body {
+    padding: 10px;
+    text-align: center;
+}
+button {
+    width: 100%; /* Full width buttons on mobile */
+    margin-bottom: 10px;
+    padding: 10px;
+}
 
-        /* Remove underlines and style buttons in navbar */
-        .nav-item .btn-nav {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            margin: 0 5px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .nav-item .btn-nav:hover { background: var(--brand-hover); }
-        .btn-nav a { text-decoration: none; color: white; display: block; padding: 8px 15px; }
-
-        /* Hero Section */
-        .hero {
-            padding: 60px 0;
-            background: white;
-            border-bottom: 5px solid var(--brand-color);
-        }
-        .profile-img {
-            border: 6px solid var(--brand-color);
-            padding: 5px;
-            transition: transform 0.4s;
-        }
-        .profile-img:hover { transform: rotate(5deg) scale(1.05); }
-
-        marquee {
-            background-color: green;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
-        }
-        
-    /* Custom Variables */
-    /* :root {
-        --brand-color: deeppink;
-        --brand-hover: #218838;
-    } */
-
-    body { background-color: #f4f7f6; overflow-x: hidden; }
-
-    /* Navbar styling */
-    .navbar {
-        background-color: var(--brand-color) !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .navbar-brand, .nav-link { color: white !important; font-weight: 500; }
-    
-    /* Link cleaning */
-    .nav-item .btn-nav {
-        background: rgba(255, 255, 255, 0.2);
-        border: none;
+/* 3. Tablet Styles (Screens wider than 600px) */
+@media screen and (min-width: 600px) {
+    button {
+        width: 45%; /* Two buttons per row */
         margin: 5px;
-        border-radius: 5px;
-        transition: 0.3s;
     }
-    .btn-nav a { text-decoration: none; color: white; display: block; padding: 8px 15px; }
-    .nav-item .btn-nav:hover { background: var(--brand-hover); }
+    h1 { font-size: 24px; }
+}
 
-    /* Hero Section Defaults */
-    .hero { padding: 40px 0; background: white; border-bottom: 5px solid var(--brand-color); }
-    .profile-img {
-        border: 6px solid var(--brand-color);
-        padding: 5px;
-        transition: transform 0.4s;
+/* 4. Laptop/Desktop Styles (Screens wider than 1024px) */
+@media screen and (min-width: 1024px) {
+    button {
+        width: auto; /* Normal size buttons */
+        padding: 10px 20px;
+   
     }
-
-    /* ==========================================
-       MEDIA QUERIES FOR DIFFERENT SCREENS
-       ========================================== */
-
-    /* 1. MOBILE SCREENS (Extra Small to Small) */
-    @media (max-width: 576px) {
-        .display-4 { font-size: 1.8rem; } /* Smaller heading */
-        .profile-img { width: 140px; height: 140px; } /* Smaller profile pic */
-        .btn-nav { width: 100%; margin: 5px 0; } /* Stacked buttons in menu */
-        .hero { padding: 30px 10px; }
-        h2.text-danger { font-size: 1.2rem; }
+    .container-fluid {
+        max-width: 1200px;
+        margin: 0 auto;
     }
+}
 
-    /* 2. TABLET SCREENS (Medium) */
-    @media (min-width: 577px) and (max-width: 991px) {
-        .display-4 { font-size: 2.5rem; }
-        .profile-img { width: 160px; height: 160px; }
-        .navbar-nav { padding-top: 15px; } /* Space for collapsed menu */
-    }
-
-    /* 3. LAPTOP/DESKTOP SCREENS (Large and up) */
-    @media (min-width: 992px) {
-        .display-4 { font-size: 3.5rem; }
-        .profile-img { width: 200px; height: 200px; }
-        .hero { padding: 80px 0; }
-        .profile-img:hover { transform: rotate(5deg) scale(1.1); } /* Hover only on desktop */
-    }
-
-    marquee {
-        background-color: green;
-        color: white;
-        padding: 10px;
-        font-weight: bold;
-    }
-
-    </style>
-</head>
-<body>
-
-    <!-- Main Navigation Bar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#"><i class="bi bi-cpu-fill"></i> HARIPRASAD TECH</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto text-center">
-                    <li class="nav-item btn-nav"><a href="home.html">Home</a></li>
-                    <!-- Dropdown for Shopping -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle btn-nav" href="#" role="button" data-bs-toggle="dropdown">Shop</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="chandanashopping.html">Chandana Mall</a></li>
-                            <li><a class="dropdown-item" href="fakestoreapi.html">FakeStore API</a></li>
-                            <li><a class="dropdown-item" href="pickles.html">Pickles Page</a></li>
-                        </ul>
-                    </li>
-                    <!-- Dropdown for Food/Booking -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle btn-nav" href="#" role="button" data-bs-toggle="dropdown">Bookings</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="kfcorder.html">KFC Order</a></li>
-                            <li><a class="dropdown-item" href="hotelbook.html">Hotel Book</a></li>
-                            <li><a class="dropdown-item" href="moviebook.html">Movie Tickets</a></li>
-                            <li><a class="dropdown-item" href="kalyanamandapam.html">Kalyana Mandapam</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item btn-nav"><a href="portfolio.html">Portfolio</a></li>
-                    <li class="nav-item btn-nav"><a href="loginpage.html">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Content -->
-    <section class="hero text-center">
-        <div class="container">
-            <h2 class="text-danger fw-bold mb-3"><i class="bi bi-person-fill"></i> PANTRANGAM HARIPRASAD</h2>
-            <img src="../onlineshopping/public/success.avif" width="180" height="180" alt="Portfolio" class="rounded-circle profile-img mb-3">
-            <h1 class="display-4 fw-bold mb-3" style="color: var(--brand-color)">Online Shopping Hub</h1>
-            <p class="lead">Welcome to the future of shopping and technology solutions.</p>
-        </div>
-    </section>
-
-    <marquee>Hariprasad Technologies, Hyderabad | Specializing in CRUD Apps, APIs, and Web Design</marquee>
-
-    <!-- Main Content Area -->
-    <div class="container my-5 text-center">
-        <div class="row g-4 justify-content-center">
-            <h3 class="mb-4">Quick Access Dashbaord</h3>
-            
-            <!-- Grid of remaining links as modern cards -->
-            <div class="col-6 col-md-3">
-                <a href="temple.html" class="btn btn-outline-danger w-100 py-3"><i class="bi bi-sun"></i><br>Shiva Temple</a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="result.html" class="btn btn-outline-primary w-100 py-3"><i class="bi bi-check-circle"></i><br>Results</a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="employeecrud.html" class="btn btn-outline-dark w-100 py-3"><i class="bi bi-gear"></i><br>CRUD App</a>
-            </div>
-            <div class="col-6 col-md-3">
-                <a href="onlinecourses.html" class="btn btn-outline-success w-100 py-3"><i class="bi bi-book"></i><br>Courses</a>
-            </div>
-        </div>
-
-        <div class="mt-5">
-            <h5 class="fw-bold">Contact Support: <span class="text-success">9573572830</span></h5>
-        </div>
-    </div>
-
-    <footer class="bg-dark text-white text-center py-4">
-        <p class="mb-0">&copy; 2024 Hariprasad Technologies. All Rights Reserved.</p>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net"></script>
+</style>
+ </head>
+<body class="container-fluid">
+<h2 class="bg-danger text-white text-center"><span class="bi bi-person-fill">PANTRANGAM HARIPRASAD</span></h2>
+<img src="../onlineshopping/public/success.avif" width="200" height="200" alt="portFolio">
+  <h1 style="background-color: deeppink; color:white">online shopping</h1> 
+   <h2>welcome to home page</h2>
+   <marquee style="background-color: green;">hariprasad technologies,hyderabad</marquee>
+   <h4>for more details contact cell:9573572830</h4>
+   <button><a href="temple.html">shiva temple</a></button>
+  <button> <a href="home.html">click here to open home page</a></button><br>
+   <button><a href="kfcorder.html">click here for kfc order</a></button><br>
+  <button> <a href="hotelbook.html">hotelbook</a></button><br>
+  <button> <a href="portfolio.html">portfolio site</a></button>
+   <button><a href="fakestoreapi.html">fake storeapi</a></button>
+  <button> <a href="result.html">results page</a></button>
+  <button><a href="chandanashopping.html">chandana shopping mall</a></button>
+  <button><a href="carousel.html">carousel</a></button>
+  <button><a href="employeecrud.html">employee crudapp</a></button>
+  <button> <a href="onlinecourses.html">onlinecourses</a></button>
+  <button> <a href="moviebook.html">book movie</a></button>
+  <button> <a href="loginpage.html">login page</a></button>
+  <button><a href="moviesjson.html">moviespage</a></button>
+  <button><a href="kalyanamandapam.html">tvr kalyana mandapam</a></button>
+  <button><a href="chandanapickles.html">chandana pickles</a></button>
+  <button><a href="pickles.html">picklespage</a></button>
+   
 </body>
-</html>
+</html>  
