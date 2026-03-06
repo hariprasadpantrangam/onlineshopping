@@ -1,4 +1,3 @@
-
 // 1. డేటా సెటప్
 const defaultPickles = [
     { name: "lemon", price: 130,image: "../onlineshopping/public/lemon.jpeg"},
@@ -211,16 +210,4 @@ function saveEdit() {
     document.getElementById('addBtn').style.display = "inline";
     document.getElementById('updateBtn').style.display = "none";
     saveAndRefresh();
-}
-
-function saveAndRefresh() {
-    localStorage.setItem('pickles', JSON.stringify(products));
-    document.getElementById('pName').value = "";
-    document.getElementById('pPrice').value = "";
-    displayAdminProducts();
-}
-
-function logout() {
-    cart = []; // లాగౌట్ అయినప్పుడు కార్ట్ క్లియర్ చేస్తుంది
-    showSection('loginSection');
 }
