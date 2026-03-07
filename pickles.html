@@ -1,113 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pickle Store - Admin & User Panel</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f9f9f9; }
-        .section { display: none; border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: white; max-width: 900px; margin: auto; }
-        .active { display: block; }
-
-        .titlechandana,#admintitle{
-            background-color:gold;
-            color:white;
-            text-align: center;
-            text-shadow: #ccc;
-            text-transform: uppercase;
-        }
-        .heading{
-             background-color:gold;
-            color:white;
-            text-align: center;
-            text-shadow:black; 
-        }
-       
-        /* Table Style for Admin */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #4CAF50; color: white; }
-
-        /* Card Style for User */
-        .card-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card { border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .card h3 { margin: 10px 0; text-transform: capitalize; }
-        .card p { color: #2ecc71; font-weight: bold; font-size: 1.2rem; }
-        .order-btn { background: #e67e22; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-
-        input { padding: 8px; margin: 5px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 8px 15px; cursor: pointer; border-radius: 4px; border: none; background: #3498db; color: white; }
-        button:hover { opacity: 0.8; }
-        .logout-btn { background: #e74c3c; margin-top: 20px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Chandana Pickles</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .card { border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px; width: 200px; display:inline-block; vertical-align:top; }
+    .card img { width:100%; height:150px; border-radius:8px; object-fit:cover; }
+    .order-btn { background:#2ecc71; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px; }
+    #cartItems li { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px; }
+    #cartItems img { width:40px; height:40px; object-fit:cover; border-radius:5px; }
+    #cartSummary { margin-top:20px; border:1px solid #ddd; padding:15px; border-radius:10px; width:350px; }
+    #whatsappBtn { background:#25D366; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px; margin-top:10px; font-weight:bold; }
+  </style>
 </head>
 <body>
 
-    <!-- Registration Page (Initially Active) -->
-    <div id="registerSection" class="section active">
-        <h1 class="heading">సుస్వాగతం! చందన పికిల్స్</h1>
-        <!-- <h2>Register Admin Account</h2> -->
-   
-        <!-- <input type="text" id="regUser" placeholder="Username">
-        <input type="password" id="regPass" placeholder="Password">
-        <br><br>
-        <button onclick="register()">Register</button> -->
-        <button style="background: #19cbd7; color:white;" onclick="showSection('loginSection')">Login</button>
-    </div>
+<h1>🍋 Chandana Pickles</h1>
 
-    <!-- Login Page -->
-     <p>Tip: Use <b>adXXX</b> and <b>77XX</b> for Admin access.</p>
-    <div id="loginSection" class="section">
-        <h2>Login</h2>
-        <input type="text" id="loginUser" placeholder="Username">
-        <input type="password" id="loginPass" placeholder="Password">
-        <br><br>
-        <button onclick="login()">Login</button>
-    </div>
+<div id="userCardContainer"></div>
 
-    <!-- Admin Panel (Table CRUD) -->
-    <div id="adminPanel" class="section">
-        <h2 id="admintitle">Admin Panel - Manage Inventory (chandana pickles)</h2>
-        <div style="background: #f0f0f0; padding: 15px; border-radius: 5px;">
-            <input type="hidden" id="editIndex">
-            <input type="text" id="pName" placeholder="Pickle Name">
-            <input type="number" id="pPrice" placeholder="Price">
-            <button id="addBtn" onclick="addProduct()">Add Product</button>
-            <button id="updateBtn" style="display:none; background: #27ae60;" onclick="saveEdit()">Update Product</button>
-        </div>
-        
-        <table id="adminTable">
-            <thead>
-                <tr><th>Pickle Name</th><th>Price (₹)</th><th>Actions</th></tr>
-            </thead>
-            <tbody id="adminBody"></tbody>
-        </table>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
-  <!-- User Panel (Card View + Cart) -->
-<div id="userPanel" class="section">
-    <h2 class="titlechandana">chandana pickles</h2>
-    
-    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-        <!-- Products Grid -->
-        <div id="userCardContainer" class="card-container" style="flex: 2;"></div>
-
-        <!-- Cart Section -->
-        <div id="cartSection" style="flex: 1; border: 1px solid #ddd; padding: 15px; border-radius: 10px; background: #fff; min-width: 250px;">
-            <h3>Your Cart 🛒</h3>
-            <ul id="cartItems" style="list-style: none; padding: 0;"></ul>
-            <hr>
-            <p><strong>Total: ₹<span id="cartTotal">0</span></strong></p>
-            <button onclick="sendToWhatsApp()" style="background: #25D366; width: 100%; font-weight: bold;">Confirm Order (WhatsApp)</button>
-        </div>
-    </div>
-    
-    <button class="logout-btn" onclick="logout()">Logout</button>
+<div id="cartSummary">
+  <h2>Your Cart 🛒</h2>
+  <ul id="cartItems"></ul>
+  <p><strong>Total: ₹<span id="cartTotal">0</span></strong></p>
+  <button id="whatsappBtn" onclick="sendToWhatsApp()">Confirm Order (WhatsApp)</button>
 </div>
 
+<script>
+let cart = [];
 
-    <script src="pickles.js"></script>
-    <a href="index.html">go to home</a>
+const defaultPickles = [
+  { name: "Mango Pickle", price: 120, image: "mango.jpeg" },
+  { name: "Lemon Pickle", price: 130, image: "lemon.jpeg" },
+  { name: "Garlic Pickle", price: 140, image: "garlic.jpeg" },
+  { name: "Tomato Pickle", price: 130, image: "tomato.jpeg" },
+  { name: "Usiri Pickle", price: 150, image: "usiri.jpeg" },
+  { name: "Red Mirchi Pickle", price: 160, image: "redmirchi.jpeg" },
+  { name: "Ginger Pickle", price: 140, image: "ginger.jpeg" },
+  { name: "Gongura Pickle", price: 150, image: "gongura.jpeg" },
+  { name: "Karivepaku Pickle", price: 150, image: "karivepaku.jpeg" },
+  { name: "Tamarind Pickle", price: 140, image: "tamarind.jpeg" },
+  { name: "Kakara Pickle", price: 130, image: "kakara.jpeg" }
+];
+
+let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
+
+// యూజర్ ప్యానెల్ - కార్డ్ ఫార్మాట్
+function displayUserProducts() {
+  const container = document.getElementById('userCardContainer');
+  container.innerHTML = "";
+  
+  products.forEach((p, index) => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.image}" onerror="this.src='https://via.placeholder.com/150'">
+        <h3>${p.name}</h3>
+        <p style="color:#2ecc71; font-weight:bold;">₹${p.price}</p>
+        <button class="order-btn" onclick="addToCart(${index})">Add to Cart</button>
+      </div>`;
+  });
+}
+
+// కార్ట్‌లో ఐటమ్ యాడ్ చేయడం
+function addToCart(index) {
+  if (products && products[index]) {
+    const item = products[index];
+    cart.push({...item});
+    updateCartUI();
+  }
+}
+
+// కార్ట్ నుండి ఐటమ్ తొలగించడం
+function removeFromCart(cartIndex) {
+  cart.splice(cartIndex, 1);
+  updateCartUI();
+}
+
+// కార్ట్ UI అప్డేట్
+function updateCartUI() {
+  const cartList = document.getElementById('cartItems');
+  const totalSpan = document.getElementById('cartTotal');
+  
+  cartList.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += parseInt(item.price) || 0;
+    cartList.innerHTML += `
+      <li>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <img src="${item.image}" onerror="this.src='https://via.placeholder.com/40'">
+          <span>${item.name} - ₹${item.price}</span>
+        </div>
+        <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding:4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
+      </li>`;
+  });
+  totalSpan.innerText = total.toLocaleString('en-IN');
+}
+
+// WhatsApp Integration
+function sendToWhatsApp() {
+  if (cart.length === 0) {
+    alert("మీ కార్ట్ ఖాళీగా ఉంది! దయచేసి ఐటమ్స్ యాడ్ చేయండి.");
+    return;
+  }
+
+  const phoneNumber = "919573572830"; // నీ WhatsApp నంబర్
+
+  const now = new Date();
+  const date = now.toLocaleDateString();
+  const time = now.toLocaleTimeString();
+
+  let message = "📦 *NEW PICKLE ORDER*\n";
+  message += "--------------------------\n";
+  message += `📅 *Date:* ${date}\n`;
+  message += `⏰ *Time:* ${time}\n`;
+  message += "--------------------------\n";
+  message += "*Items Ordered:*\n";
+
+  cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.name} - ₹${item.price}\n`;
+  });
+
+  const total = document.getElementById('cartTotal').innerText;
+  message += "--------------------------\n";
+  message += `💰 *Total Amount: ₹${total}*\n\n`;
+  message += "Please confirm my order! 🙏";
+
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// మొదట ప్రొడక్ట్స్ చూపించు
+displayUserProducts();
+</script>
+
 </body>
 </html>
-
