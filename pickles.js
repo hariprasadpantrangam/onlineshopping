@@ -1,19 +1,22 @@
 
-
-
-const defaultPickles = [
-    { name: "lemon", price: 130, image: "lemon.jpeg"},
-    { name: "mango", price: 120, image: "mango.jpeg"},
-    { name: "gongura", price: 100, image: "gongura.jpeg"},
-    { name: "tomato", price: 130, image: "tomato.jpeg"},
-    { name: "bitter gourd", price: 130, image: "kakara.jpeg"},
-    { name: "amla", price: 150, image: "usiri.jpeg"},
-    { name: "karivepaku", price: 130, image: "karivepaku.jpeg"}
-];
+let cart = [];
+   const defaultPickles = [
+      { name: "Mango Pickle", image: "../onlineshopping/public/mango.jpeg" },
+      { name: "Lemon Pickle", image: "../onlineshopping/public/lemon.jpeg" },
+      { name: "Garlic Pickle", image: "../onlineshopping/public/garlic.jpeg" },
+      { name: "Tomato Pickle", image: "../onlineshopping/public/tomato.jpeg" },
+      { name: "Usiri Pickle", image: "../onlineshopping/public/usiri.jpeg" },
+      { name: "Red Mirchi Pickle", image: "../onlineshopping/public/redmirchi.jpeg" },
+      { name: "Ginger Pickle", image: "../onlineshopping/public/ginger.jpeg" },
+      { name: "Gongura Pickle", image: "../onlineshopping/public/gongura.jpeg" },
+      { name: "Karivepaku Pickle", image: "../onlineshopping/public/karivepaku.jpeg" },
+      { name: "Tamarind Pickle", image: "../onlineshopping/public/tamarind.jpeg" },
+      { name: "Kakara Pickle", image: "../onlineshopping/public/kakara.jpeg" }
+    ];
 
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
-let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
+ // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
 
 // 2. సెక్షన్ల మార్పు
 function showSection(id) {
