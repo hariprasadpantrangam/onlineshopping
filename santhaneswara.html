@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spiritual Temple Website</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('../onlineshopping/public/backgroundshiva.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      background: rgba(0,0,0,0.6);
+      padding: 15px 30px;
+      gap: 15px;
+    }
+    nav button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    nav button:hover {
+      background: #ffd700;
+      color: black;
+    }
+
+    /* Info Box */
+    #info-box {
+      background: rgba(0,0,0,0.7);
+      width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      display: none; /* hidden by default */
+    }
+
+    /* Login Form */
+    .login-box {
+      background: rgba(0,0,0,0.7);
+      width: 300px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .login-box h2 {
+      margin-bottom: 20px;
+    }
+    .login-box input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    .login-box button {
+      width: 95%;
+      padding: 10px;
+      background: #ffd700;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .login-box button:hover {
+      background: #ff9900;
+    }
+
+    /* Temple Icons */
+    .temples {
+      display: flex;
+      
+      justify-content: center;
+      flex-wrap:wrap;
+      margin: 40px 0;
+      gap: 30px;
+    }
+    .temple {
+      background: rgba(0,0,0,0.6);
+      width: 140px;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      text-align: center;
+      transition: transform 0.3s;
+      padding: 10px;
+      border-radius: 50%;
+    }
+    .temple img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+    .temple:hover {
+      transform: scale(1.1);
+      background: #ffd700;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation with Buttons -->
+  <nav>
+    <img src="../onlineshopping/public/namalu.jpeg" width="50" alt="siva" />
+    <button onclick="showInfo('ఓం నమః శివాయ - Welcome to our spiritual site! mannarupoluru,new colony')">ఓం నమః శివాయ</button>
+    <button onclick="showInfo('This is the Home section. Here you will find general info.')">Home</button>
+    <button onclick="showInfo('donations:bank name:state bank of india, accno:1234XXXXX ifsc:sbinXXXX branch:sullurpet')">Donations</button>
+    <button onclick="showInfo('Services:1.santhi homam,2.navagraha homam,3.udyogahomam,4.marrige homam,5.rahu-kethu pooja')">Services</button>
+    <button onclick="showInfo('ex-members: 1.hariprasad.pantrangam 2.natam.chengaiah,3.kudiri.ramesh,4.lakshmaiah.pudi')">ex-members</button>
+    <button onclick="showInfo('Contact Us: Reach us for bookings and inquiries cell:9912672519')">Contact Us</button>
+  </nav>
+<marquee>
+శ్రీ సంతానేశ్వర సుబ్రమణేశ్వర స్వామి దేవస్థానం, మన్నరుపోలూరు, న్యూ కాలనీ, సూళ్లూరుపేట, తిరుపతి జిల్లా,
+ఆంధ్రప్రదేశ్
+</marquee>
+  <!-- Info Box -->
+  <div id="info-box"></div>
+
+  <!-- Login Form -->
+  <!-- <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button>Login</button>
+  </div> -->
+
+  <!-- Temple Icons -->
+<!-- Temple Icons -->
+<div class="temples">
+  <div class="temple">
+    <img src="../onlineshopping/public/srikalahasthri.jpg" alt="srikalahasthri" />
+    <a href="https://en.wikipedia.org/wiki/Srikalahasteeswara_temple"><p>Sri Kalahasthri</p></a>
+  </div>
+
+  <div class="temple">
+    <img src="../onlineshopping/public/srisailam.png" alt="srisailam" />
+    <a href="https://en.wikipedia.org/wiki/Srisailam"><p>Sri Srisailam</p></a>
+  </div>
+
+  <div class="temple">
+    <img src="../onlineshopping/public/arunachalam.webp" alt="arunachalam" />
+    <a href="https://en.wikipedia.org/wiki/Arunachalesvara_Temple"><p>Arunachalam</p></a>
+  </div>
+
+  <div class="temple">
+    <img src="../onlineshopping/public/rameswaram.avif" alt="rameswaram" />
+    <a href="https://en.wikipedia.org/wiki/Rameswaram"><p>Rameswaram</p></a>
+  </div>
+
+  <div class="temple">
+    <img src="../onlineshopping/public/kedarnath.jpeg" alt="Kedarnath" />
+    <a href="https://en.wikipedia.org/wiki/Kedarnath"><p>Kedarnath</p></a>
+  </div>
+
+  <div class="temple">
+    <img src="../onlineshopping/public/kashi.jpeg" alt="Kashi" />
+    <a href="https://en.wikipedia.org/wiki/Varanasi"><p>Kasi</p></a>
+  </div>
+
+  <div class="temple">
+    <img src="../onlineshopping/public/santhanewaraswami.webp" alt="mannarupolur" />
+    <a href="https://www.google.com/search?q=sri+santhaneswara+subramaneswara+temple+mannarupolur">
+      <p>Mannarupoluru</p>
+    </a>
+  </div>
+</div>
+</div> <!-- end of temples -->
+
+<!-- YouTube Channel Embed -->
+<iframe width="300" height="250" src="https://www.youtube.com/embed/facPXEQOIL8?si=2BAXEF0xK0OZpbEN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<!-- YouTube Channel Embed -->
+
+
+ <iframe width="300" height="250" src="https://www.youtube.com/embed/wNYoX7V5sPc?si=Zy0712nbj7SKRgBR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.166785357513!2d80.00008377360338!3d13.708346398301082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4d730031d5a1e3%3A0x47307cff9ccc2468!2ssri%20santhaneswara%20swami%20temple!5e0!3m2!1sen!2sin!4v1773211320627!5m2!1sen!2sin" width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+
+  <script>
+    function showInfo(message) {
+      const infoBox = document.getElementById('info-box');
+      infoBox.innerHTML = message;
+      infoBox.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
