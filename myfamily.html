@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      --mybg-color: rgb(24, 211, 80);
+      --myheading-color: white;
+      --my-font: 2rem;
+      --my-font-weight: italic;
+      --body-bg: rgb(215, 237, 228);
+      --text-color: black;
+    }
+
+    /* Dark mode variables */
+    body.dark-mode {
+      --mybg-color: #222;
+      --myheading-color: #eee;
+      --body-bg: #111;
+      --text-color: #ddd;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--body-bg);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: var(--mybg-color);
+      width: 100%;
+      padding: 10px;
+      position: sticky;
+      top: 0;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .header-top h1 {
+      color: var(--myheading-color);
+      font-size: 28px;
+      font-weight: var(--my-font-weight);
+      margin: 0;
+    }
+
+    .header-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    nav button {
+      padding: 8px 16px;
+      border: none;
+      background: white;
+      color: var(--mybg-color);
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    nav button:hover {
+      background: var(--myheading-color);
+      color: black;
+    }
+
+    section {
+      padding: 20px;
+      min-height: 75vh;
+    }
+
+    section img{
+        width:200px;
+        height:200px;
+    }
+
+    .box {
+      padding: 16px;
+      border: 4px solid var(--mybg-color);
+      margin: 10px 0;
+      display: none;
+    }
+
+    .box.active {
+      display: block;
+    }
+
+    footer {
+      background-color: var(--mybg-color);
+      width: 100%;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    footer p {
+      color: var(--myheading-color);
+      font-size: var(--my-font);
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 600px) {
+      /* Mobile */
+      .header-top {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      .header-top h1 {
+        font-size: 22px;
+      }
+      .header-img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+   
+
+    button a:hover{
+        background-color: green;
+        color:white;
+    }
+
+    @media (min-width: 601px) and (max-width: 1024px) {
+      /* Tablet */
+      .header-top h1 {
+        font-size: 26px;
+      }
+      nav {
+        justify-content: center;
+      }
+    }
+
+    @media (min-width: 1025px) {
+      /* Desktop */
+      .header-top h1 {
+        font-size: 32px;
+      }
+      nav {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <h1>My Family Details  <img src="../onlineshopping/public/hari.jpeg" alt="Hari Photo" class="header-img" /></h1>
+     
+      <!-- Dark Mode Toggle -->
+      <button onclick="toggleMode()" style="background: black; color: white; border-radius: 5px; padding: 5px 10px;">
+        Toggle Dark/Light
+      </button>
+    </div>
+    <nav>
+      <button onclick="showContent('family')">Family</button>
+      <button onclick="showContent('education')">Education</button>
+      <button onclick="showContent('personal')">Personal</button>
+      <button onclick="showContent('contact')">Contact</button>
+      <button onclick="showContent('channel')">Channels</button>
+      <button onclick="showContent('whatsapp')">Whatsapp</button>
+    </nav>
+  </header>
+   <marquee bgcolor="lightblue" behavior="alternate">పంత్రాంగం హరిప్రసాద్ కుటుంబ వివరాల కోసం, మరిన్ని వివరాలకు సంప్రదించండి: 9573572830</marquee>
+  <section>
+    <div id="family" class="box">
+      <h1>My Family details</h1>
+      <p>Here are my family photos with descriptions.</p>
+      <img src="../onlineshopping/public/father.jpeg" alt="father Photo">
+      <img src="../onlineshopping/public/rishi.jpeg" alt="rishi Photo">
+      <img src="../onlineshopping/public/sarika.jpeg" alt="sarika Photo">
+      <img src="../onlineshopping/public/prasad.jpeg" alt="prasad Photo">
+      <img src="../onlineshopping/public/bigili.jpeg" alt="bigili Photo">
+      <p>This is my family enjoying a holiday together.</p>
+    </div>
+
+    <div id="education" class="box">
+      <h1>My Education</h1>
+      <p>I completed my school zpphs,mannarupolur.</p>
+      <p>I completed my college govt jr college,sullurpet.</p>
+      <p>I completed my graduation at govt degree college,sullurpet.</p>
+      <p>I completed my post graduation(MSC COMPUTER SCIENCE) at vrips college,nellore.</p>
+    </div>
+
+    <div id="channel" class="box">
+      <h1>My Channels</h1>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/ThpVxHkOr44" allowfullscreen></iframe>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/WkUKhYaEyXI" allowfullscreen></iframe>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/PozPx17T39w?si=jY5nP2j_xa-ykuEM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/ImS7Bu0ieXY?si=RHlUnVZL7PeCL1OV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/SNZ946KqqU4?si=s8f3rl3VlkE1LGs7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/V-VdatHCIg8?si=Ye5EuwzXzI3pdmoz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/SrRuFbOT0ps?si=w7Jc1HV4kkNoej-M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="300" height="250" src="https://www.youtube.com/embed/iNcpFB7rZ-4?si=T2_YEntcRBZQRW2E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="300" height="250" src="https://www.youtube.com/embed/EIFqBkf9-vo?si=14aNLZPwU2o0_QwO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <div id="personal" class="box">
+      <h1>My Hobbies</h1>
+      <p>I love coding, playing cricket, and exploring new technologies.</p>
+      <p>I used to pray to god everyday</p>
+    </div>
+
+    <div id="whatsapp" class="box">
+      <h1>My Whatsapp</h1>
+      <button style="background:green; color:white;">
+        <a href="https://wa.me/919573572830" target="_blank" style="color:white; text-decoration:none;">
+          Message me on WhatsApp
+        </a>
+      </button>
+    </div>
+
+    <div id="contact" class="box">
+      <h1>Contact Me</h1>
+      <p>Email: hariprasadp7799@gmail.com</p>
+      <p>Mobile: 9573572830</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>copyright &copy; hariprasad pantrangam family reserved 2026</p>
+  </footer>
+
+  <script>
+    function showContent(id) {
+      document.querySelectorAll('.box').forEach(box => {
+        box.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
+  <a href="index.html">back to home</a>
+</body>
+</html>
