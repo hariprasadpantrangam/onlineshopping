@@ -169,32 +169,32 @@
       }
     }
 
-.slides {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: center; /* center images */
-  align-items: center;
-}
-
-.slides img {
-  width: 60%;   /* తగ్గించిన width */
-  height: auto; /* aspect ratio maintain అవుతుంది */
-  border-radius: 10px;
-  display: none;   /* hide all by default */
-}
-
-
-
-    .slider {
+.slider {
   width: 80%;
   height: 200px;
   margin: 40px auto;
   position: relative;
-  overflow: hidden;
+  overflow: hidden;   /* images బయటకు వెళ్లకుండా */
   border-radius: 10px;
 }
+
+.slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slides img {
+  width: 200px;       /* fixed width */
+  height: 200px;      /* fixed height */
+  border-radius: 10px;
+  display: none;      /* ఒక్కో image మాత్రమే చూపించడానికి */
+  object-fit: cover;  /* image distort కాకుండా crop అవుతుంది */
+}
+
 
 /* .slides {
   display: flex;
