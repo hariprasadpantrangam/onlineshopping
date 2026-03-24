@@ -169,18 +169,22 @@
       }
     }
 
-    .slides {
+.slides {
   position: relative;
   width: 100%;
   height: 400px;
+  display: flex;
+  justify-content: center; /* center images */
+  align-items: center;
 }
 
 .slides img {
-  width: 100%;
-  height: 100%;
+  width: 60%;   /* తగ్గించిన width */
+  height: auto; /* aspect ratio maintain అవుతుంది */
   border-radius: 10px;
   display: none;   /* hide all by default */
 }
+
 
 
     .slider {
@@ -263,6 +267,7 @@
     <img src="../onlineshopping/public/rishi.jpeg" alt="Rishi">
     <img src="../onlineshopping/public/sarika.jpeg" alt="Sarika">
     <img src="../onlineshopping/public/prasad.jpeg" alt="Prasad">
+    <img src="../onlineshopping/public/bigili.jpeg" alt="bigili Photo">
   </div>
   <!-- Navigation buttons -->
   <button class="prev" onclick="prevSlide()">&#10094;</button>
