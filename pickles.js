@@ -1,13 +1,14 @@
 // 1. డేటా సెటప్
 const defaultPickles = [
-    { name: "lemon", price: 130 },
-    { name: "mango", price: 120 },
-    { name: "gongura", price: 100 },
-    { name: "tomato", price: 130 },
-    { name: "bitter gourd", price: 130 },
-    { name: "amla", price: 150 },
-    { name: "karivepaku", price: 130 }
+    { name: "lemon", price: 130, image: "images/lemon.jpeg" },
+    { name: "mango", price: 120, image: "images/mango.jpeg" },
+    { name: "gongura", price: 100, image: "images/gongura.jpeg" },
+    { name: "tomato", price: 130, image: "images/tomato.jpeg" },
+    { name: "bitter gourd", price: 130, image: "images/kakara.jpeg" },
+    { name: "amla", price: 150, image: "images/usiri.jpeg" },
+    { name: "karivepaku", price: 130, image: "images/karivepaku.jpeg" }
 ];
+
 
 let products = JSON.parse(localStorage.getItem('pickles')) || defaultPickles;
 let cart = []; // కార్ట్ ఐటమ్స్ నిల్వ చేయడానికి
@@ -68,14 +69,15 @@ function displayUserProducts() {
     products.forEach((p, index) => {
         container.innerHTML += `
             <div class="card">
-                <img src="https://via.placeholder.com" alt="pickle" style="width:80px; border-radius:50%">
+                <img src="${p.image}" alt="${p.name}" style="width:80px; height:80px; border-radius:50%; object-fit:cover;">
                 <h3 style="text-transform: capitalize;">${p.name}</h3>
                 <p>₹${p.price}</p>
                 <button class="order-btn" style="background:#2ecc71" onclick="addToCart(${index})">Add to Cart</button>
             </div>`;
     });
-    updateCartUI(); // లాగిన్ అవ్వగానే కార్ట్ ని రీఫ్రెష్ చేస్తుంది
+    updateCartUI();
 }
+
 
 // 6. కార్ట్ లాజిక్ (Add & Delete)
 function addToCart(index) {
@@ -93,7 +95,7 @@ function updateCartUI() {
     const cartList = document.getElementById('cartItems');
     const totalSpan = document.getElementById('cartTotal');
     
-    if (!cartList || !totalSpan) return; // HTML లో ఎలిమెంట్స్ ఉన్నాయో లేదో చెక్ చేస్తుంది
+    if (!cartList || !totalSpan) return;
 
     cartList.innerHTML = "";
     let total = 0;
@@ -101,13 +103,17 @@ function updateCartUI() {
     cart.forEach((item, index) => {
         total += parseInt(item.price);
         cartList.innerHTML += `
-            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <span>${item.name} - ₹${item.price}</span>
-                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 2px 8px; cursor:pointer; border-radius:3px;">Delete</button>
+            <li style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img src="${item.image}" alt="${item.name}" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                    <span>${item.name} - ₹${item.price}</span>
+                </div>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding:2px 8px; cursor:pointer; border-radius:3px;">Delete</button>
             </li>`;
     });
     totalSpan.innerText = total;
 }
+
 
 // 7. వాట్సాప్ ఇంటిగ్రేషన్
 function sendToWhatsApp() {
