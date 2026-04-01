@@ -112,29 +112,22 @@ function updateCartUI() {
     
     if (!cartList || !totalSpan) return;
 
+    cartList.innerHTML = "";
     let total = 0;
-    const fragment = document.createDocumentFragment();
 
     cart.forEach((item, index) => {
         total += parseInt(item.price) || 0;
-
-        const li = document.createElement("li");
-        li.innerHTML = `
-            <div style="display:flex; align-items:center; gap:10px;">
-                <img src="${item.image}" width="40" height="40" style="object-fit:cover; border-radius:5px;" loading="lazy">
-                <span>${item.name} - ₹${item.price}</span>
-            </div>
-            <button onclick="removeFromCart(${index})">Delete</button>
-        `;
-        fragment.appendChild(li);
+        cartList.innerHTML += `
+            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
+                    <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
+                </div>
+                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
+            </li>`;
     });
-
-    cartList.innerHTML = ""; // ఒక్కసారి clear
-    cartList.appendChild(fragment); // కొత్త items ఒక్కసారి append
     totalSpan.innerText = total.toLocaleString('en-IN');
 }
-
-
 
 
 
