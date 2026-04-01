@@ -112,22 +112,48 @@ function updateCartUI() {
     
     if (!cartList || !totalSpan) return;
 
+    // ముందుగా cartList clear చేయండి
     cartList.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, index) => {
         total += parseInt(item.price) || 0;
-        cartList.innerHTML += `
-            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com'">
-                    <span style="text-transform: capitalize;">${item.name} - ₹${item.price}</span>
-                </div>
-                <button onclick="removeFromCart(${index})" style="background:#e74c3c; color:white; border:none; padding: 4px 8px; cursor:pointer; border-radius:3px;">Delete</button>
-            </li>`;
+
+        // li element create చేయడం
+        const li = document.createElement("li");
+        li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;";
+
+        // left div
+        const leftDiv = document.createElement("div");
+        leftDiv.style.cssText = "display:flex; align-items:center; gap:10px;";
+
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.style.cssText = "width:40px; height:40px; object-fit:cover; border-radius:5px;";
+        img.onerror = () => { img.src = "https://via.placeholder.com/40"; };
+
+        const span = document.createElement("span");
+        span.style.textTransform = "capitalize";
+        span.textContent = `${item.name} - ₹${item.price}`;
+
+        leftDiv.appendChild(img);
+        leftDiv.appendChild(span);
+
+        // delete button
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.style.cssText = "background:#e74c3c; color:white; border:none; padding:4px 8px; cursor:pointer; border-radius:3px;";
+        delBtn.onclick = () => removeFromCart(index);
+
+        li.appendChild(leftDiv);
+        li.appendChild(delBtn);
+
+        cartList.appendChild(li);
     });
+
     totalSpan.innerText = total.toLocaleString('en-IN');
 }
+
 
 
 
