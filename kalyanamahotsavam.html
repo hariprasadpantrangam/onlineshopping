@@ -146,80 +146,81 @@
     <img src="../onlineshopping/public/kalyanamandapamfooter.png" alt="footer" style="height:150px; width:400px; margin-bottom:10px;">
   </footer>
 
-  <script>
-    const form = document.getElementById('matriForm');
-    const profilesDiv = document.getElementById('profiles');
+<script>
+  const form = document.getElementById('matriForm');
+  const profilesDiv = document.getElementById('profiles');
 
-    let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+  // ✅ Store profiles only in an array
+  let profiles = [];
 
-    function renderProfiles() {
-      profilesDiv.innerHTML = "<h2>ప్రొఫైల్ లిస్ట్</h2>";
-      profiles.forEach((profile, index) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          ${profile.photo ? `<img src="${profile.photo}" alt="${profile.name}">` : ""}
-          <h3>${profile.name} (${profile.gender})</h3>
-          <p>వయసు: ${profile.age}</p>
-          <p>కులం: ${profile.caste}</p>
-          <p>మతం: ${profile.religion}</p>
-          <p>విద్య: ${profile.education}</p>
-          <p>మొబైల్: ${profile.mobile}</p>
-          <p>వృత్తి: ${profile.job}</p>
-          <p>నగరం: ${profile.city}</p>
-          <p>రాశి: ${profile.raasi}</p>
-          <button class="delete-btn" onclick="deleteProfile(${index})">Delete</button>
-        `;
-        profilesDiv.appendChild(card);
-      });
-    }
-
-    function deleteProfile(index) {
-      if (confirm("ఈ ప్రొఫైల్‌ను నిజంగా తొలగించాలనుకుంటున్నారా?")) {
-        profiles.splice(index, 1);
-        localStorage.setItem('profiles', JSON.stringify(profiles));
-        renderProfiles();
-      }
-    }
-
-    renderProfiles();
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const age = document.getElementById('age').value;
-      const gender = document.getElementById('gender').value;
-      const caste = document.getElementById('caste').value;
-      const religion = document.getElementById('religion').value;
-      const education = document.getElementById('education').value;
-      const mobile = document.getElementById('mobile').value;
-      const job = document.getElementById('job').value;
-      const city = document.getElementById('city').value;
-      const raasi = document.getElementById('raasi').value;
-      const photoInput = document.getElementById('photo');
-
-      let photoData = "";
-      if (photoInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          photoData = event.target.result;
-          saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, photoData);
-        };
-        reader.readAsDataURL(photoInput.files[0]);
-      } else {
-        saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, "");
-      }
-
-      form.reset();
+  function renderProfiles() {
+    profilesDiv.innerHTML = "<h2>ప్రొఫైల్ లిస్ట్</h2>";
+    profiles.forEach((profile, index) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        ${profile.photo ? `<img src="${profile.photo}" alt="${profile.name}">` : ""}
+        <h3>${profile.name} (${profile.gender})</h3>
+        <p>వయసు: ${profile.age}</p>
+        <p>కులం: ${profile.caste}</p>
+        <p>మతం: ${profile.religion}</p>
+        <p>విద్య: ${profile.education}</p>
+        <p>మొబైల్: ${profile.mobile}</p>
+        <p>వృత్తి: ${profile.job}</p>
+        <p>నగరం: ${profile.city}</p>
+        <p>రాశి: ${profile.raasi}</p>
+        <button class="delete-btn" onclick="deleteProfile(${index})">Delete</button>
+      `;
+      profilesDiv.appendChild(card);
     });
+  }
 
-    function saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, photo) {
-      profiles.push({ name, age, gender, caste, religion, education, mobile, job, city, raasi, photo });
-      localStorage.setItem('profiles', JSON.stringify(profiles));
+  function deleteProfile(index) {
+    if (confirm("ఈ ప్రొఫైల్‌ను నిజంగా తొలగించాలనుకుంటున్నారా?")) {
+      profiles.splice(index, 1);
       renderProfiles();
     }
-  </script>
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const gender = document.getElementById('gender').value;
+    const caste = document.getElementById('caste').value;
+    const religion = document.getElementById('religion').value;
+    const education = document.getElementById('education').value;
+    const mobile = document.getElementById('mobile').value;
+    const job = document.getElementById('job').value;
+    const city = document.getElementById('city').value;
+    const raasi = document.getElementById('raasi').value;
+    const photoInput = document.getElementById('photo');
+
+    let photoData = "";
+    if (photoInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        photoData = event.target.result;
+        saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, photoData);
+      };
+      reader.readAsDataURL(photoInput.files[0]);
+    } else {
+      saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, "");
+    }
+
+    form.reset();
+  });
+
+  function saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, photo) {
+    profiles.push({ name, age, gender, caste, religion, education, mobile, job, city, raasi, photo });
+    renderProfiles();
+  }
+
+  // Initial render
+  renderProfiles();
+</script>
+
   <a href="index.html">back to home</a>
 </body>
 </html>
