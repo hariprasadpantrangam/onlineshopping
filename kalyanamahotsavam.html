@@ -145,13 +145,12 @@
     <p>designed by pantrangam hariprasd cell:9573572830</p>
     <img src="../onlineshopping/public/kalyanamandapamfooter.png" alt="footer" style="height:150px; width:400px; margin-bottom:10px;">
   </footer>
-
 <script>
   const form = document.getElementById('matriForm');
   const profilesDiv = document.getElementById('profiles');
 
-  // ✅ Store profiles only in an array
-  let profiles = [];
+  // ✅ Load profiles from localStorage if available
+  let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
 
   function renderProfiles() {
     profilesDiv.innerHTML = "<h2>ప్రొఫైల్ లిస్ట్</h2>";
@@ -178,6 +177,7 @@
   function deleteProfile(index) {
     if (confirm("ఈ ప్రొఫైల్‌ను నిజంగా తొలగించాలనుకుంటున్నారా?")) {
       profiles.splice(index, 1);
+      localStorage.setItem('profiles', JSON.stringify(profiles)); // ✅ update storage
       renderProfiles();
     }
   }
@@ -202,24 +202,27 @@
       const reader = new FileReader();
       reader.onload = function(event) {
         photoData = event.target.result;
-        saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, photoData);
+        saveProfile({ name, age, gender, caste, religion, education, mobile, job, city, raasi, photo: photoData });
       };
       reader.readAsDataURL(photoInput.files[0]);
     } else {
-      saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, "");
+      saveProfile({ name, age, gender, caste, religion, education, mobile, job, city, raasi, photo: "" });
     }
 
     form.reset();
   });
 
-  function saveProfile(name, age, gender, caste, religion, education, mobile, job, city, raasi, photo) {
-    profiles.push({ name, age, gender, caste, religion, education, mobile, job, city, raasi, photo });
+  function saveProfile(profile) {
+    profiles.push(profile);
+    localStorage.setItem('profiles', JSON.stringify(profiles)); // ✅ persist
     renderProfiles();
   }
 
   // Initial render
   renderProfiles();
 </script>
+
+
 
   <a href="index.html">back to home</a>
 </body>
