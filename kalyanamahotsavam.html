@@ -14,6 +14,7 @@
     .card { border:1px solid #ddd; border-radius:8px; padding:15px; text-align:left; background:#fff; }
     .card h3 { margin:5px 0; }
     .card p { margin:3px 0; font-size:14px; }
+    .card img { width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:10px; }
   </style>
 </head>
 <body>
@@ -30,15 +31,16 @@
   <input type="text" id="education" placeholder="Education">
   <input type="text" id="occupation" placeholder="Occupation">
   <input type="text" id="mobile" placeholder="Mobile">
+  <input type="file" id="photo" accept="image/*">
   <button onclick="addProfile()">Add Profile</button>
 </div>
 
 <div id="cardContainer" class="card-container"></div>
 
 <script>
-let profiles = [
-  { name:"Ramesh", dob:"1998-05-12", gender:"Male", caste:"OC", religion:"Hindu", star:"Mesha", education:"B.Tech", occupation:"Engineer", mobile:"9876543210" },
-  { name:"Sita", dob:"2000-09-20", gender:"Female", caste:"BC", religion:"Hindu", star:"Kanya", education:"MBA", occupation:"Manager", mobile:"9123456780" }
+let profiles = JSON.parse(localStorage.getItem('profiles')) || [
+  { name:"Ramesh", dob:"1998-05-12", gender:"Male", caste:"OC", religion:"Hindu", star:"Mesha", education:"B.Tech", occupation:"Engineer", mobile:"9876543210", photo:"" },
+  { name:"Sita", dob:"2000-09-20", gender:"Female", caste:"BC", religion:"Hindu", star:"Kanya", education:"MBA", occupation:"Manager", mobile:"9123456780", photo:"" }
 ];
 
 function displayProfiles() {
@@ -47,6 +49,7 @@ function displayProfiles() {
   profiles.forEach((p, i) => {
     container.innerHTML += `
       <div class="card">
+        ${p.photo ? `<img src="${p.photo}" alt="photo">` : `<img src="https://via.placeholder.com/150" alt="no photo">`}
         <h3>${p.name}</h3>
         <p><b>DOB:</b> ${p.dob}</p>
         <p><b>Gender:</b> ${p.gender}</p>
@@ -71,11 +74,22 @@ function addProfile() {
   const education = document.getElementById('education').value;
   const occupation = document.getElementById('occupation').value;
   const mobile = document.getElementById('mobile').value;
+  const photoInput = document.getElementById('photo');
 
   if (name && dob && gender && mobile) {
-    profiles.push({ name, dob, gender, caste, religion, star, education, occupation, mobile });
-    displayProfiles();
-    clearForm();
+    if (photoInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        profiles.push({ name, dob, gender, caste, religion, star, education, occupation, mobile, photo:e.target.result });
+        saveProfiles();
+        clearForm();
+      };
+      reader.readAsDataURL(photoInput.files[0]);
+    } else {
+      profiles.push({ name, dob, gender, caste, religion, star, education, occupation, mobile, photo:"" });
+      saveProfiles();
+      clearForm();
+    }
   } else {
     alert("Please fill mandatory fields (Name, DOB, Gender, Mobile)");
   }
@@ -84,8 +98,13 @@ function addProfile() {
 function deleteProfile(index) {
   if (confirm("Delete this profile?")) {
     profiles.splice(index, 1);
-    displayProfiles();
+    saveProfiles();
   }
+}
+
+function saveProfiles() {
+  localStorage.setItem('profiles', JSON.stringify(profiles));
+  displayProfiles();
 }
 
 function clearForm() {
@@ -98,11 +117,12 @@ function clearForm() {
   document.getElementById('education').value = "";
   document.getElementById('occupation').value = "";
   document.getElementById('mobile').value = "";
+  document.getElementById('photo').value = "";
 }
 
 // Initial render
 displayProfiles();
 </script>
-
+<a href="index.html">back to home</a>
 </body>
 </html>
