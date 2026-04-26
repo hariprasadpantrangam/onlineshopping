@@ -63,7 +63,7 @@ const container = document.getElementById("cardContainer");
 function displayProfiles() {
   container.innerHTML = "";
 
-  profiles.forEach((p, index) => {
+  profiles.forEach((p) => {
     const card = document.createElement("div");
     card.className = "card";
 
@@ -78,7 +78,7 @@ function displayProfiles() {
           <p>${p.education}</p>
             <p>${p.caste}</p>
               <p>${p.religion}</p>
-        <button class="btn" onclick="deleteProfile(${index})">Remove</button>
+        // <button class="btn" onclick="deleteProfile(${index})">Remove</button>
       </div>
     `;
 
@@ -108,10 +108,10 @@ function addProfile() {
 }
 
 // Delete profile
-function deleteProfile(index) {
-  profiles.splice(index, 1);
-  displayProfiles();
-}
+// function deleteProfile(index) {
+//   profiles.splice(index, 1);
+//   displayProfiles();
+// }
 
 // Initial load
 displayProfiles();
