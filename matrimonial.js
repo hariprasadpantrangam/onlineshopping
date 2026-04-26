@@ -86,32 +86,32 @@ function displayProfiles() {
   });
 }
 
-// Add profile
-// function addProfile() {
-//   const name = document.getElementById("name").value;
-//   const age = document.getElementById("age").value;
-//   const profession = document.getElementById("profession").value;
-//   const city = document.getElementById("city").value;
-//    const mobile = document.getElementById("mobile").value;
-//     const education = document.getElementById("education").value;
-//      const caste = document.getElementById("caste").value;
-//       const religion = document.getElementById("religion").value;
-//   const img = document.getElementById("img").value;
+//Add profile
+function addProfile() {
+  const name = document.getElementById("name").value;
+  const age = document.getElementById("age").value;
+  const profession = document.getElementById("profession").value;
+  const city = document.getElementById("city").value;
+   const mobile = document.getElementById("mobile").value;
+    const education = document.getElementById("education").value;
+     const caste = document.getElementById("caste").value;
+      const religion = document.getElementById("religion").value;
+  const img = document.getElementById("img").value;
 
-//   if (!name || !age) {
-//     alert("Please enter required fields");
-//     return;
-//   }
+  if (!name || !age) {
+    alert("Please enter required fields");
+    return;
+  }
 
-//   profiles.push({ name, age, profession, city, mobile,education,caste,religion, img });
-//   displayProfiles();
-// }
+  profiles.push({ name, age, profession, city, mobile,education,caste,religion, img });
+  displayProfiles();
+}
 
-// Delete profile
-// function deleteProfile(index) {
-//   profiles.splice(index, 1);
-//   displayProfiles();
-// }
+//Delete profile
+function deleteProfile(index) {
+  profiles.splice(index, 1);
+  displayProfiles();
+}
 
 // Initial load
 displayProfiles();
