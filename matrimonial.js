@@ -1,6 +1,6 @@
 const defaultProfiles = [
-    { name: "Ramesh", age: 28, gender: "Male", raasi: "Mesha", caste: "OC", education: "B.Tech", photo: "ramesh.jpg" },
-    { name: "Sita", age: 25, gender: "Female", raasi: "Kanya", caste: "BC", education: "MBA", photo: "sita.jpg" }
+    { name: "Ramesh", age: 28, gender: "Male", raasi: "Mesha", caste: "OC", religion: "Hindu", education: "B.Tech", mobile: "9876543210", photo: "" },
+    { name: "Sita", age: 25, gender: "Female", raasi: "Kanya", caste: "BC", religion: "Hindu", education: "MBA", mobile: "9123456780", photo: "" }
 ];
 
 let profiles = JSON.parse(localStorage.getItem('profiles')) || defaultProfiles;
@@ -38,8 +38,10 @@ function displayAdminProfiles() {
                 <td>${p.gender}</td>
                 <td>${p.raasi}</td>
                 <td>${p.caste}</td>
+                <td>${p.religion}</td>
                 <td>${p.education}</td>
-                <td><img src="${p.photo}" style="width:50px;height:50px;border-radius:5px;"></td>
+                <td>${p.mobile}</td>
+                <td>${p.photo ? `<img src="${p.photo}" style="width:50px;height:50px;border-radius:5px;">` : "No Photo"}</td>
                 <td>
                     <button onclick="editProfile(${index})">Edit</button>
                     <button onclick="deleteProfile(${index})">Delete</button>
@@ -54,12 +56,23 @@ function addProfile() {
     const gender = document.getElementById('pGender').value;
     const raasi = document.getElementById('pRaasi').value;
     const caste = document.getElementById('pCaste').value;
+    const religion = document.getElementById('pReligion').value;
     const education = document.getElementById('pEducation').value;
-    const photo = document.getElementById('pPhoto').value;
+    const mobile = document.getElementById('pMobile').value;
+    const photoInput = document.getElementById('pPhoto');
 
     if (name && age && gender) {
-        profiles.push({ name, age, gender, raasi, caste, education, photo });
-        saveProfiles();
+        if (photoInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                profiles.push({ name, age, gender, raasi, caste, religion, education, mobile, photo: event.target.result });
+                saveProfiles();
+            };
+            reader.readAsDataURL(photoInput.files[0]);
+        } else {
+            profiles.push({ name, age, gender, raasi, caste, religion, education, mobile, photo: "" });
+            saveProfiles();
+        }
     } else {
         alert("Fill all mandatory fields");
     }
@@ -72,23 +85,47 @@ function editProfile(index) {
     document.getElementById('pGender').value = p.gender;
     document.getElementById('pRaasi').value = p.raasi;
     document.getElementById('pCaste').value = p.caste;
+    document.getElementById('pReligion').value = p.religion;
     document.getElementById('pEducation').value = p.education;
-    document.getElementById('pPhoto').value = p.photo;
+    document.getElementById('pMobile').value = p.mobile;
     document.getElementById('editIndex').value = index;
 }
 
 function saveEdit() {
     const index = document.getElementById('editIndex').value;
-    profiles[index] = {
-        name: document.getElementById('pName').value,
-        age: document.getElementById('pAge').value,
-        gender: document.getElementById('pGender').value,
-        raasi: document.getElementById('pRaasi').value,
-        caste: document.getElementById('pCaste').value,
-        education: document.getElementById('pEducation').value,
-        photo: document.getElementById('pPhoto').value
-    };
-    saveProfiles();
+    const photoInput = document.getElementById('pPhoto');
+
+    if (photoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            profiles[index] = {
+                name: document.getElementById('pName').value,
+                age: document.getElementById('pAge').value,
+                gender: document.getElementById('pGender').value,
+                raasi: document.getElementById('pRaasi').value,
+                caste: document.getElementById('pCaste').value,
+                religion: document.getElementById('pReligion').value,
+                education: document.getElementById('pEducation').value,
+                mobile: document.getElementById('pMobile').value,
+                photo: event.target.result
+            };
+            saveProfiles();
+        };
+        reader.readAsDataURL(photoInput.files[0]);
+    } else {
+        profiles[index] = {
+            name: document.getElementById('pName').value,
+            age: document.getElementById('pAge').value,
+            gender: document.getElementById('pGender').value,
+            raasi: document.getElementById('pRaasi').value,
+            caste: document.getElementById('pCaste').value,
+            religion: document.getElementById('pReligion').value,
+            education: document.getElementById('pEducation').value,
+            mobile: document.getElementById('pMobile').value,
+            photo: profiles[index].photo // keep old photo if not changed
+        };
+        saveProfiles();
+    }
 }
 
 function deleteProfile(index) {
@@ -110,9 +147,10 @@ function displayUserProfiles() {
     profiles.forEach((p, index) => {
         container.innerHTML += `
             <div class="card">
-                <img src="${p.photo}" style="width:100%;height:150px;object-fit:cover;border-radius:8px;">
+                ${p.photo ? `<img src="${p.photo}" style="width:100%;height:150px;object-fit:cover;border-radius:8px;">` : ""}
                 <h3>${p.name}, ${p.age}</h3>
-                <p>${p.education} | ${p.caste} | ${p.raasi}</p>
+                <p>${p.education} | ${p.caste} | ${p.religion} | ${p.raasi}</p>
+                <p>📱 ${p.mobile}</p>
                 <button onclick="shortlistProfile(${index})">Shortlist</button>
             </div>`;
     });
@@ -128,7 +166,7 @@ function updateShortlistUI() {
     list.innerHTML = "";
     shortlist.forEach((p, i) => {
         list.innerHTML += `
-            <li>${p.name}, ${p.age}, ${p.education}
+            <li>${p.name}, ${p.age}, ${p.education}, ${p.mobile}
                 <button onclick="removeShortlist(${i})">Remove</button>
             </li>`;
     });
@@ -148,7 +186,7 @@ function sendToWhatsApp() {
     const phoneNumber = "919573572830";
     let message = "💍 *Shortlisted Profiles*\n";
     shortlist.forEach((p, i) => {
-        message += `${i+1}. ${p.name}, ${p.age}, ${p.education}, ${p.caste}, ${p.raasi}\n`;
+        message += `${i+1}. ${p.name}, ${p.age}, ${p.education}, ${p.caste}, ${p.religion}, ${p.raasi}, 📱 ${p.mobile}\n`;
     });
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
