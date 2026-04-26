@@ -34,7 +34,9 @@ function addProfile(){
       const reader=new FileReader();
       reader.onload=e=>{
         profiles.push({name,dob,gender,caste,religion,star,education,occupation,mobile,photo:e.target.result});
-        saveProfiles(); clearForm();
+        saveProfiles(); 
+         clearForm();
+      
       };
       reader.readAsDataURL(photoInput.files[0]);
     } else {
@@ -87,5 +89,23 @@ function deleteProfile(index) {
   }
 }
   
-  
+  function saveProfiles() {
+  localStorage.setItem('profiles', JSON.stringify(profiles));
+  displayAdminProfiles();   // refresh admin table
+  displayUserProfiles();    // refresh user cards
+}
+
+function clearForm() {
+  document.getElementById('pName').value = "";
+  document.getElementById('pDob').value = "";
+  document.getElementById('pGender').value = "";
+  document.getElementById('pCaste').value = "";
+  document.getElementById('pReligion').value = "";
+  document.getElementById('pStar').value = "";
+  document.getElementById('pEducation').value = "";
+  document.getElementById('pOccupation').value = "";
+  document.getElementById('pMobile').value = "";
+  document.getElementById('pPhoto').value = "";
+}
+
     
