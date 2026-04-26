@@ -42,7 +42,7 @@ const profiles = [
       education:"msc",
     caste:"bc-b",
     religion:"hindu",
-    img: "../onlineshopping/public/anuska.jpg"
+    img: "../onlineshopping/public/anushka.jpg"
   },
     {
     name: "chiranjeevi konidela",
