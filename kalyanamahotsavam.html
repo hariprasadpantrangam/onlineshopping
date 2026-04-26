@@ -1,229 +1,82 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>మ్యాట్రిమోనియల్</title>
+  <title>Matrimonial App - Admin & User Panel</title>
   <style>
-    body {
-      font-family: 'Noto Sans Telugu', sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #800000;
-      color: white;
-      text-align: center;
-      padding: 15px;
-    }
-    .container {
-      width: 80%;
-      margin: auto;
-      padding: 20px;
-    }
-    form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      background-color: #800000;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #a52a2a;
-    }
-    .profiles {
-      margin-top: 30px;
-    }
-    .card {
-      background: #fff;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      box-shadow: 0 0 4px rgba(0,0,0,0.1);
-    }
-    .card img {
-      max-width: 120px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-    .delete-btn {
-      background-color: red;
-      color: white;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .delete-btn:hover {
-      background-color: darkred;
-    }
-    footer {
-      background-color: #800000;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 30px;
-    }
-    footer img {
-      max-width: 200px;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 20px; background-color: #f9f9f9; }
+    .section { display: none; border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: white; max-width: 900px; margin: auto; }
+    .active { display: block; }
+
+    .heading { background-color:gold; color:white; text-align:center; text-transform:uppercase; }
+    table { width:100%; border-collapse:collapse; margin-top:20px; }
+    th, td { border:1px solid #ddd; padding:10px; text-align:left; }
+    th { background:#4CAF50; color:white; }
+
+    .card-container { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px; margin-top:20px; }
+    .card { border:1px solid #ddd; padding:15px; border-radius:10px; text-align:center; background:#fff; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+    .card h3 { margin:10px 0; }
+    .logout-btn { background:#e74c3c; color:white; padding:8px 15px; border:none; border-radius:4px; cursor:pointer; margin-top:20px; }
+    button { padding:8px 15px; border:none; border-radius:4px; cursor:pointer; background:#3498db; color:white; }
+    input { padding:8px; margin:5px; border:1px solid #ccc; border-radius:4px; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🌸 కళ్యాణ మహోత్సవం(kalyana mahotsavam)🌸</h1>
-    <p>మీ జీవిత భాగస్వామిని కనుగొనండి (Find your partner) పూర్తిగా ఉచితం(no payment)</p>
-  </header>
 
-  <div class="container">
-    <h2>ప్రొఫైల్ నమోదు</h2>
-    <form id="matriForm">
-      <label>పేరు:</label>
-      <input type="text" id="name" required>
-
-      <label>వయసు:</label>
-      <input type="number" id="age" required>
-
-      <label>లింగం:</label>
-      <select id="gender">
-        <option value="పురుషుడు">పురుషుడు</option>
-        <option value="స్త్రీ">స్త్రీ</option>
-      </select>
-
-      <label>కులం:</label>
-      <input type="text" id="caste">
-
-      <label>మతం:</label>
-      <input type="text" id="religion">
-
-      <label>విద్య:</label>
-      <input type="text" id="education">
-
-      <label>మొబైల్:</label>
-      <input type="text" id="mobile">
-
-      <label>వృత్తి:</label>
-      <input type="text" id="job">
-
-      <label>నగరం:</label>
-      <input type="text" id="city">
-
-      <label>రాశి (Star):</label>
-      <input type="text" id="raasi">
-
-      <label>ఫోటో:</label>
-      <input type="file" id="photo" accept="image/*">
-
-      <button type="submit">ప్రొఫైల్ జోడించండి</button>
-    </form>
-
-    <div class="profiles" id="profiles">
-      <h2>ప్రొఫైల్ లిస్ట్</h2>
-    </div>
+  <!-- Login Section -->
+  <div id="loginSection" class="section active">
+    <h2 class="heading">Login</h2>
+    <p>Tip: Use <b>adXXX</b> and <b>77XX</b> for Admin access.</p>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <br><br>
+    <button onclick="login()">Login</button>
   </div>
 
-  <footer>
-    <h2>💍 వివాహ ఫోటో గ్యాలరీ 💍</h2>
-    <p>ఇక్కడ మీ వివాహ ఫోటోలను జోడించండి</p>
-    <p>designed by pantrangam hariprasd cell:9573572830</p>
-    <img src="../onlineshopping/public/kalyanamandapamfooter.png" alt="footer" style="height:150px; width:400px; margin-bottom:10px;">
-  </footer>
-<script>
-  const form = document.getElementById('matriForm');
-  const profilesDiv = document.getElementById('profiles');
+  <!-- Admin Panel -->
+  <div id="adminPanel" class="section">
+    <h2 class="heading">Admin Panel - Manage Profiles</h2>
+    <div style="background:#f0f0f0; padding:15px; border-radius:5px;">
+      <input type="hidden" id="editIndex">
+      <input type="text" id="pName" placeholder="Name">
+      <input type="number" id="pAge" placeholder="Age">
+      <input type="text" id="pGender" placeholder="Gender">
+      <input type="text" id="pRaasi" placeholder="Raasi/Star">
+      <input type="text" id="pCaste" placeholder="Caste">
+      <input type="text" id="pEducation" placeholder="Education">
+      <input type="text" id="pPhoto" placeholder="Photo URL">
+      <br>
+      <button onclick="addProfile()">Add Profile</button>
+      <button onclick="saveEdit()" style="background:#27ae60;">Update Profile</button>
+    </div>
 
-  // ✅ Load profiles from localStorage if available
-  let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Age</th><th>Gender</th><th>Raasi</th><th>Caste</th><th>Education</th><th>Photo</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="adminBody"></tbody>
+    </table>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
 
-  function renderProfiles() {
-    profilesDiv.innerHTML = "<h2>ప్రొఫైల్ లిస్ట్</h2>";
-    profiles.forEach((profile, index) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        ${profile.photo ? `<img src="${profile.photo}" alt="${profile.name}">` : ""}
-        <h3>${profile.name} (${profile.gender})</h3>
-        <p>వయసు: ${profile.age}</p>
-        <p>కులం: ${profile.caste}</p>
-        <p>మతం: ${profile.religion}</p>
-        <p>విద్య: ${profile.education}</p>
-        <p>మొబైల్: ${profile.mobile}</p>
-        <p>వృత్తి: ${profile.job}</p>
-        <p>నగరం: ${profile.city}</p>
-        <p>రాశి: ${profile.raasi}</p>
-        <button class="delete-btn" onclick="deleteProfile(${index})">Delete</button>
-      `;
-      profilesDiv.appendChild(card);
-    });
-  }
+  <!-- User Panel -->
+  <div id="userPanel" class="section">
+    <h2 class="heading">Matrimonial Profiles</h2>
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+      <div id="userCardContainer" class="card-container" style="flex:2;"></div>
+      <div id="cartSection" style="flex:1; border:1px solid #ddd; padding:15px; border-radius:10px; background:#fff; min-width:250px;">
+        <h3>Shortlisted Profiles 💍</h3>
+        <ul id="cartItems" style="list-style:none; padding:0;"></ul>
+        <hr>
+        <button onclick="sendToWhatsApp()" style="background:#25D366; width:100%; font-weight:bold;">Send Interest (WhatsApp)</button>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
 
-  function deleteProfile(index) {
-    if (confirm("ఈ ప్రొఫైల్‌ను నిజంగా తొలగించాలనుకుంటున్నారా?")) {
-      profiles.splice(index, 1);
-      localStorage.setItem('profiles', JSON.stringify(profiles)); // ✅ update storage
-      renderProfiles();
-    }
-  }
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const age = document.getElementById('age').value;
-    const gender = document.getElementById('gender').value;
-    const caste = document.getElementById('caste').value;
-    const religion = document.getElementById('religion').value;
-    const education = document.getElementById('education').value;
-    const mobile = document.getElementById('mobile').value;
-    const job = document.getElementById('job').value;
-    const city = document.getElementById('city').value;
-    const raasi = document.getElementById('raasi').value;
-    const photoInput = document.getElementById('photo');
-
-    let photoData = "";
-    if (photoInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        photoData = event.target.result;
-        saveProfile({ name, age, gender, caste, religion, education, mobile, job, city, raasi, photo: photoData });
-      };
-      reader.readAsDataURL(photoInput.files[0]);
-    } else {
-      saveProfile({ name, age, gender, caste, religion, education, mobile, job, city, raasi, photo: "" });
-    }
-
-    form.reset();
-  });
-
-  function saveProfile(profile) {
-    profiles.push(profile);
-    localStorage.setItem('profiles', JSON.stringify(profiles)); // ✅ persist
-    renderProfiles();
-  }
-
-  // Initial render
-  renderProfiles();
-</script>
-
-
-
+  <script src="matrimonial.js"></script>
   <a href="index.html">back to home</a>
 </body>
 </html>
