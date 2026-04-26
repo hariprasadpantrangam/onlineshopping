@@ -15,7 +15,6 @@ const profiles = [
     age: 28,
     profession: "software engineer",
     city: "Chennai",
-      city: "Hyderabad",
     mobile:"9573572830",
     education:"msc",
     caste:"sc-mala",
