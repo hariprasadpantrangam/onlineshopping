@@ -1,6 +1,6 @@
 const profiles = [
   {
-    name: "Anjali",
+    name: "hariprasad",
     age: 25,
     profession: "Software Engineer",
     city: "Hyderabad",
@@ -8,10 +8,10 @@ const profiles = [
     education:"msc",
     caste:"sc-mala",
     religion:"hindu",
-    img: "https://randomuser.me/api/portraits/women/1.jpg"
+    img: "../onlineshopping/public/hari.jpg"
   },
   {
-    name: "Rahul",
+    name: "bigili",
     age: 28,
     profession: "Doctor",
     city: "Chennai",
@@ -19,7 +19,7 @@ const profiles = [
       education:"msc",
     caste:"sc-mala",
     religion:"hindu",
-    img: "https://randomuser.me/api/portraits/men/2.jpg"
+    img: "../onlineshopping/public/bigili.jpeg"
   }
 ];
 
