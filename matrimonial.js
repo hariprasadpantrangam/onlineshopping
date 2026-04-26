@@ -145,4 +145,29 @@ function clearForm() {
   document.getElementById('updateBtn').style.display = "none";
 }
 
+function logout() {
+  // Clear login fields
+  document.getElementById('loginUser').value = "";
+  document.getElementById('loginPass').value = "";
+
+  // Hide all panels
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+  // Show login again
+  document.getElementById('loginSection').classList.add('active');
+}
+function saveProfiles() {
+  localStorage.setItem('profiles', JSON.stringify(profiles));
+  displayAdminProfiles();
+  displayUserProfiles();  // <-- ensures users see updated list too
+}
+
+function deleteProfile(index) {
+  if (confirm("Are you sure you want to delete this profile?")) {
+    profiles.splice(index, 1);
+    saveProfiles(); // refreshes both panels
+  }
+}
+
+
 
