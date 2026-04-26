@@ -64,6 +64,17 @@ const profiles = [
     caste:"sc-mala",
     religion:"hindu",
     img: "../onlineshopping/public/saiteja.jpg"
+  },
+   {
+    name: "chenchu lakshmi",
+    age: 26,
+    profession: "home maker",
+    city: "hyd",
+    mobile:"9553317460",
+    education:"tenth",
+    caste:"bc-devanga",
+    religion:"hindu",
+    img: "../onlineshopping/public/baahubali.jpeg"
   }
 ];
 
