@@ -20,6 +20,40 @@ const profiles = [
     caste:"sc-mala",
     religion:"hindu",
     img: "../onlineshopping/public/bigili.jpeg"
+  },
+
+    {
+    name: "ramesh",
+    age: 28,
+    profession: "Doctor",
+    city: "Chennai",
+     mobile:"7386618287",
+      education:"ba",
+    caste:"bs-devanga",
+    religion:"hindu",
+    img: "../onlineshopping/public/avengers.jpg"
+  },
+    {
+    name: "bigili",
+    age: 28,
+    profession: "actress",
+    city: "bangalore",
+     mobile:"7386618287",
+      education:"msc",
+    caste:"bc-b",
+    religion:"hindu",
+    img: "../onlineshopping/public/anuskka.jpg"
+  },
+    {
+    name: "chiranjeevi konidela",
+    age: 50,
+    profession: "Actor",
+    city: "hyd",
+     mobile:"7386618287",
+      education:"ba",
+    caste:"oc-naidu",
+    religion:"hindu",
+    img: "../onlineshopping/public/chiru.jpg"
   }
 ];
 
