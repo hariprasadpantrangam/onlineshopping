@@ -20,6 +20,50 @@ const profiles = [
     caste:"sc-mala",
     religion:"hindu",
     img: "../onlineshopping/public/hari.jpg"
+  },
+    {
+    name: "haritha",
+    age: 28,
+    profession: "software engineer",
+    city: "Chennai",
+    mobile:"9573572830",
+    education:"msc",
+    caste:"sc-mala",
+    religion:"hindu",
+    img: "../onlineshopping/public/anushka.jpg"
+  },
+    {
+    name: "prasad",
+    age: 28,
+    profession: "engineer",
+    city: "bangalore",
+    mobile:"9989706991",
+    education:"bsc",
+    caste:"sc-mala",
+    religion:"hindu",
+    img: "../onlineshopping/public/hari.jpg"
+  },
+    {
+    name: "ramesh",
+    age: 28,
+    profession: "civil engineer",
+    city: "Chennai",
+    mobile:"9973572830",
+    education:"msc",
+    caste:"sc-madiga",
+    religion:"hindu",
+    img: "../onlineshopping/public/avengers.jpg"
+  },
+    {
+    name: "saiteja pakala",
+    age: 26,
+    profession: "software engineer",
+    city: "hyd",
+    mobile:"6304316761",
+    education:"b.tech",
+    caste:"sc-mala",
+    religion:"hindu",
+    img: "../onlineshopping/public/saiteja.jpg"
   }
 ];
 
@@ -34,7 +78,7 @@ function displayProfiles() {
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${p.img}" alt="">
+      <img src="${p.img}"  width="300" height="300" alt="">
       <div class="card-body">
         <h3>${p.name}</h3>
         <p>Age: ${p.age}</p>
