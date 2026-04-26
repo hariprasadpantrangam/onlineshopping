@@ -69,7 +69,7 @@ function addProfile() {
     return;
   }
 
-  profiles.push({ name, age, profession, city, mobile, img });
+  profiles.push({ name, age, profession, city, mobile,education,caste,religion, img });
   displayProfiles();
 }
 
