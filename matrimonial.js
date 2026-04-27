@@ -1,25 +1,62 @@
-let profiles = JSON.parse(localStorage.getItem("profiles")) || [];
-let currentRole = null;
+const defaultProfiles = [
+  { name: "Anjali", age: 25, profession: "Software Engineer", city: "Hyderabad", mobile:"9573572830", education:"BSc", caste:"SC-Mala", religion:"Hindu", image:"../onlineshopping/public/bigili.jpeg" },
+  { name: "Hariprasad", age: 28, profession: "Software Engineer", city: "Chennai", mobile:"9573572830", education:"MSc", caste:"SC-Mala", religion:"Hindu", image:"../onlineshopping/public/hari.jpg" }
+];
 
-// Role selection
-function setRole(role) {
-  currentRole = role;
-  alert("Logged in as " + role);
-  renderProfiles();
+let profiles = JSON.parse(localStorage.getItem('profiles')) || defaultProfiles;
+
+// Section switching
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-// Display profiles
-function renderProfiles() {
-  const container = document.getElementById("cardContainer");
-  container.innerHTML = "";
+// Login
+function login() {
+  const user = document.getElementById('loginUser').value;
+  const pass = document.getElementById('loginPass').value;
 
+  if (user === "admin" && pass === "admin7799") {
+    showSection('adminPanel');
+    displayAdminProfiles();
+  } else {
+    showSection('userPanel');
+    displayUserProfiles();
+  }
+}
+
+// Admin Panel
+function displayAdminProfiles() {
+  const tbody = document.getElementById('adminBody');
+  tbody.innerHTML = "";
   profiles.forEach((p, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
+    tbody.innerHTML += `
+      <tr>
+        <td>${p.name}</td>
+        <td>${p.age}</td>
+        <td>${p.profession}</td>
+        <td>${p.city}</td>
+        <td>${p.mobile}</td>
+        <td>${p.education}</td>
+        <td>${p.caste}</td>
+        <td>${p.religion}</td>
+        <td><img src="${p.image}" style="width:50px;height:50px;object-fit:cover;"></td>
+        <td>
+          <button onclick="editProfile(${index})">Edit</button>
+          <button onclick="deleteProfile(${index})">Delete</button>
+        </td>
+      </tr>`;
+  });
+}
 
-    card.innerHTML = `
-      <img src="${p.img || 'https://via.placeholder.com/200'}" alt="Profile Image">
-      <div class="card-body">
+// User Panel
+function displayUserProfiles() {
+  const container = document.getElementById('userCardContainer');
+  container.innerHTML = "";
+  profiles.forEach(p => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.image}" style="width:100%;height:150px;object-fit:cover;">
         <h3>${p.name}</h3>
         <p>Age: ${p.age}</p>
         <p>${p.profession}</p>
@@ -28,92 +65,50 @@ function renderProfiles() {
         <p>${p.education}</p>
         <p>${p.caste}</p>
         <p>${p.religion}</p>
-        ${currentRole === "Admin" ? `
-          <button class="btn" onclick="editProfile(${index})">Edit</button>
-          <button class="btn" onclick="deleteProfile(${index})">Delete</button>
-        ` : ""}
-      </div>
-    `;
-    container.appendChild(card);
+      </div>`;
   });
 }
 
-// Add profile
+// CRUD
 function addProfile() {
-  if (currentRole !== "Admin") {
-    alert("Only Admin can add profiles!");
-    return;
-  }
-
-  const name = document.getElementById("name").value;
-  const age = document.getElementById("age").value;
-  const profession = document.getElementById("profession").value;
-  const city = document.getElementById("city").value;
-  const mobile = document.getElementById("mobile").value;
-  const education = document.getElementById("education").value;
-  const caste = document.getElementById("caste").value;
-  const religion = document.getElementById("religion").value;
-  const imgInput = document.getElementById("img");
-
-  if (!name || !age) {
-    alert("Please enter required fields");
-    return;
-  }
-
-  if (imgInput.files && imgInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      saveProfile(name, age, profession, city, mobile, education, caste, religion, e.target.result);
-    };
-    reader.readAsDataURL(imgInput.files[0]);
-  } else {
-    saveProfile(name, age, profession, city, mobile, education, caste, religion, "");
-  }
+  const profile = {
+    name: document.getElementById('pName').value,
+    age: document.getElementById('pAge').value,
+    profession: document.getElementById('pProfession').value,
+    city: document.getElementById('pCity').value,
+    mobile: document.getElementById('pMobile').value,
+    education: document.getElementById('pEducation').value,
+    caste: document.getElementById('pCaste').value,
+    religion: document.getElementById('pReligion').value,
+    image: document.getElementById('pImage').value
+  };
+  profiles.push(profile);
+  saveAndRefresh();
 }
 
-function saveProfile(name, age, profession, city, mobile, education, caste, religion, img) {
-  profiles.push({ name, age, profession, city, mobile, education, caste, religion, img });
-  localStorage.setItem("profiles", JSON.stringify(profiles));
-  renderProfiles();
-  clearForm();
-}
-
-// Edit profile
-function editProfile(index) {
-  if (currentRole !== "Admin") {
-    alert("Only Admin can edit profiles!");
-    return;
-  }
-
-  const p = profiles[index];
-  document.getElementById("name").value = p.name;
-  document.getElementById("age").value = p.age;
-  document.getElementById("profession").value = p.profession;
-  document.getElementById("city").value = p.city;
-  document.getElementById("mobile").value = p.mobile;
-  document.getElementById("education").value = p.education;
-  document.getElementById("caste").value = p.caste;
-  document.getElementById("religion").value = p.religion;
-
-  deleteProfile(index); // remove old entry before saving updated one
-}
-
-// Delete profile
 function deleteProfile(index) {
-  if (currentRole !== "Admin") {
-    alert("Only Admin can delete profiles!");
-    return;
-  }
-
   profiles.splice(index, 1);
-  localStorage.setItem("profiles", JSON.stringify(profiles));
-  renderProfiles();
+  saveAndRefresh();
 }
 
-// Clear form
-function clearForm() {
-  document.querySelectorAll(".form input").forEach(input => input.value = "");
-}
+function editProfile(index) {
+  const p = profiles[index];
 
-// Initial load
-renderProfiles();
+  // Fill form fields with existing profile data
+  document.getElementById('pName').value = p.name;
+  document.getElementById('pAge').value = p.age;
+  document.getElementById('pProfession').value = p.profession;
+  document.getElementById('pCity').value = p.city;
+  document.getElementById('pMobile').value = p.mobile;
+  document.getElementById('pEducation').value = p.education;
+  document.getElementById('pCaste').value = p.caste;
+  document.getElementById('pReligion').value = p.religion;
+  document.getElementById('pImage').value = p.image;
+
+  // Store index for later update
+  document.getElementById('editIndex').value = index;
+
+  // Switch buttons: hide Add, show Update
+  document.getElementById('addBtn').style.display = "none";
+  document.getElementById('updateBtn').style.display = "inline";
+}
