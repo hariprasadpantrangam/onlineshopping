@@ -1,87 +1,16 @@
-const profiles = [
-  {
-    name: "Anjali",
-    age: 25,
-    profession: "Software Engineer",
-    city: "Hyderabad",
-    mobile:"9573572830",
-    education:"bsc",
-    caste:"sc-mala",
-    religion:"hindu",
-    img: "../onlineshopping/public/bigili.jpeg"
-  },
-  {
-    name: "hariprasad",
-    age: 28,
-    profession: "software engineer",
-    city: "Chennai",
-    mobile:"9573572830",
-    education:"msc",
-    caste:"sc-mala",
-    religion:"hindu",
-    img: "../onlineshopping/public/hari.jpg"
-  },
-    {
-    name: "haritha",
-    age: 28,
-    profession: "software engineer",
-    city: "Chennai",
-    mobile:"9573572830",
-    education:"msc",
-    caste:"sc-mala",
-    religion:"hindu",
-    img: "../onlineshopping/public/anushka.jpg"
-  },
-    {
-    name: "prasad",
-    age: 28,
-    profession: "engineer",
-    city: "bangalore",
-    mobile:"9989706991",
-    education:"bsc",
-    caste:"sc-mala",
-    religion:"hindu",
-    img: "../onlineshopping/public/hari.jpg"
-  },
-    {
-    name: "ramesh",
-    age: 28,
-    profession: "civil engineer",
-    city: "Chennai",
-    mobile:"9973572830",
-    education:"msc",
-    caste:"sc-madiga",
-    religion:"hindu",
-    img: "../onlineshopping/public/avengers.jpg"
-  },
-    {
-    name: "saiteja pakala",
-    age: 26,
-    profession: "software engineer",
-    city: "hyd",
-    mobile:"6304316761",
-    education:"b.tech",
-    caste:"sc-mala",
-    religion:"hindu",
-    img: "../onlineshopping/public/saiteja.jpg"
-  },
-   {
-    name: "chenchu lakshmi",
-    age: 26,
-    profession: "home maker",
-    city: "hyd",
-    mobile:"9553317460",
-    education:"tenth",
-    caste:"bc-devanga",
-    religion:"hindu",
-    img: "../onlineshopping/public/baahubali.jpeg"
-  }
-];
+let profiles = JSON.parse(localStorage.getItem("profiles")) || [];
+let currentRole = null;
 
-const container = document.getElementById("cardContainer");
+// Role selection
+function setRole(role) {
+  currentRole = role;
+  alert("Logged in as " + role);
+  renderProfiles();
+}
 
-// Display cards
-function displayProfiles() {
+// Display profiles
+function renderProfiles() {
+  const container = document.getElementById("cardContainer");
   container.innerHTML = "";
 
   profiles.forEach((p, index) => {
@@ -89,7 +18,7 @@ function displayProfiles() {
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${p.img}"  width="300" height="300" alt="">
+      <img src="${p.img || 'https://via.placeholder.com/200'}" alt="Profile Image">
       <div class="card-body">
         <h3>${p.name}</h3>
         <p>Age: ${p.age}</p>
@@ -99,40 +28,92 @@ function displayProfiles() {
         <p>${p.education}</p>
         <p>${p.caste}</p>
         <p>${p.religion}</p>
-        <button class="btn" onclick="deleteProfile(${index})">Remove</button>
+        ${currentRole === "Admin" ? `
+          <button class="btn" onclick="editProfile(${index})">Edit</button>
+          <button class="btn" onclick="deleteProfile(${index})">Delete</button>
+        ` : ""}
       </div>
     `;
-
     container.appendChild(card);
   });
 }
 
 // Add profile
 function addProfile() {
+  if (currentRole !== "Admin") {
+    alert("Only Admin can add profiles!");
+    return;
+  }
+
   const name = document.getElementById("name").value;
   const age = document.getElementById("age").value;
   const profession = document.getElementById("profession").value;
   const city = document.getElementById("city").value;
-    const mobile = document.getElementById("mobile").value;
-      const education = document.getElementById("education").value;
-        const caste = document.getElementById("caste").value;
-          const religion = document.getElementById("religion").value;
-  const img = document.getElementById("img").value;
+  const mobile = document.getElementById("mobile").value;
+  const education = document.getElementById("education").value;
+  const caste = document.getElementById("caste").value;
+  const religion = document.getElementById("religion").value;
+  const imgInput = document.getElementById("img");
 
   if (!name || !age) {
     alert("Please enter required fields");
     return;
   }
 
-  profiles.push({ name, age, profession, city,mobile,education,caste,religion, img });
-  displayProfiles();
+  if (imgInput.files && imgInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      saveProfile(name, age, profession, city, mobile, education, caste, religion, e.target.result);
+    };
+    reader.readAsDataURL(imgInput.files[0]);
+  } else {
+    saveProfile(name, age, profession, city, mobile, education, caste, religion, "");
+  }
+}
+
+function saveProfile(name, age, profession, city, mobile, education, caste, religion, img) {
+  profiles.push({ name, age, profession, city, mobile, education, caste, religion, img });
+  localStorage.setItem("profiles", JSON.stringify(profiles));
+  renderProfiles();
+  clearForm();
+}
+
+// Edit profile
+function editProfile(index) {
+  if (currentRole !== "Admin") {
+    alert("Only Admin can edit profiles!");
+    return;
+  }
+
+  const p = profiles[index];
+  document.getElementById("name").value = p.name;
+  document.getElementById("age").value = p.age;
+  document.getElementById("profession").value = p.profession;
+  document.getElementById("city").value = p.city;
+  document.getElementById("mobile").value = p.mobile;
+  document.getElementById("education").value = p.education;
+  document.getElementById("caste").value = p.caste;
+  document.getElementById("religion").value = p.religion;
+
+  deleteProfile(index); // remove old entry before saving updated one
 }
 
 // Delete profile
 function deleteProfile(index) {
+  if (currentRole !== "Admin") {
+    alert("Only Admin can delete profiles!");
+    return;
+  }
+
   profiles.splice(index, 1);
-  displayProfiles();
+  localStorage.setItem("profiles", JSON.stringify(profiles));
+  renderProfiles();
+}
+
+// Clear form
+function clearForm() {
+  document.querySelectorAll(".form input").forEach(input => input.value = "");
 }
 
 // Initial load
-displayProfiles();
+renderProfiles();
