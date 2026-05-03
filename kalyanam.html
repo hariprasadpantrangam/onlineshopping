@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <title>Matrimonial App</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
+    header { background: linear-gradient(90deg, #ff9800, #f57c00); padding: 10px; color: white; }
+    main { background: #fff3e0; padding: 20px; min-height: 400px; }
+    footer { background: black; padding: 15px; color: white; font-weight: bold; }
+
+    .header-buttons button { margin: 5px; padding: 8px 15px; background: #fff; border: 1px solid #333; cursor: pointer; border-radius: 5px; }
+
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px;
+      display: inline-block;
+      width: 220px;
+      background: #fff;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+    .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; }
+    .card h3 { margin: 10px 0 5px; }
+    .card p { margin: 5px 0; }
+    .card button {
+      padding: 6px 12px;
+      background: #388e3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #shortlist { margin-top: 20px; }
+    #shortlist .card button { background: #d32f2f; }
+
+    #interestBtn {
+      display: none;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #textToRead { display: none; }
+  </style>
+
+  <!-- ResponsiveVoice.js CDN -->
+  <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+</head>
+<body>
+  <header>
+    <h1>కల్యాణం!పెళ్లి సంబంధాలు(kalyanam marriages)</h1>
+    <div class="header-buttons">
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('services')">Services</button>
+      <button onclick="showSection('contact')">Contact</button>
+      <button onclick="showSection('address')">Address</button>
+      <button onclick="readAloud()">Read Profiles</button>
+      <button onclick="paymentclick()">scanner</button>
+    </div>
+  </header>
+
+  <main>
+    <h2>Profiles</h2>
+    <div id="menu"></div>
+
+    <h2>Your Shortlist</h2>
+    <div id="shortlist"></div>
+    <h3 id="total"></h3>
+    <button id="interestBtn" onclick="sendInterest()">Send Interest</button>
+
+    <div id="home" class="section">Welcome to kalyanam Matrimonial! Find your perfect match here.</div>
+    <div id="services" class="section">Our services include profile matching, WhatsApp contact, and family meetings.</div>
+    <div id="contact" class="section">📞 Contact us at: 9573572830</div>
+    <div id="address" class="section">🏠 Address: kalyanam Matrimonial,mannarupolur, Sullurpet, Andhra Pradesh</div>
+    <div id="phonepay" class="section"><img src="../onlineshopping/public/gpay.jpg" width="200" alt="gpay image"/></div>
+    <p id="textToRead">సుల్లూరుపేటలో కల్యాణం మ్యాట్రిమోనియల్‌కు స్వాగతం. అందుబాటులో ఉన్న ప్రొఫైల్స్: మగ, ఆడ, వయసు, విద్య, కులం, రాశి, నగరం. మేము నాణ్యత మరియు విశ్వసనీయమైన జంటలను అందిస్తాము.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Matrimonial App</p>
+  </footer>
+
+  <script>
+    let shortlist = [];
+    const phoneNumber = "9573572830";
+
+    const profiles = [
+      { name: "hariprasad", age: 35, gender: "Male", caste: "SC", education: "MSC-COMPUTERS", city: "sullurpet",mobile:"9573572830", image: "../onlineshopping/public/hari.jpg" },
+      { name: "Sita", age: 25, gender: "Female", caste: "BC", education: "MBA", city: "Hyderabad",mobile:"8143622932", image: "../onlineshopping/public/anushka.jpg" },
+      { name: "saiteja", age: 26, gender: "Male", caste: "SC", education: "B.Tech", city: "sullurpet",mobile:"6304316761", image: "../onlineshopping/public/saiteja.jpg" },
+      { name: "Lakshmi", age: 24, gender: "Female", caste: "OC", education: "B.Sc", city: "Vijayawada",mobile:"8143622932", image: "../onlineshopping/public/anushka.jpg" },
+       { name: "Jaswanth", age: 25, gender: "male", caste: "SC", education: "B.Tech", city: "sullurpet",mobile:"6300351293", image: "../onlineshopping/public/jaswanth.jpg" },
+
+    ];
+
+    function paymentclick() {
+      document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
+      document.getElementById("phonepay").style.display = "block";
+    }
+
+    function readAloud() {
+      const text = document.getElementById('textToRead').innerText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.pitch = 1; utterance.rate = 1; utterance.volume = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function renderMenu() {
+      const menuDiv = document.getElementById("menu");
+      profiles.forEach((profile, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${profile.image}" alt="${profile.name}">
+          <h3>${profile.name}</h3>
+          <p>Age: ${profile.age}</p>
+          <p>Gender: ${profile.gender}</p>
+          <p>Caste: ${profile.caste}</p>
+          <p>Education: ${profile.education}</p>
+          <p>City: ${profile.city}</p>
+          <button onclick="addToShortlist(${index})">Shortlist</button>
+        `;
+        menuDiv.appendChild(card);
+      });
+    }
+
+    function addToShortlist(index) {
+      shortlist.push(profiles[index]);
+      renderShortlist();
+    }
+
+    function removeFromShortlist(index) {
+      shortlist.splice(index, 1);
+      renderShortlist();
+    }
+
+    function renderShortlist() {
+      const shortlistDiv = document.getElementById("shortlist");
+      shortlistDiv.innerHTML = "";
+
+      shortlist.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>Age: ${item.age}</p>
+          <p>Gender: ${item.gender}</p>
+          <p>Caste: ${item.caste}</p>
+          <p>Education: ${item.education}</p>
+          <p>City: ${item.city}</p>
+          <button onclick="removeFromShortlist(${index})">Delete</button>
+        `;
+        shortlistDiv.appendChild(card);
+      });
+
+      document.getElementById("total").innerText = "Total Shortlisted Profiles: " + shortlist.length;
+      document.getElementById("interestBtn").style.display = shortlist.length > 0 ? "inline-block" : "none";
+    }
+
+    function sendInterest() {
+      if (shortlist.length === 0) return;
+
+      const now = new Date();
+      const dateTime = now.toLocaleString();
+
+      const items = shortlist.map(item => item.name).join(", ");
+      const totalProfiles = shortlist.length;
+
+      const interestDetails = `Interest Details:\nProfiles: ${items}\nTotal Shortlisted: ${totalProfiles}\nDate & Time: ${dateTime}`;
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(interestDetails)}`;
+      window.open(whatsappURL, "_blank");
+    }
+
+    function showSection(sectionId) {
+      document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
+      document.getElementById(sectionId).style.display = "block";
+    }
+
+    renderMenu();
+
+
+
+
+  function sendInterest(index) {
+    // Show form for selected profile
+    const profile = shortlist[index];
+    const formHtml = `
+      <div id="interestForm">
+        <h3>Send Interest to ${profile.name}</h3>
+        <label>Name: <input type="text" id="fname"></label><br>
+        <label>Age: <input type="number" id="fage"></label><br>
+        <label>Mobile: <input type="text" id="fmobile"></label><br>
+        <label>Gender: <input type="text" id="fgender"></label><br>
+        <label>Caste: <input type="text" id="fcaste"></label><br>
+        <label>Occupation: <input type="text" id="foccupation"></label><br>
+        <label>Raasi: <input type="text" id="fraasi"></label><br><br>
+        <button onclick="submitInterest(${index})">Send</button>
+      </div>
+    `;
+    document.getElementById("shortlist").innerHTML = formHtml;
+  }
+
+  function submitInterest(index) {
+    const profile = shortlist[index];
+    const name = document.getElementById("fname").value;
+    const age = document.getElementById("fage").value;
+    const mobile = document.getElementById("fmobile").value;
+    const gender = document.getElementById("fgender").value;
+    const caste = document.getElementById("fcaste").value;
+    const occupation = document.getElementById("foccupation").value;
+    const raasi = document.getElementById("fraasi").value;
+
+    const now = new Date();
+    const dateTime = now.toLocaleString();
+
+    const interestDetails = `Interest Form:\nName: ${name}\nAge: ${age}\nMobile: ${mobile}\nGender: ${gender}\nCaste: ${caste}\nOccupation: ${occupation}\nRaasi: ${raasi}\nDate & Time: ${dateTime}\nSelected Profile: ${profile.name}\nProfile Image: ${window.location.origin + "/" + profile.image.replace("../onlineshopping/public/", "images/")}`;
+
+    // Send to selected profile's mobile number
+    const whatsappURL = `https://wa.me/${profile.mobile}?text=${encodeURIComponent(interestDetails)}`;
+    window.open(whatsappURL, "_blank");
+  }
+
+  function renderShortlist() {
+    const shortlistDiv = document.getElementById("shortlist");
+    shortlistDiv.innerHTML = "";
+
+    shortlist.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <h3>${item.name}</h3>
+        <p>Age: ${item.age}</p>
+        <p>Gender: ${item.gender}</p>
+        <p>Caste: ${item.caste}</p>
+        <p>Education: ${item.education}</p>
+        <p>City: ${item.city}</p>
+        <button onclick="sendInterest(${index})">Send Interest</button>
+        <button onclick="removeFromShortlist(${index})">Delete</button>
+      `;
+      shortlistDiv.appendChild(card);
+    });
+  }
+  </script>
+  <a href="index.html">back to home</a>
+</body>
+</html>
