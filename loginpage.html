@@ -31,22 +31,27 @@ function verifyuser()
 {
   var username=document.getElementById("txtname").value;
   var password=document.getElementById("txtpwd").value;
+  var found=false;
  
   for(var user of users)
   {
     if(user.username===username && user.password===password)
   {
-    alert("login success");
-     document.write(`<h2>login success</h2>`);
+   
+     found=true;
+     break;
    
   }
-  else
-  {
-   document.getElementById("msg").innerHTML="invalid username or password";
   }
-  }
+       if (found) {
+            alert("Login success");
+            window.location.href="carousel.html"; // redirect
+        } else {
+            document.getElementById("msg").innerHTML = "Invalid username or password";
+        }
+      }
 
-}
+
  </script>
 </head>
 <body class="container-fluid">
