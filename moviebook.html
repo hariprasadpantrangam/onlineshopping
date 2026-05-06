@@ -197,6 +197,47 @@
 
     // Initial render
     renderMovies();
+    
+  function sendToWhatsApp(movie, seats, totalPrice, dateTime) {
+    const whatsappNumber = "9573572830";
+    const message = `Welcome to Vepic Sullurpet 🎬
+Movie: ${movie.name}
+Seats: ${seats.join(", ")}
+Price per seat: (varies by row)
+Total Price: ₹${totalPrice}
+Date & Time: ${dateTime}
+Movie Poster: ${window.location.origin}/${movie.image}`;
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  }
+
+  function renderScanner(totalPrice) {
+    app.innerHTML = `
+      <div class="scanner">
+        <h2>📷 Booking confirmed!</h2>
+        <p><strong>Movie:</strong> ${selectedMovie.name}</p>
+        <p><strong>Seats:</strong> ${selectedSeats.join(", ")}</p>
+        <p><strong>Total Price:</strong> ₹${totalPrice}</p>
+        <p><strong>Date & Time:</strong> ${selectedDateTime}</p>
+        <img src="${selectedMovie.image}" alt="scanner" width="200" height="250" />
+      </div>
+    `;
+
+    // WhatsApp send after booking
+    sendToWhatsApp(selectedMovie, selectedSeats, totalPrice, selectedDateTime);
+
+    const backBtn = document.createElement("button");
+    backBtn.textContent = "⬅ Back to Movies";
+    backBtn.className = "back-btn";
+    backBtn.onclick = () => {
+      selectedMovie = null;
+      renderMovies();
+    };
+    app.appendChild(backBtn);
+  }
+
+
   </script>
   <a href="index.html">back to home</a>
 </body>
