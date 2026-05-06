@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <style>
+    #result img {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Search Image by Name</h2>
+  <input type="text" id="imageInput" placeholder="Enter image name (e.g., milkbottle.jpg)">
+  <button onclick="showImage()">Search</button>
+
+  <div id="result"></div>
+
+  <script>
+    // Array of image names (stored in public/images folder)
+    const images = ["milkbottle.jpg", "bread.jpg", "butter.jpg", "hari.jpg"];
+
+    function showImage() {
+      const input = document.getElementById("inputimage").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      // Clear previous result
+      resultDiv.innerHTML = "";
+
+      if (images.includes(input)) {
+        // Construct image path (assuming images are in public/images folder)
+        const img = document.createElement("img");
+        img.src = "images/" + input;
+        resultDiv.appendChild(img);
+      } else {
+        resultDiv.textContent = "Image not found!";
+      }
+    }
+  </script>
+</head>
+<body>
+<input type="text" placeholder="enter name for" id="inputimage" />
+<button onclick="displayimage()">display text</button>
+<div id="output"></div>
+</body>
+</html>

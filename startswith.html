@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <script>
+function verifycard() {
+    var cardnumber = document.getElementById("txtcard").value.toLowerCase();
+    var cardimage = document.getElementById("cardimg");
+
+    if (cardnumber.includes("4444")) {
+        cardimage.src = "public/mango.jpeg";
+    } 
+    else if (cardnumber.includes("5555")) {
+        cardimage.src = "public/avengers.jpg";
+    } 
+    else if (cardnumber.includes("hariprasad") || cardnumber.includes("hari")) {
+        cardimage.src = "public/hari.jpeg";
+    } 
+
+       else if (cardnumber.includes("jaswanth") || cardnumber.includes("jas")) {
+        cardimage.src = "public/jaswanth.jpg";
+    } 
+         else if (cardnumber.includes("saiteja")  || cardnumber.includes("sai") || cardnumber.includes("teja")) {
+        cardimage.src = "public/saiteja.jpg";
+    } 
+    else if (cardnumber.includes("anushka") || cardnumber.endsWith("shka")) {
+        cardimage.src = "public/anushka.jpg";
+    } 
+    else if (cardnumber.includes("anusha") || cardnumber.endsWith("sha")) {
+        cardimage.src = "public/anusha.jpg";
+    }
+    else if (cardnumber.includes("chiru") || cardnumber.includes("chi")) {
+        cardimage.src = "public/chiru.jpg";
+    } 
+
+     else if (cardnumber.includes("ven") || cardnumber.includes("venkatesh")) {
+        cardimage.src = "public/father.jpeg";
+    } 
+    else {
+        cardimage.src = "";
+        cardimage.alt = "invalid number format";
+    }
+}
+</script>
+
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body class="container-fluid">
+  <!-- <div>
+    <input type="email" id="txtemail">
+    <button onclick="emailverify()">submit</button>
+    <h2></h2>
+  </div>   -->
+
+  <fieldset>
+<legend>enter your name to search</legend>
+<div class="input-group">
+<input type="text" class="form-control" id="txtcard" onkeyup="verifycard()">
+<img class="input-group-text" id="cardimg" class="img-fluid" width="150" height="100">
+<!-- <h3>your gmail</h3>
+<div>
+<input type="text" id="txtemail" class="form-control" onkeyup="verifyemail()">
+<div id="msg"> -->
+
+</div>
+</div>
+</div>
+  </fieldset>
+</body>
+</html>
