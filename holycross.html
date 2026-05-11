@@ -4,12 +4,21 @@
   <meta charset="UTF-8">
   <title>VSSC HolyCross School</title>
 <style>
-body {
+/* body {
   font-family: Arial, sans-serif;
   margin: 0;
   background: #f4f4f4;
   text-align: center;
+} */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #ffffff; /* plain white */
+  text-align: center;
+  color: #333; /* dark text for readability */
 }
+
 
 header {
   background: #2c3e50;
@@ -87,6 +96,29 @@ footer .social a {
 footer .social a:hover {
   color: #1abc9c;
 }
+/* Form styling */
+form {
+  margin-top: 15px;
+}
+form input {
+  display: block;
+  width: 90%;
+  margin: 8px auto;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+form button {
+  background: #27ae60;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+form button:hover {
+  background: #2ecc71;
+}
 
 </style>
 <script>
@@ -142,10 +174,33 @@ function goWhatsApp() {
   displayInfo("<h3>WhatsApp</h3><p>Opening WhatsApp chat with " + number + "...</p>");
 }
 
-function goExtra() {
-  displayInfo("<h3>Extra</h3><p>This is an extra button. Customize as needed!</p>");
-}
 
+function requestquery() {
+  // Show form inside outputBox
+  displayInfo(`
+    <h3>Extra Form</h3>
+    <form onsubmit="sendForm(event)">
+      <input type="text" id="formName" placeholder="Enter Name" required>
+      <input type="text" id="formMobile" placeholder="Enter Mobile" required>
+      <input type="text" id="formAddress" placeholder="Enter Address" required>
+      <button type="submit">Submit</button>
+    </form>
+  `);
+}
+// Handle form submission
+function sendForm(event) {
+  event.preventDefault();
+  const name = document.getElementById("formName").value;
+  const mobile = document.getElementById("formMobile").value;
+  const address = document.getElementById("formAddress").value;
+
+  const number = "9573572830";
+  const message = `New Form Submission:\nName: ${name}\nMobile: ${mobile}\nAddress: ${address}`;
+  const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+
+  displayInfo("<h3>Form Submitted</h3><p>Details sent to WhatsApp number " + number + ".</p>");
+}
 </script>
 </head>
 <body>
@@ -156,7 +211,7 @@ function goExtra() {
       <button onclick="goContact()">Contact</button>
       <button onclick="goProfessor()">Professor Details</button>
       <button onclick="goWhatsApp()">WhatsApp</button>
-      <button onclick="goExtra()">Extra</button>
+      <button onclick="requestquery()">Extra</button>
     </nav>
   </header>
 
