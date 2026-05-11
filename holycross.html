@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VSSC HolyCross School</title>
+<styles>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+}
+
+nav button {
+  margin: 5px;
+  padding: 10px 15px;
+  background: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+nav button:hover {
+  background: #1abc9c;
+}
+
+.carousel {
+  margin: 30px auto;
+  width: 400px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px gray;
+}
+
+.carousel img {
+  width: 100%;
+  height: 250px;
+  border-radius: 10px;
+}
+
+.info {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.output {
+  margin: 20px auto;
+  width: 400px;
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px gray;
+  font-size: 15px;
+  text-align: left;
+}
+
+</styles>
+<script>
+// Carousel Data
+const students = [
+  { img: "../onlineshopping/public/anushka.jpg", name: "karishma reddy", hall: "12345", marks: "596/600" },
+  { img: "../onlineshopping/public/anushka.jpg", name: "kavya", hall: "67890", marks: "588/600" },
+  { img: "../onlineshopping/public/saiteja.jpg", name: "saiteja", hall: "11223", marks: "558/600" },
+  { img: "../onlineshopping/public/anushka.jpg", name: "Priya Sharma", hall: "44556", marks: "536/600" },
+  { img: "../onlineshopping/public/hari.jpg", name: "Rahul Verma", hall: "77889", marks: "510/600" }
+];
+
+let index = 0;
+function showStudent(i) {
+  document.getElementById("carouselImage").src = students[i].img;
+  document.getElementById("studentName").innerText = "Name: " + students[i].name;
+  document.getElementById("hallTicket").innerText = "Hallticket: " + students[i].hall;
+  document.getElementById("marks").innerText = "Marks: " + students[i].marks;
+}
+
+// Auto change every 5 seconds
+setInterval(() => {
+  index = (index + 1) % students.length;
+  showStudent(index);
+}, 5000);
+
+// Initial load
+showStudent(index);
+
+// Helper to display info in outputBox
+function displayInfo(text) {
+  document.getElementById("outputBox").innerHTML = text;
+}
+
+// Button functionalities
+function goHome() {
+  displayInfo("<h3>Home</h3><p>Welcome to HolyCross School homepage!</p>");
+}
+
+function goContact() {
+  displayInfo("<h3>Contact</h3><p>Email: holycross@school.com<br>Phone: 9876543210</p>");
+}
+
+function goProfessor() {
+  displayInfo("<h3>Professor Details</h3><p>Dr. Ramesh - Principal<br>Prof. Anita - Math Dept.</p>");
+}
+
+function goWhatsApp() {
+  const number = "9573572830";
+  const message = "Welcome to HolyCross High School";
+  const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+  displayInfo("<h3>WhatsApp</h3><p>Opening WhatsApp chat with " + number + "...</p>");
+}
+
+function goExtra() {
+  displayInfo("<h3>Extra</h3><p>This is an extra button. Customize as needed!</p>");
+}
+
+</script>
+</head>
+<body>
+  <header>
+    <h1>VSSC HolyCross School</h1>
+    <nav>
+      <button onclick="goHome()">Home</button>
+      <button onclick="goContact()">Contact</button>
+      <button onclick="goProfessor()">Professor Details</button>
+      <button onclick="goWhatsApp()">WhatsApp</button>
+      <button onclick="goExtra()">Extra</button>
+    </nav>
+  </header>
+
+  <!-- Carousel -->
+  <div class="carousel">
+    <img id="carouselImage" src="img1.jpg" alt="Student Image">
+    <div class="info">
+      <p id="studentName">Name: John Doe</p>
+      <p id="hallTicket">Hallticket: 12345</p>
+      <p id="marks">Marks: 450/500</p>
+    </div>
+  </div>
+
+  <!-- Output container for button info -->
+  <div id="outputBox" class="output"></div>
+<a href="index.html">back to home</a>
+ 
+</body>
+</html>
