@@ -10,14 +10,14 @@
   background: #f4f4f4;
   text-align: center;
 } */
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: #ffffff; /* plain white */
+  background: linear-gradient(to right, #0000b9, #963c9d); /* gradient background */
   text-align: center;
   color: #333; /* dark text for readability */
 }
+
 
 
 header {
@@ -178,7 +178,7 @@ function goWhatsApp() {
 function requestquery() {
   // Show form inside outputBox
   displayInfo(`
-    <h3>Extra Form</h3>
+    <h3>sending information</h3>
     <form onsubmit="sendForm(event)">
       <input type="text" id="formName" placeholder="Enter Name" required>
       <input type="text" id="formMobile" placeholder="Enter Mobile" required>
@@ -195,11 +195,11 @@ function sendForm(event) {
   const address = document.getElementById("formAddress").value;
 
   const number = "9573572830";
-  const message = `New Form Submission:\nName: ${name}\nMobile: ${mobile}\nAddress: ${address}`;
+  const message = `vssc holycross high school:\nName: ${name}\nMobile: ${mobile}\nAddress: ${address}`;
   const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
   window.open(url, "_blank");
 
-  displayInfo("<h3>Form Submitted</h3><p>Details sent to WhatsApp number " + number + ".</p>");
+  displayInfo("<h3>vssc holycross high school</h3><p>Details sent to WhatsApp number " + number + ".</p>");
 }
 </script>
 </head>
