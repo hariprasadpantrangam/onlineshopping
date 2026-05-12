@@ -20,8 +20,8 @@
 </head>
 <body>
 
-  <h1> Rajani Fast Food Online Orders</h1>
-   
+  <h1> Prasad Fast Food Online Orders</h1>
+   <h3> ప్రసాద్ ఆన్‌లైన్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్,సుల్లూరుపేట</h3>
   <!-- Navigation Buttons -->
   <div class="nav-buttons">
     <button onclick="showPage('home')">Home</button>
@@ -49,7 +49,7 @@
       { id: 0, name: "Chicken Biryani", price: 120, image:"../onlineshopping/public/chickenbiryani.jpg" },
       { id: 1, name: "Mutton Biryani", price: 220, image:"../onlineshopping/public/muttonbiryani.jpeg" },
       { id: 2, name: "Fried Rice Egg", price: 120, image:"../onlineshopping/public/eggfriedrice.jpg" },
-      { id: 3, name: "Fried Rice Veg", price: 100, imagage:"../onlineshopping/public/vegfriedrice.jpg" },
+      { id: 3, name: "Fried Rice Veg", price: 100, image:"../onlineshopping/public/vegfriedrice.jpg" },
       { id: 4, name: "Fried Leg Pieces", price: 100, image:"../onlineshopping/public/chickenlollypop.jpg" },
       { id: 5, name: "Fried Chicken Pakoda", price: 130, image:"../onlineshopping/public/chickenpakoda.jpeg" },
       { id: 6, name: "Fish Fried", price: 70, image:"../onlineshopping/public/friedfish.jpeg" },
@@ -135,10 +135,11 @@
         content.innerHTML = "<h3>🏠 Home</h3><p>Welcome to Rajani Fast Food! Order delicious biryani and fried rice online.</p>";
       } else if (page === "contact") {
         content.innerHTML = "<h3>📞 Contact</h3><p>Call us at 9573572830 or WhatsApp your order.</p>";
-      } else if (page === "scanner") {
-        content.innerHTML =`hi prasad`;
+       } else if (page === "scanner") {
+    // ✅ Show gpay.jpg image
+    content.innerHTML = `<img src="../onlineshopping/public/gpay.jpg" alt="GPay Scanner" style="width:300px; border:1px solid #ccc; border-radius:8px;">`;
       } else if (page === "query") {
-        content.innerHTML = "<h3>❓ Query</h3><p>Upload your food images and send queries to WhatsApp.</p>";
+        content.innerHTML = "<h3>❓ Query</h3><p>pantrangam hariprasad gpay/phone pay number:9573572830</p>";
       }
     }
 
