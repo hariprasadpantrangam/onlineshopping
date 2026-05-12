@@ -203,24 +203,28 @@ function sendForm(event) {
   displayInfo("<h3>vssc holycross high school</h3><p>Details sent to WhatsApp number " + number + ".</p>");
 }
 
-  // Arrays to store uploaded content
+ // Arrays to store uploaded content
   const uploadedImages = [];
   const uploadedFiles = [];
 
-  // Upload Images
+  // ✅ Upload Images
   function uploadImages() {
     const files = document.getElementById("imageUpload").files;
+    if (!files.length) {
+      alert("Please select images first!");
+      return;
+    }
     for (let file of files) {
       const reader = new FileReader();
       reader.onload = function(e) {
         uploadedImages.push(e.target.result); // Base64 string
         displayImages();
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); // convert image to Base64
     }
   }
 
-  // Display Images
+  // ✅ Display Images
   function displayImages() {
     const preview = document.getElementById("imagePreview");
     preview.innerHTML = "";
@@ -231,16 +235,20 @@ function sendForm(event) {
     });
   }
 
-  // Upload Files
+  // ✅ Upload Files
   function uploadFiles() {
     const files = document.getElementById("fileUpload").files;
+    if (!files.length) {
+      alert("Please select files first!");
+      return;
+    }
     for (let file of files) {
       uploadedFiles.push(file.name); // store file names
     }
     displayFiles();
   }
 
-  // Display Files
+  // ✅ Display Files
   function displayFiles() {
     const list = document.getElementById("fileList");
     list.innerHTML = "";
@@ -250,6 +258,8 @@ function sendForm(event) {
       list.appendChild(li);
     });
   }
+
+
 
 
 </script>
@@ -278,30 +288,33 @@ function sendForm(event) {
 
   <!-- Output container for button info -->
   <div id="outputBox" class="output"></div>
-  
   <h2>Dynamic Uploads</h2>
 
-  <!-- Upload Buttons -->
-  <div class="upload-section">
-    <input type="file" id="imageUpload" accept="image/*" multiple>
-    <button onclick="uploadImages()">Upload Images</button>
-  </div>
+<!-- Upload Buttons -->
+<div class="upload-section">
+  <input type="file" id="imageUpload" accept="image/*" multiple>
+  <button onclick="uploadImages()">Upload Images</button>
+</div>
 
-  <div class="upload-section">
-    <input type="file" id="fileUpload" multiple>
-    <button onclick="uploadFiles()">Upload Files</button>
-  </div>
+<div class="upload-section">
+  <input type="file" id="fileUpload" multiple>
+  <button onclick="uploadFiles()">Upload Files</button>
+</div>
 
-  <!-- Preview Sections -->
-  <div class="preview">
-    <h3>Uploaded Images</h3>
-    <div id="imagePreview"></div>
-  </div>
+<!-- Preview Sections -->
+<div class="preview">
+  <h3>Uploaded Images</h3>
+  <div id="imagePreview"></div>
+</div>
 
-  <div class="preview">
-    <h3>Uploaded Files</h3>
-    <ul id="fileList"></ul>
-  </div>
+<div class="preview">
+  <h3>Uploaded Files</h3>
+  <ul id="fileList"></ul>
+</div>
+
+
+ 
+ 
 <a href="index.html">back to home</a>
   <!-- ✅ Footer -->
   <footer>
