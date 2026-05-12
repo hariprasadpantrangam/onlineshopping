@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rajani Fast Food Orders</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: darkgreen;
+    }
+    .nav-buttons {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .nav-buttons button {
+      margin: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 200px;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .cart {
+      margin-top: 30px;
+    }
+    .cart-item {
+      margin-bottom: 10px;
+    }
+    .delete-btn {
+      margin-left: 10px;
+      color: red;
+      cursor: pointer;
+    }
+    .place-order {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Rajani Fast Food Online Orders</h1>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button>Home</button>
+    <button>Contact</button>
+    <button>Scanner</button>
+    <button>Query</button>
+  </div>
+
+  <!-- Product Cards -->
+  <div class="products" id="products"></div>
+
+  <!-- Cart Section -->
+  <div class="cart">
+    <h2>🛒 Cart</h2>
+    <div id="cart-items"></div>
+    <h3 id="total-price">Total Price: ₹0</h3>
+    <button class="place-order" onclick="placeOrder()">Place Order</button>
+  </div>
+
+  <script>
+    const products = [
+      { id: 0, name: "Chicken Biryani", price: 120, image: "../onlineshopping/public/chickenbiryani.jpg" },
+       { id: 1, name: "mutton Biryani", price: 220, image: "../onlineshopping/public/muttonbiryani.jpeg" },
+      { id: 2, name: "Fried Rice Egg", price: 120, image: "../onlineshopping/public/eggfriedrice.jpg" },
+      { id: 3, name: "Fried Rice Veg", price: 100, image: "../onlineshopping/public/vegfriedrice.jpg" },
+      { id: 4, name: "Fried Leg Pieces", price: 100, image: "../onlineshopping/public/chickenlollypop.jpg" },
+      { id: 5, name: "Fried Chicken Pakoda", price: 130, image: "../onlineshopping/public/chickenpakoda.jpeg" },
+      { id: 6, name: "Fish Fried", price: 70, image: "../onlineshopping/public/friedfish.jpeg" },
+      { id: 7, name: "prawns", price: 180, image: "../onlineshopping/public/friedprawns.jpeg" },
+    ];
+
+    let cart = [];
+
+    function renderProducts() {
+      const container = document.getElementById("products");
+      container.innerHTML = "";
+      products.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="images/${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>Price: ₹${product.price}</p>
+          <button onclick="addToCart(${product.id})">Add to Cart</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      renderCart();
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartContainer = document.getElementById("cart-items");
+      cartContainer.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          ${item.name} - Qty: ${item.qty} - ₹${item.price * item.qty}
+          <span class="delete-btn" onclick="removeFromCart(${item.id})">Delete</span>
+        `;
+        cartContainer.appendChild(div);
+      });
+      document.getElementById("total-price").innerText = "Total Price: ₹" + total;
+    }
+
+    function placeOrder() {
+      if (cart.length === 0) {
+        alert("Cart is empty!");
+        return;
+      }
+      const now = new Date();
+      const currentDate = now.toLocaleDateString("en-IN");
+      const currentTime = now.toLocaleTimeString("en-IN");
+
+      let message = "Welcome to Rajani Fast Food Center 🍴\n\nYour Order:\n";
+      cart.forEach(item => {
+        message += `${item.name} - Qty: ${item.qty}, Price: ₹${item.price}, Total: ₹${item.price * item.qty}\n`;
+      });
+      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      message += `\nGrand Total: ₹${total}\nDate: ${currentDate}\nTime: ${currentTime}`;
+
+      const whatsappNumber = "9573572830";
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
+
+    // Initial render
+    renderProducts();
+  </script>
+<a href="index.html">back to home</a>
+</body>
+</html>
