@@ -4,59 +4,18 @@
   <meta charset="UTF-8">
   <title>Rajani Fast Food Orders</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: darkgreen;
-    }
-    .nav-buttons {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .nav-buttons button {
-      margin: 5px;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .card {
-      border: 1px solid #ccc;
-      padding: 10px;
-      width: 200px;
-      text-align: center;
-    }
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    .cart {
-      margin-top: 30px;
-    }
-    .cart-item {
-      margin-bottom: 10px;
-    }
-    .delete-btn {
-      margin-left: 10px;
-      color: red;
-      cursor: pointer;
-    }
-    .place-order {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: green;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { text-align: center; color: darkgreen; }
+    .nav-buttons { margin-bottom: 20px; text-align: center; }
+    .nav-buttons button { margin: 5px; padding: 10px 20px; cursor: pointer; }
+    .products { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .card { border: 1px solid #ccc; padding: 10px; width: 200px; text-align: center; }
+    .card img { width: 100%; height: 150px; object-fit: cover; }
+    .cart { margin-top: 30px; }
+    .cart-item { margin-bottom: 10px; }
+    .delete-btn { margin-left: 10px; color: red; cursor: pointer; }
+    .place-order { margin-top: 15px; padding: 10px 20px; background: green; color: white; border: none; cursor: pointer; }
+    #page-content { margin: 20px; padding: 15px; border: 1px solid #ccc; }
   </style>
 </head>
 <body>
@@ -65,11 +24,14 @@
 
   <!-- Navigation Buttons -->
   <div class="nav-buttons">
-    <button>Home</button>
-    <button>Contact</button>
-    <button>Scanner</button>
-    <button>Query</button>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('contact')">Contact</button>
+    <button onclick="showPage('scanner')">Scanner</button>
+    <button onclick="showPage('query')">Query</button>
   </div>
+
+  <!-- Page Content -->
+  <div id="page-content">Click a button above to see details.</div>
 
   <!-- Product Cards -->
   <div class="products" id="products"></div>
@@ -84,14 +46,14 @@
 
   <script>
     const products = [
-      { id: 0, name: "Chicken Biryani", price: 120, image: "../onlineshopping/public/chickenbiryani.jpg" },
-       { id: 1, name: "mutton Biryani", price: 220, image: "../onlineshopping/public/muttonbiryani.jpeg" },
-      { id: 2, name: "Fried Rice Egg", price: 120, image: "../onlineshopping/public/eggfriedrice.jpg" },
-      { id: 3, name: "Fried Rice Veg", price: 100, image: "../onlineshopping/public/vegfriedrice.jpg" },
-      { id: 4, name: "Fried Leg Pieces", price: 100, image: "../onlineshopping/public/chickenlollypop.jpg" },
-      { id: 5, name: "Fried Chicken Pakoda", price: 130, image: "../onlineshopping/public/chickenpakoda.jpeg" },
-      { id: 6, name: "Fish Fried", price: 70, image: "../onlineshopping/public/friedfish.jpeg" },
-      { id: 7, name: "prawns", price: 180, image: "../onlineshopping/public/friedprawns.jpeg" },
+      { id: 0, name: "Chicken Biryani", price: 120, image:"chickenbiryani.jpg" },
+      { id: 1, name: "Mutton Biryani", price: 220, image:"muttonbiryani.jpeg" },
+      { id: 2, name: "Fried Rice Egg", price: 120, image:"eggfriedrice.jpg" },
+      { id: 3, name: "Fried Rice Veg", price: 100, image:"vegfriedrice.jpg" },
+      { id: 4, name: "Fried Leg Pieces", price: 100, image:"chickenlollypop.jpg" },
+      { id: 5, name: "Fried Chicken Pakoda", price: 130, image:"chickenpakoda.jpeg" },
+      { id: 6, name: "Fish Fried", price: 70, image:"friedfish.jpeg" },
+      { id: 7, name: "Prawns", price: 180, image:"friedprawns.jpeg" },
     ];
 
     let cart = [];
@@ -166,9 +128,23 @@
       window.open(url, "_blank");
     }
 
+    // Navigation button actions
+    function showPage(page) {
+      const content = document.getElementById("page-content");
+      if (page === "home") {
+        content.innerHTML = "<h3>🏠 Home</h3><p>Welcome to Rajani Fast Food! Order delicious biryani and fried rice online.</p>";
+      } else if (page === "contact") {
+        content.innerHTML = "<h3>📞 Contact</h3><p>Call us at 9573572830 or WhatsApp your order.</p>";
+      } else if (page === "scanner") {
+        content.innerHTML = "<h3>📷 Scanner</h3><p>Scan QR code to order instantly.</p>";
+      } else if (page === "query") {
+        content.innerHTML = "<h3>❓ Query</h3><p>Upload your food images and send queries to WhatsApp.</p>";
+      }
+    }
+
     // Initial render
     renderProducts();
   </script>
-<a href="index.html">back to home</a>
+
 </body>
 </html>
