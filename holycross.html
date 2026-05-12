@@ -121,6 +121,17 @@ form button:hover {
   background: #2ecc71;
 }
 
+#imagePreview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#fileList {
+  list-style: none;
+  padding: 0;
+}
+
 </style>
 <script>
 // Carousel Data
@@ -203,65 +214,76 @@ function sendForm(event) {
   displayInfo("<h3>vssc holycross high school</h3><p>Details sent to WhatsApp number " + number + ".</p>");
 }
 
+// ================= IMAGE UPLOAD =================
 
+function uploadImages(event) {
 
+  const files = event.target.files;
 
-  // Arrays to store uploaded content
-  const uploadedImages = [];
-  const uploadedFiles = [];
+  const preview = document.getElementById("imagePreview");
 
-  // ✅ Upload Images
-  function uploadImages() {
-    const files = document.getElementById("imageUpload").files;
-    if (!files.length) {
-      alert("Please select images first!");
-      return;
+  preview.innerHTML = "";
+
+  for (let file of files) {
+
+    // only images allowed
+    if (!file.type.startsWith("image/")) {
+      continue;
     }
-    for (let file of files) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        uploadedImages.push(e.target.result); // Base64 string
-        displayImages();
-      };
-      reader.readAsDataURL(file); // convert image to Base64
-    }
-  }
 
-  // ✅ Display Images
-  function displayImages() {
-    const preview = document.getElementById("imagePreview");
-    preview.innerHTML = "";
-    uploadedImages.forEach(img => {
-      const imageElement = document.createElement("img");
-      imageElement.src = img;
-      preview.appendChild(imageElement);
-    });
-  }
+    const reader = new FileReader();
 
-  // ✅ Upload Files
-  function uploadFiles() {
-    const files = document.getElementById("fileUpload").files;
-    if (!files.length) {
-      alert("Please select files first!");
-      return;
-    }
-    for (let file of files) {
-      uploadedFiles.push(file.name); // store file names
-    }
-    displayFiles();
-  }
+    reader.onload = function(e) {
 
-  // ✅ Display Files
-  function displayFiles() {
-    const list = document.getElementById("fileList");
-    list.innerHTML = "";
-    uploadedFiles.forEach(file => {
-      const li = document.createElement("li");
-      li.textContent = file;
-      list.appendChild(li);
-    });
-  }
+      const img = document.createElement("img");
 
+      img.src = e.target.result;
+
+      img.style.width = "120px";
+      img.style.height = "120px";
+      img.style.margin = "5px";
+      img.style.borderRadius = "10px";
+      img.style.objectFit = "cover";
+      img.style.border = "2px solid #333";
+
+      preview.appendChild(img);
+    };
+
+    reader.readAsDataURL(file);
+  }
+}
+
+// ================= FILE UPLOAD =================
+
+function uploadFiles(event) {
+
+  const files = event.target.files;
+
+  const fileList = document.getElementById("fileList");
+
+  fileList.innerHTML = "";
+
+  for (let file of files) {
+
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <strong>File:</strong> ${file.name}
+      <br>
+      <strong>Size:</strong> ${(file.size / 1024).toFixed(2)} KB
+    `;
+
+    li.style.background = "#eee";
+    li.style.padding = "10px";
+    li.style.margin = "5px";
+    li.style.borderRadius = "8px";
+
+    fileList.appendChild(li);
+  }
+}
+
+
+  
 
 
 
@@ -294,30 +316,42 @@ function sendForm(event) {
   <!-- Output container for button info -->
   <div id="outputBox" class="output"></div>
   
-  <h2>Dynamic Uploads</h2>
+  <!-- ================= UPLOAD SECTION ================= -->
 
-<!-- Upload Buttons -->
+<h2>Dynamic Uploads</h2>
+
+<!-- Upload Images -->
 <div class="upload-section">
-  <input type="file" id="imageUpload" accept="image/*" multiple>
-  <button onclick="uploadImages()">Upload Images</button>
+  <input 
+    type="file" 
+    id="imageUpload" 
+    accept="image/*" 
+    multiple
+    onchange="uploadImages(event)"
+  >
 </div>
 
+<!-- Upload Files -->
 <div class="upload-section">
-  <input type="file" id="fileUpload" multiple>
-  <button onclick="uploadFiles()">Upload Files</button>
+  <input 
+    type="file" 
+    id="fileUpload" 
+    multiple
+    onchange="uploadFiles(event)"
+  >
 </div>
 
-<!-- Preview Sections -->
+<!-- Image Preview -->
 <div class="preview">
   <h3>Uploaded Images</h3>
   <div id="imagePreview"></div>
 </div>
 
+<!-- File Preview -->
 <div class="preview">
   <h3>Uploaded Files</h3>
   <ul id="fileList"></ul>
 </div>
-
  
  
 <a href="index.html">back to home</a>
