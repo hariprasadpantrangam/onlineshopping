@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rajani Fast Food Orders</title>
+  <title>Prasad Fast Food Online Orders</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
     h1 { text-align: center; color: darkgreen; }
@@ -16,12 +16,35 @@
     .delete-btn { margin-left: 10px; color: red; cursor: pointer; }
     .place-order { margin-top: 15px; padding: 10px 20px; background: green; color: white; border: none; cursor: pointer; }
     #page-content { margin: 20px; padding: 15px; border: 1px solid #ccc; }
+
+    /* Order Form Styling */
+    #order-form { 
+      display: none; 
+      margin-top: 20px; 
+      padding: 15px; 
+      border: 1px solid #ccc; 
+      background: #f9f9f9; 
+    }
+    #order-form input, #order-form textarea { 
+      display: block; 
+      margin-bottom: 10px; 
+      padding: 8px; 
+      width: 100%; 
+    }
+    #order-form button { 
+      padding: 10px 20px; 
+      background: darkblue; 
+      color: white; 
+      border: none; 
+      cursor: pointer; 
+    }
   </style>
 </head>
 <body>
 
-  <h1> Prasad Fast Food Online Orders</h1>
-   <h1> ప్రసాద్ ఆన్‌లైన్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్,సుల్లూరుపేట</h1>
+  <h1>Prasad Fast Food Online Orders</h1>
+  <h1>ప్రసాద్ ఆన్‌లైన్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్, సుల్లూరుపేట</h1>
+
   <!-- Navigation Buttons -->
   <div class="nav-buttons">
     <button onclick="showPage('home')">Home</button>
@@ -41,17 +64,28 @@
     <h2>🛒 Cart</h2>
     <div id="cart-items"></div>
     <h3 id="total-price">Total Price: ₹0</h3>
-    <button class="place-order" onclick="placeOrder()">Place Order</button>
+    <button class="place-order" onclick="openOrderForm()">Place Order</button>
   </div>
-<marquee behavior="scroll" direction="left" scrollamount="5" style="color:darkred; font-size:20px; font-weight:bold;">
-🎉 ప్రసాద్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్ ఆన్‌లైన్ | చిరునామా: సుల్లూరుపేట, బాపూజీ కాలనీ | మరిన్ని వివరాలకు సంప్రదించండి: 9573572830
-</marquee>
+
+  <!-- Order Form -->
+  <div id="order-form">
+    <h3>Customer Information</h3>
+    <input type="text" id="cust-name" placeholder="Customer Name" required>
+    <input type="text" id="cust-mobile" placeholder="Mobile Number" required>
+    <textarea id="cust-address" placeholder="Delivery Address" required></textarea>
+    <label>Delivery Date & Time:</label>
+    <input type="datetime-local" id="cust-datetime" required>
+    <button onclick="confirmOrder()">Confirm Order</button>
+  </div>
+
+  <marquee behavior="scroll" direction="left" scrollamount="5" style="color:darkred; font-size:20px; font-weight:bold;">
+    🎉 ప్రసాద్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్ ఆన్‌లైన్ | చిరునామా: సుల్లూరుపేట, బాపూజీ కాలనీ | మరిన్ని వివరాలకు సంప్రదించండి: 9573572830
+  </marquee>
 
   <script>
     const products = [
       { id: 0, name: "Chicken Biryani", price: 120, image:"../onlineshopping/public/chickenbiryani.jpg" },
       { id: 1, name: "Mutton Biryani", price: 220, image:"../onlineshopping/public/muttonbiryani.jpeg" },
-       { id: 3, name: "Fried Rice chicken", price: 130, image:"../onlineshopping/public/chickenfriedrice.webp" },
       { id: 2, name: "Fried Rice Egg", price: 110, image:"../onlineshopping/public/eggfriedrice.jpg" },
       { id: 3, name: "Fried Rice Veg", price: 100, image:"../onlineshopping/public/vegfriedrice.jpg" },
       { id: 4, name: "Fried Leg Pieces", price: 100, image:"../onlineshopping/public/chickenlollypop.jpg" },
@@ -111,45 +145,43 @@
       document.getElementById("total-price").innerText = "Total Price: ₹" + total;
     }
 
-    function placeOrder() {
+    function openOrderForm() {
       if (cart.length === 0) {
         alert("Cart is empty!");
         return;
       }
-      const now = new Date();
-      const currentDate = now.toLocaleDateString("en-IN");
-      const currentTime = now.toLocaleTimeString("en-IN");
+      document.getElementById("order-form").style.display = "block";
+    }
 
-      let message = "Welcome to Rajani Fast Food Center 🍴\n\nYour Order:\n";
+    function confirmOrder() {
+      const name = document.getElementById("cust-name").value;
+      const mobile = document.getElementById("cust-mobile").value;
+      const address = document.getElementById("cust-address").value;
+      const datetime = document.getElementById("cust-datetime").value;
+
+      if (!name || !mobile || !address || !datetime) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      let message = "🍴 Prasad Fast Food Center\n\nCustomer Details:\n";
+      message += `Name: ${name}\nMobile: ${mobile}\nAddress: ${address}\nDelivery: ${datetime}\n\nOrders:\n`;
+
       cart.forEach(item => {
         message += `${item.name} - Qty: ${item.qty}, Price: ₹${item.price}, Total: ₹${item.price * item.qty}\n`;
       });
+
       const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-      message += `\nGrand Total: ₹${total}\nDate: ${currentDate}\nTime: ${currentTime}`;
+      message += `\nGrand Total: ₹${total}`;
 
       const whatsappNumber = "9573572830";
       const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank");
     }
 
-    // Navigation button actions
     function showPage(page) {
       const content = document.getElementById("page-content");
       if (page === "home") {
-        content.innerHTML = "<h3>🏠 Home</h3><p>Welcome to Rajani Fast Food! Order delicious biryani and fried rice online.</p>";
-      } else if (page === "contact") {
-        content.innerHTML = "<h3>📞 Contact</h3><p>Call us at 9573572830 or WhatsApp your order.</p>";
-       } else if (page === "scanner") {
-    // ✅ Show gpay.jpg image
-    content.innerHTML = `<img src="../onlineshopping/public/gpay.jpg" alt="GPay Scanner" style="width:300px; border:1px solid #ccc; border-radius:8px;">`;
-      } else if (page === "query") {
-        content.innerHTML = "<h3>❓ Query</h3><p>pantrangam hariprasad gpay/phone pay number:9573572830</p>";
+        content.innerHTML = `<h3>🏠 Home</h3><p>Welcome to Prasad Fast Food! Order delicious biryani and fried rice online</p>`;
       }
     }
-
-    // Initial render
-    renderProducts();
-  </script>
-
-</body>
-</html>
