@@ -46,14 +46,14 @@
 
   <script>
     const products = [
-      { id: 0, name: "Chicken Biryani", price: 120, image:"chickenbiryani.jpg" },
-      { id: 1, name: "Mutton Biryani", price: 220, image:"muttonbiryani.jpeg" },
-      { id: 2, name: "Fried Rice Egg", price: 120, image:"eggfriedrice.jpg" },
-      { id: 3, name: "Fried Rice Veg", price: 100, image:"vegfriedrice.jpg" },
-      { id: 4, name: "Fried Leg Pieces", price: 100, image:"chickenlollypop.jpg" },
-      { id: 5, name: "Fried Chicken Pakoda", price: 130, image:"chickenpakoda.jpeg" },
-      { id: 6, name: "Fish Fried", price: 70, image:"friedfish.jpeg" },
-      { id: 7, name: "Prawns", price: 180, image:"friedprawns.jpeg" },
+      { id: 0, name: "Chicken Biryani", price: 120, image:"../onlineshopping/public/chickenbiryani.jpg" },
+      { id: 1, name: "Mutton Biryani", price: 220, image:"../onlineshopping/public/muttonbiryani.jpeg" },
+      { id: 2, name: "Fried Rice Egg", price: 120, image:"../onlineshopping/public/eggfriedrice.jpg" },
+      { id: 3, name: "Fried Rice Veg", price: 100, imagage:"../onlineshopping/public/vegfriedrice.jpg" },
+      { id: 4, name: "Fried Leg Pieces", price: 100, image:"../onlineshopping/public/chickenlollypop.jpg" },
+      { id: 5, name: "Fried Chicken Pakoda", price: 130, image:"../onlineshopping/public/chickenpakoda.jpeg" },
+      { id: 6, name: "Fish Fried", price: 70, image:"../onlineshopping/public/friedfish.jpeg" },
+      { id: 7, name: "Prawns", price: 180, image:"../onlineshopping/public/friedprawns.jpeg" }
     ];
 
     let cart = [];
@@ -136,7 +136,7 @@
       } else if (page === "contact") {
         content.innerHTML = "<h3>📞 Contact</h3><p>Call us at 9573572830 or WhatsApp your order.</p>";
       } else if (page === "scanner") {
-        content.innerHTML = "<h3>📷 Scanner</h3><p>Scan QR code to order instantly.</p>";
+        content.innerHTML =`<img src="../onlineshopping/public/gpay.jpg>`;
       } else if (page === "query") {
         content.innerHTML = "<h3>❓ Query</h3><p>Upload your food images and send queries to WhatsApp.</p>";
       }
