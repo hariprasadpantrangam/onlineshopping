@@ -20,8 +20,8 @@
 </head>
 <body>
 
-  <h1>Welcome to Rajani Fast Food Online Orders</h1>
-
+  <h1> Rajani Fast Food Online Orders</h1>
+   
   <!-- Navigation Buttons -->
   <div class="nav-buttons">
     <button onclick="showPage('home')">Home</button>
@@ -65,7 +65,7 @@
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-          <img src="images/${product.image}" alt="${product.name}">
+          <img src="${product.image}" alt="${product.name}">
           <h3>${product.name}</h3>
           <p>Price: ₹${product.price}</p>
           <button onclick="addToCart(${product.id})">Add to Cart</button>
@@ -136,7 +136,7 @@
       } else if (page === "contact") {
         content.innerHTML = "<h3>📞 Contact</h3><p>Call us at 9573572830 or WhatsApp your order.</p>";
       } else if (page === "scanner") {
-        content.innerHTML =`<img src="../onlineshopping/public/gpay.jpg>`;
+        content.innerHTML =`hi prasad`;
       } else if (page === "query") {
         content.innerHTML = "<h3>❓ Query</h3><p>Upload your food images and send queries to WhatsApp.</p>";
       }
