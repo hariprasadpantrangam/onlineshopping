@@ -21,7 +21,7 @@
 <body>
 
   <h1> Prasad Fast Food Online Orders</h1>
-   <h3> ప్రసాద్ ఆన్‌లైన్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్,సుల్లూరుపేట</h3>
+   <h1> ప్రసాద్ ఆన్‌లైన్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్,సుల్లూరుపేట</h1>
   <!-- Navigation Buttons -->
   <div class="nav-buttons">
     <button onclick="showPage('home')">Home</button>
@@ -43,12 +43,16 @@
     <h3 id="total-price">Total Price: ₹0</h3>
     <button class="place-order" onclick="placeOrder()">Place Order</button>
   </div>
+<marquee behavior="scroll" direction="left" scrollamount="5" style="color:darkred; font-size:20px; font-weight:bold;">
+🎉 ప్రసాద్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్ ఆన్‌లైన్ | చిరునామా: సుల్లూరుపేట, బాపూజీ కాలనీ | మరిన్ని వివరాలకు సంప్రదించండి: 9573572830
+</marquee>
 
   <script>
     const products = [
       { id: 0, name: "Chicken Biryani", price: 120, image:"../onlineshopping/public/chickenbiryani.jpg" },
       { id: 1, name: "Mutton Biryani", price: 220, image:"../onlineshopping/public/muttonbiryani.jpeg" },
-      { id: 2, name: "Fried Rice Egg", price: 120, image:"../onlineshopping/public/eggfriedrice.jpg" },
+       { id: 3, name: "Fried Rice chicken", price: 130, image:"../onlineshopping/public/chickenfriedrice.webp" },
+      { id: 2, name: "Fried Rice Egg", price: 110, image:"../onlineshopping/public/eggfriedrice.jpg" },
       { id: 3, name: "Fried Rice Veg", price: 100, image:"../onlineshopping/public/vegfriedrice.jpg" },
       { id: 4, name: "Fried Leg Pieces", price: 100, image:"../onlineshopping/public/chickenlollypop.jpg" },
       { id: 5, name: "Fried Chicken Pakoda", price: 130, image:"../onlineshopping/public/chickenpakoda.jpeg" },
