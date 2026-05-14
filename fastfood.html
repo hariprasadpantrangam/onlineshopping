@@ -16,6 +16,29 @@
     .delete-btn { margin-left: 10px; color: red; cursor: pointer; }
     .place-order { margin-top: 15px; padding: 10px 20px; background: green; color: white; border: none; cursor: pointer; }
     #page-content { margin: 20px; padding: 15px; border: 1px solid #ccc; }
+  
+ /* Footer */
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+    footer a {
+      color: #ffcc00;
+      margin: 0 8px;
+      text-decoration: none;
+    }
+
+/* Top bar */
+    .top-bar {
+      background: #d32f2f;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -29,6 +52,8 @@
     <button onclick="showPage('scanner')">Scanner</button>
     <button onclick="showPage('query')">Query</button>
   </div>
+    <!-- Top bar with date & time -->
+  <div class="top-bar" id="dateTime"></div>
 
   <!-- Page Content -->
   <div id="page-content">Click a button above to see details.</div>
@@ -57,6 +82,17 @@
 <marquee behavior="scroll" direction="left" scrollamount="5" style="color:darkred; font-size:20px; font-weight:bold;">
 🎉 ప్రసాద్ ఫాస్ట్ ఫుడ్ ఆర్డర్స్ ఆన్‌లైన్ | చిరునామా: సుల్లూరుపేట, బాపూజీ కాలనీ | మరిన్ని వివరాలకు సంప్రదించండి: 9573572830
 </marquee>
+
+  <!-- Footer -->
+  <footer>
+    <p>© <span id="year"></span> Prasad Fast Food Orders. All Rights Reserved.</p>
+    <p>
+      Follow us:
+      <a href="#">Facebook</a> |
+      <a href="#">Twitter</a> |
+      <a href="#">Instagram</a>
+    </p>
+  </footer>
 
   <script>
     const products = [
@@ -88,6 +124,21 @@
         container.appendChild(card);
       });
     }
+
+     // Show current date, time, and day
+    function updateDateTime() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateStr = now.toLocaleDateString('en-IN', options);
+      const timeStr = now.toLocaleTimeString('en-IN');
+      document.getElementById('dateTime').textContent = dateStr + " | " + timeStr;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // Auto-update year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  
 
     function addToCart(id) {
       const product = products.find(p => p.id === id);
