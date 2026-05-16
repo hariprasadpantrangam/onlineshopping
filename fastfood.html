@@ -151,10 +151,18 @@
       renderCart();
     }
 
-    function removeFromCart(id) {
-      cart = cart.filter(item => item.id !== id);
-      renderCart();
+  function removeFromCart(id) {
+  const item = cart.find(p => p.id === id);
+  if (item) {
+    if (item.qty > 1) {
+      item.qty -= 1;  // ఒక్క quantity తగ్గుతుంది
+    } else {
+      cart = cart.filter(p => p.id !== id); // qty == 1 అయితే item తొలగుతుంది
     }
+  }
+  renderCart();
+}
+
 
     function renderCart() {
       const cartContainer = document.getElementById("cart-items");
